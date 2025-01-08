@@ -3,19 +3,14 @@ import printing as p
 from menu import *
 import titles
 import texts
-
-# Constantes necesarias para la impresión del título
-TOTAL_WIDTH = 128               # Espacio total de la línea, desde el inicio de la línea
-LEFT_SPACE_OPTIONS = 51         # Espacio necesario para dejar espacio al inicio de la línea
-LEFT_SPACE_OPTIONS_REPORTS = 16 # Espacio necesario para dejar espacio al inicio de la línea para el submenú de reportes
-MIN_OPTION = 1                  # Mínima opción a comprobar
-# Diferents opciones máximas a comprobar
-MAX_OPTION_1 = 4
-MAX_OPTION_2 = 6
-MAX_OPTION_3 = 11
+import players as pl
+from sizes import *
 
 def start_engine():
     exit = False
+
+    players = pl.get_players()
+    cards_to_use = ""
 
     while not exit:
         # Limpiamos la pantalla e imprimimos el título principal
@@ -54,6 +49,10 @@ def start_engine():
 
                         if option == MAX_OPTION_1:
                             exit_submenu = True
+                        elif option == 1:
+                            players = pl.create_human_player(players)
+                        elif option == 3:
+                            pl.show_players(players)
                     except ValueError:
                         print()
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')

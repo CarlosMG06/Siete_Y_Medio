@@ -73,3 +73,15 @@ def reports_submenu(padding = 0):
 11) Go back 
     """
     print_menu(text, padding)
+
+def profile_menu(padding = 0):
+    """
+    Generamos el texto del menú para seleccionar el perfil de un jugador
+    :param padding: (int) -> Medida máxima horizontal que debe tener el título
+    :return:
+    """
+    text = """1) Cautious
+2) Moderated
+3) Bold
+    """
+    print_menu(text, padding)
