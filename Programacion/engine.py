@@ -3,6 +3,7 @@ import printing as p
 from menu import *
 import titles
 import texts
+import game
 
 # Constantes necesarias para la impresión del título
 TOTAL_WIDTH = 128               # Espacio total de la línea, desde el inicio de la línea
@@ -80,7 +81,7 @@ def start_engine():
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
                         input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
             elif option == 3:
-                pass
+                game.start_game(padding=TOTAL_WIDTH)
             elif option == 4:
                 exit_submenu = False
 
