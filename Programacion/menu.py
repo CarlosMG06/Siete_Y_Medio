@@ -73,3 +73,10 @@ def reports_submenu(padding = 0):
 11) Go back 
     """
     print_menu(text, padding)
+
+def decks_submenu(padding = 0):
+    text = """1) ESP48
+    2) ESP40
+    3) Poker"""
+
+    print_menu(text, padding)

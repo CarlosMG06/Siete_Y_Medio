@@ -74,6 +74,12 @@ def start_engine():
                             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
                             continue
 
+                        if option == 2:
+                            utils.clear_screen()
+                            p.print_title(titles.TITLES["decks"], padding=TOTAL_WIDTH)
+                            #imprimir el menu ya hecho en modulo menu.py
+                            input()
+
                         if option == MAX_OPTION_1:
                             exit_submenu = True
                     except ValueError:
