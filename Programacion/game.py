@@ -7,6 +7,9 @@ import utils
 import printing
 import titles
 import texts
+import players as p
+
+players = p.get_players()
 
 players6 = {
             "11111111A": 
@@ -46,8 +49,31 @@ players4 = {
 
 activeDeck = None #Cambia dinamicamente durante la ejecución del juego
 
+def initializePlayers(players):
+    initializedPlayers = {}
+
+    for player in players: #da error, averiguar por qué
+        initializedPlayers[player["id"]]["name"] = player["data"]["name"]
+        initializedPlayers[player["id"]]["human"] = player["data"]["human"]
+        initializedPlayers[player["id"]]["bank"] = player["data"]["bank"]
+        initializedPlayers[player["id"]]["initialCard"] = "" #Esto da error por algún motivo, entiende como si fuera un bool? y no se le puede dar un valor no booleano
+        initializedPlayers[player["id"]]["priority"] = 0
+        if player["data"]["type"] == "Moderated":
+            initializedPlayers[player["id"]]["type"] = 40
+        else:
+            initializedPlayers[player["id"]]["type"] = 20 #Cambiar luego solo es por probar
+        initializedPlayers[player["id"]]["bet"] = 0
+        initializedPlayers[player["id"]]["points"] = 20
+        initializedPlayers[player["id"]]["cards"] = []
+        initializedPlayers[player["id"]]["roundPoints"] = 0
+
+    return initializedPlayers
+
 def start_game(padding):
+    global activeDeck
     if activeDeck != None:
+        #Se inicializan los jugadores seleccionados
+        playersInSession = initializePlayers(players)
         #Se barajan las cartas
         activeDeck = utils.shuffle_cards(activeDeck)
 
@@ -56,7 +82,7 @@ def start_game(padding):
             #Printeando la pantalla con los jugadores y puntos.
             utils.clear_screen()
             printing.print_title(titles.TITLES["game_title"], padding=padding)
-            printing.print_players(players6, padding)
+            printing.print_players(playersInSession, padding)
             print("")
             printing.print_line("Enter to continue", padding, " ")
 
