@@ -6,6 +6,7 @@ import mazos
 import utils
 import printing
 import titles
+import texts
 
 players6 = {
             "11111111A": 
@@ -41,14 +42,22 @@ players4 = {
                 {"name": "John", "human": True, "bank": False, "initialCard": "", "priority": 3, "type": 40, "bet": 2, "points": 12, "cards": [], "roundPoints": 7},
             }
 
-def start_game(padding):
-    aa = True
-    while aa:
-        utils.clear_screen()
-        printing.print_title(titles.TITLES["game_title"], padding=padding)
+activeDeck = None
 
-        printing.print_players(players6, padding)
-        print("")
-        printing.print_line("Enter to continue", padding, " ")
-        if input() == "quit":
-            aa = False
+def start_game(padding):
+    if activeDeck != None:
+        aa = True
+        while aa:
+            #Printeando la pantalla con los jugadores y puntos.
+            utils.clear_screen()
+            printing.print_title(titles.TITLES["game_title"], padding=padding)
+            printing.print_players(players6, padding)
+            print("")
+            printing.print_line("Enter to continue", padding, " ")
+
+            #Para salir por ahora es poniendo "quit" ya que aún no tiene funcionalidad.
+            if input() == "quit":
+                aa = False
+    else:
+        printing.print_line(texts.TEXTS["invalidDeck"], padding, "=")
+        input()

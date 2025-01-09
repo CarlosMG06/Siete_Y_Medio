@@ -4,6 +4,7 @@ from menu import *
 import titles
 import texts
 import game
+import mazos
 
 # Constantes necesarias para la impresión del título
 TOTAL_WIDTH = 128               # Espacio total de la línea, desde el inicio de la línea
@@ -75,10 +76,35 @@ def start_engine():
                             continue
 
                         if option == 2:
-                            utils.clear_screen()
-                            p.print_title(titles.TITLES["decks"], padding=TOTAL_WIDTH)
-                            #imprimir el menu ya hecho en modulo menu.py
-                            input()
+                            exit_decksubmenu = False
+                            while not exit_decksubmenu:
+                                utils.clear_screen()
+                                p.print_title(titles.TITLES["decks"], padding=TOTAL_WIDTH)
+                                #imprimir el menu ya hecho en modulo menu.py
+                                decks_submenu(padding=LEFT_SPACE_OPTIONS)
+                                eleccion = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
+
+                                if eleccion < MIN_OPTION or eleccion > MAX_OPTION_1:
+                                    print()
+                                    p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
+                                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                                    continue
+
+                                if eleccion == MAX_OPTION_1:
+                                    exit_decksubmenu = True
+                                
+                                if eleccion == 1:
+                                    game.activeDeck = mazos.esp48
+                                    input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP48")
+
+                                if eleccion == 2:
+                                    game.activeDeck = mazos.esp40
+                                    input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP40")
+                                
+                                if eleccion == 3:
+                                    game.activeDeck = mazos.poker
+                                    input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: Poker")
+
 
                         if option == MAX_OPTION_1:
                             exit_submenu = True
