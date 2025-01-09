@@ -41,6 +41,19 @@ def settings_submenu(padding = 0):
     """
     print_menu(text, padding)
 
+def card_deck_submenu(padding = 0):
+    """
+    Generamos el texto del submenú para la configuración del mazo y lo imprimimos por pantalla
+    :param padding: (int) -> Medida máxima horizontal que debe tener el título
+    :return: None
+    """
+    text = """1) ESP - ESP48                                                                        
+2) ESP - ESP40                                                                         
+3) POK - POK                                                       
+4) Go back 
+    """
+    print_menu(text, padding)
+
 def ranking_submenu(padding = 0):
     """
     Generamos el texto del submenú revisar los rankings y lo imprimimos por pantalla
