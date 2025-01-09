@@ -51,6 +51,8 @@ def start_engine():
                             exit_submenu = True
                         elif option == 1:
                             players = pl.create_human_player(players)
+                        elif option == 2:
+                            players = pl.create_bot_player(players)
                         elif option == 3:
                             pl.show_players(players)
                     except ValueError:
