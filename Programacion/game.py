@@ -42,10 +42,15 @@ players4 = {
                 {"name": "John", "human": True, "bank": False, "initialCard": "", "priority": 3, "type": 40, "bet": 2, "points": 12, "cards": [], "roundPoints": 7},
             }
 
+#Estos diccionarios de jugadores son únicamente como ejemplo para programar, después se reemplaza por el diccionario real.
+
 activeDeck = None
 
 def start_game(padding):
     if activeDeck != None:
+        #Se barajan las cartas
+        activeDeck = utils.shuffle_cards(activeDeck)
+
         aa = True
         while aa:
             #Printeando la pantalla con los jugadores y puntos.
