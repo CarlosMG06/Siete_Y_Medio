@@ -1,3 +1,6 @@
+import random
+import string
+
 import menu
 import utils
 from sizes import *
@@ -175,30 +178,101 @@ def create_human_player(players):
         players.append(player)
     return players
 
-def modify_player(player, player_trait, new_value):
+def create_bot_player(players):
     """
-    Modificamos un apartado del jugador que nos llega como parámetro
-    :param player: (dict) -> Diccionario con todos los datos del jugador
-    :param player_trait: (string) -> Valor de la clave en el diccionario del jugador a modificar
-    :param new_value: (string) -> Nuevo valor a ponerle en la clave indicada
-    :return: (dict) -> Devolvemos el valor del
+    Generamos un nuevo jugador bot
+    :param players: (list) -> Lista con los jugadores que tenemos almacenados
+    :return: (list) -> Lista con los nuevos jugadores
     """
-    # Revisamos si la clave a cambiar existe dentro del diccionario del jugador
-    if player_trait in player.keys():
-        player[player_trait] = new_value
-        # Imprimimos mensajes indicando que se ha cambiado el valor
-        print()
-        p.print_line(texts.TEXTS["player_value_changed_ok"], padding=TOTAL_WIDTH, fill_char='=')
-        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-        # Conectar con la base de datos para cambiar el valor
-    else:
-        # Imprimimos mensajes indicando que la clave no existe
-        print()
-        p.print_line(texts.TEXTS["player_value_changed_error"] + player_trait, padding=TOTAL_WIDTH, fill_char='!')
-        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+    utils.clear_screen()
+    p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
 
-    # Devolvemos el diccionario del jugador
-    return player
+    # Pedimos el nombre del jugador, deberá tener un largo de 1 a 32 carácteres (limitados en base de datos)
+    while True:
+        name_input = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"])
+        if len(name_input) > 0 and len(name_input) <= 32 and name_input.isalpha():
+            break
+
+        # En caso que nos introduzca mal el nombre, volvemos a imprimir el título
+        print()
+        p.print_line(texts.TEXTS["error_demand_name"], padding=TOTAL_WIDTH, fill_char='!')
+        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+        utils.clear_screen()
+        p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
+
+    # Generamos aleatoriamente un NIF para el bot
+    while True:
+        nif_input = (''.join(["{}".format(random.randint(0, 9)) for num in range(0, NIF_NUMBERS_END_POSITION + 1)]) +
+                     random.choice(string.ascii_uppercase))
+        index = -1
+        for i in range(len(players)):
+            if players[i]["id"] == nif_input:
+                index = i
+                break
+
+        if index == -1:
+            p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
+            break
+
+    while True:
+        print()
+        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"])
+        menu.profile_menu(LEFT_SPACE_OPTIONS)
+        try:
+            option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
+            if option >= 1 and option <= 3:
+                profile_input = PROFILES[option]
+                break
+            print()
+            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
+            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+        except ValueError:
+            print()
+            p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
+            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+
+        # En caso que se imprima el mensaje de error, deberemos:
+        #   1. Limipar pantalla
+        #   2. Imprimir el títutlo
+        #   3. Imprimir el mensaje de entrada del nombre
+        #   4. Imprimir el mensaje de entrada del NIF
+        utils.clear_screen()
+        p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
+        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
+        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
+
+    # A continuación, deberemos limipiar la pantalla y volver a mostrar los resultados:
+    #   1. Limpiar pantalla
+    #   2. Imprimir el título
+    #   3. Imprimir el mensaje de entrada del nombre
+    #   4. Imprimir el mensaje de entrada del NIF
+    #   5. Imprimir el mensaje de entrada del Perfil
+    #   6. Preguntamos si está correcto:
+    #      Por defecto será Y, en caso de no tener una N
+    #      Se guardará el jugador en la BBDD (TO_DO)
+    #      Se crea un diccionario del jugador, se añade a la lista
+    #   Se devuelve la lista de jugadores
+    utils.clear_screen()
+    p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
+    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
+    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
+    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"] + profile_input)
+
+    print()
+    is_ok = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_confirmation"])
+    if is_ok.lower() != "n":
+        # Debemos conectar con la BBDD para darlo de alta
+        player = {
+            "id": nif_input,
+            "data":
+            {
+                "name": name_input,
+                "human": False,
+                "type": profile_input
+            }
+        }
+        players.append(player)
+    return players
 
 def show_players(players):
     """
