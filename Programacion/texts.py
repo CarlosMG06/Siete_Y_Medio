@@ -11,6 +11,7 @@ TEXTS = {
     "error_demand_name": " Incorrect name, please, enter a name not empty with only letters ",
     "demand_nif": "Introduce your NIF:\t",
     "error_demand_nif": " Wrong NIF ",
+    "error_duplicated_nif": " NIF Duplicated ",
     "demand_profile": "Select your profile: ",
     "demand_confirmation": "Is it OK? Y/n\t",
     "select_players": " Select Players ",

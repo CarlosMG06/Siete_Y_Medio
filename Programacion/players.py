@@ -102,16 +102,28 @@ def create_human_player(players):
             nif_numbers = nif_input[:NIF_NUMBERS_END_POSITION]
             nif_letter = nif_input[NIF_LETTER_POSITION]
             if nif_numbers.isdigit() and nif_letter.isalpha():
-                break
+                index = -1
+                for i in range(len(players)):
+                    if players[i]["id"] == nif_input:
+                        index = i
+                        break
 
-        # En caso que no nos introduzca un NIF válida, deberemos:
+            if index == -1:
+                break
+            else:
+                print()
+                p.print_line(texts.TEXTS["error_duplicated_nif"], padding=TOTAL_WIDTH, fill_char='!')
+                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+
+        # En caso que no nos introduzca un NIF válido, deberemos:
         #   1. Mostrar mensaje de error
         #   2. Limpiar pantalla
         #   3. Imprimir el título
         #   4. Imprimir el mensaje de entrada del nombre
-        print()
-        p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='!')
-        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+        else:
+            print()
+            p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='!')
+            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
         utils.clear_screen()
         p.print_title(titles.TITLES["new_human_player"], padding=TOTAL_WIDTH)
         p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
@@ -136,8 +148,8 @@ def create_human_player(players):
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
 
         # En caso que se imprima el mensaje de error, deberemos:
-        #   1. Limipar pantalla
-        #   2. Imprimir el títutlo
+        #   1. Limpiar pantalla
+        #   2. Imprimir el título
         #   3. Imprimir el mensaje de entrada del nombre
         #   4. Imprimir el mensaje de entrada del NIF
         utils.clear_screen()
@@ -145,7 +157,7 @@ def create_human_player(players):
         p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
         p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
 
-    # A continuación, deberemos limipiar la pantalla y volver a mostrar los resultados:
+    # A continuación, deberemos limpiar la pantalla y volver a mostrar los resultados:
     #   1. Limpiar pantalla
     #   2. Imprimir el título
     #   3. Imprimir el mensaje de entrada del nombre
