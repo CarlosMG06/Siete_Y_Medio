@@ -44,7 +44,7 @@ players4 = {
 
 #Estos diccionarios de jugadores son únicamente como ejemplo para programar, después se reemplaza por el diccionario real.
 
-activeDeck = None
+activeDeck = None #Cambia dinamicamente durante la ejecución del juego
 
 def start_game(padding):
     if activeDeck != None:
