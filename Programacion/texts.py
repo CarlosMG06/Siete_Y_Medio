@@ -1,5 +1,6 @@
 TEXTS = {
     "option": "Option",
+    "option_delete_player": "Option ( -id to remove player [-id11111111J], -1 to exit): ",
     "value_error": " Value must be an Integer ",
     "invalid_option": " Invalid Option ",
     "continue": "Press Enter to Continue",
@@ -11,5 +12,12 @@ TEXTS = {
     "demand_nif": "Introduce your NIF:\t",
     "error_demand_nif": " Wrong NIF ",
     "demand_profile": "Select your profile: ",
-    "demand_confirmation": "Is it OK? Y/n\t"
+    "demand_confirmation": "Is it OK? Y/n\t",
+    "select_players": " Select Players ",
+    "select_players_human": "Human Players",
+    "select_players_bot": "Bot Players",
+    "select_players_id": " ID",
+    "select_players_name": "Name",
+    "select_players_type": "Type",
+    "player_deleted": " Player deleted successfully!"
 }
