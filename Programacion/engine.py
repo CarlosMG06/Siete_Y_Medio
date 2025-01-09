@@ -3,6 +3,8 @@ import printing as p
 from menu import *
 import titles
 import texts
+import players as pl
+from sizes import *
 import game
 import mazos
 
@@ -18,6 +20,9 @@ MAX_OPTION_3 = 11
 
 def start_engine():
     exit = False
+
+    players = pl.get_players()
+    cards_to_use = ""
 
     while not exit:
         # Limpiamos la pantalla e imprimimos el título principal
@@ -56,6 +61,12 @@ def start_engine():
 
                         if option == MAX_OPTION_1:
                             exit_submenu = True
+                        elif option == 1:
+                            players = pl.create_human_player(players)
+                        elif option == 2:
+                            players = pl.create_bot_player(players)
+                        elif option == 3:
+                            pl.show_players(players)
                     except ValueError:
                         print()
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
