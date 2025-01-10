@@ -419,7 +419,8 @@ def cpu_demand_card(player, deck, players_results, players_bets):
     # Consultamos los riesgos según el tipo de jugador:
     #   1. El riesgo calculado es menor al riesgo de jugador, devolvemos True para coger carta
     #   2. Si es banca y algún jugador tiene más puntos que nosotros:
-    #       2.1 Si nos quedamos sin puntos al perder, devolvemos True para coger carta
+    #       2.1 Si estamos dentro de nuestro riesgo, devolvemos True para coger carta
+    #       2.2 Si no estamos en nuestro riesgo pero nos quedamos sin puntos al perder, devolvemos True para coger carta
     #   3. Si el riesgo es mayor al de nuestro jugador y no somos banca, devolvemos False para saltar nuestro turno y
     #   quedarnos tal y como estamos
     if player["isbank"]:
