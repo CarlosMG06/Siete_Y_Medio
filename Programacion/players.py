@@ -12,10 +12,18 @@ NIF_LENGHT = 9
 NIF_NUMBERS_END_POSITION = 7
 NIF_LETTER_POSITION = 8
 
+MAX_POINTS = 7.5
+
 PROFILES = {
     1: "Cautious",
     2: "Moderated",
     3: "Bold"
+}
+
+RISKS = {
+    "Cautious": 30,
+    "Moderated": 40,
+    "Bold": 50
 }
 
 def get_players_from_bbdd(**kwargs):
@@ -378,3 +386,47 @@ def separete_players(players):
             bot_players.append(player)
 
     return bot_players, human_players
+
+def cpu_demand_card(player, deck, players_results):
+    """
+    Revisamos si el jugador de la CPU puede (dependiendo de si es banca o su perfil) pedir carta para seguir jugando
+    su turno
+    :param player: (dict) -> Diccionario con todos los datos referentes al jugador
+    :param deck: (dict) -> Diccionario con las diferentes cartas y sus valores
+    :param players_results: (list) -> Lista con los resultados de los diferentes jugadores, necesario por si el
+    jugador al que le estamos calculando la tirada es banca
+    :return: (bool) -> Devolvemos True si puede coger carta o False si debe pasar
+    """
+    can_demand = False
+    sum_valid = 0
+    total_cards = 0
+
+    # Iteramos por los valores de todas las cartas que tenemos en el mazo
+    for card in deck.values():
+        # REVISAR CON EL DICCIONARIO DE ÁLVARO PARA COGER LOS PUNTOS ACTUALES DEL JUGADOR
+        # Sumamos los puntos actuales con los de la carta que estamos revisando:
+        #   SI nos da 7,5 o menos, añadiremos 1 al valor sum_valid
+        # Aumentamos en 1 el valor de las cartas que estamos contando
+        if player["roundPoints"] + card["realValue"] <= MAX_POINTS:
+            sum_valid += 1
+        total_cards += 1
+
+    # Calculamos el riesgo que tenemos de pasarnos en caso de pedir carta
+    # (cartas_que_no_nos_pasarnos / total_de_cartas_en_el_mazo) * 100 para sacar porcentaje
+    risk = (sum_valid / total_cards) * 100
+
+    # REVISAR CON EL DICCIONARIO DE ÁLVARO PARA COGER EL TIPO DE JUGADOR QUE ES Y SI ES BANCA
+    # Consultamos los riesgos según el tipo de jugador:
+    #   1. El riesgo calculado es menor al riesgo de jugador, devolvemos True para coger carta
+    #   2. Si es banca y algún jugador tiene más puntos que nosotros, devolvemos True para coger carta
+    #   3. Si el riesgo es mayor al de nuestro jugador y no somos banca, devolvemos False para saltar nuestro turno y
+    #   quedarnos tal y como estamos
+    if risk <= RISKS[player["type"]]:
+        can_demand = True
+    elif player["isbank"]:
+        for result in players_results:
+            if player["roundPoints"] < result:
+                can_demand = True
+                break
+                
+    return can_demand
