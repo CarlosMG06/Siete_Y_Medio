@@ -3,10 +3,10 @@ CREATE DATABASE seven_and_half CHARACTER SET utf8mb4;
 USE seven_and_half;
 
 CREATE TABLE player(
-	id VARCHAR(9) CONSTRAINT CHECK (CONVERT((SUBSTRING(id,1,8)) ) PRIMARY KEY,
+	id VARCHAR(9) PRIMARY KEY,
 	player_name VARCHAR(30) NOT NULL,
 	is_human BOOL NOT NULL,
-    risk_type INT UNSIGNED NOT NULL,
+    risk_type INT UNSIGNED NOT NULL
 );
 
 CREATE TABLE deck(
@@ -38,12 +38,20 @@ CREATE TABLE card(
     FOREIGN KEY (deck_id) REFERENCES deck(id)
 );
 
-CREATE TABLE player_round(
-	FOREIGN KEY (partida_id) REFERENCES partida(id),
-    FOREIGN KEY (jugador_id) REFERENCES jugador(id),
-    ronda_num INT AUTO_INCREMENT NOT NULL,
-	PRIMARY KEY (partida_id, jugador_id, ronda_num),
-	puntos_iniciales INT UNSIGNED NOT NULL,
-    puntos_finales INT UNSIGNED NOT NULL,
-    apuesta INT UNSIGNED
+CREATE TABLE round_player(
+	FOREIGN KEY (game_id) REFERENCES game(id),
+    FOREIGN KEY (player_id) REFERENCES player(id),
+    round_number INT AUTO_INCREMENT NOT NULL,
+	PRIMARY KEY (game_id, player_id, round_number),
+	start_points INT UNSIGNED NOT NULL,
+    end_points INT UNSIGNED NOT NULL,
+    bet_amount INT UNSIGNED
 );
+
+CREATE VIEW v_game AS
+	SELECT 
+		g.id, g.start_time, g.end_time, g.deck_id, 
+		count(pg.player_id) AS player_count,
+        count(rp.round_number) AS round_count
+    FROM game g LEFT JOIN player_game pg ON g.id = pg.game_id
+				LEFT JOIN round_player rp ON g.id = rp.game_id
