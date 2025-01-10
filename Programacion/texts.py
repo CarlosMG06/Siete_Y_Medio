@@ -25,4 +25,6 @@ TEXTS = {
     "demand_max_rounds": "Enter new Max Rounds: ",
     "error_max_rounds": " Max Rounds Has To Be Between 1 and 30 ",
     "setup_max_rounds": " Established maximum of rounds to ",
+    "error_init_play_players": " Set the players that compose the game first [2-6] ",
+    "error_init_play_deck": " Set the deck of cards first "
 }

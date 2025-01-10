@@ -1,23 +1,15 @@
-import settings
-import utils
+import players as pl
 import printing as p
-from menu import *
+import utils
+import settings
 import titles
 import texts
-import players as pl
-from sizes import *
 import game
-import mazos
+from menu import *
+from sizes import *
 
-# Constantes necesarias para la impresión del título
-TOTAL_WIDTH = 128               # Espacio total de la línea, desde el inicio de la línea
-LEFT_SPACE_OPTIONS = 51         # Espacio necesario para dejar espacio al inicio de la línea
-LEFT_SPACE_OPTIONS_REPORTS = 16 # Espacio necesario para dejar espacio al inicio de la línea para el submenú de reportes
-MIN_OPTION = 1                  # Mínima opción a comprobar
-# Diferents opciones máximas a comprobar
-MAX_OPTION_1 = 4
-MAX_OPTION_2 = 6
-MAX_OPTION_3 = 11
+MIN_PLAYERS = 2
+MAX_PLAYERS = 6
 
 def start_engine():
     exit = False
@@ -76,7 +68,16 @@ def start_engine():
             elif option == 2:
                 settings.settings_option(players)
             elif option == 3:
-                game.start_game(padding=TOTAL_WIDTH)
+                if len(game.selectedPlayers) < MIN_PLAYERS or len(game.selectedPlayers) > MAX_PLAYERS:
+                    print()
+                    p.print_line(texts.TEXTS["error_init_play_players"], padding=TOTAL_WIDTH, fill_char='=')
+                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                elif game.activeDeck == None:
+                    print()
+                    p.print_line(texts.TEXTS["error_init_play_deck"], padding=TOTAL_WIDTH, fill_char='=')
+                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                else:
+                    game.start_game(padding=TOTAL_WIDTH)
             elif option == 4:
                 exit_submenu = False
 
