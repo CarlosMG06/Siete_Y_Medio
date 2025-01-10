@@ -1,3 +1,4 @@
+import settings
 import utils
 import printing as p
 from menu import *
@@ -23,6 +24,7 @@ def start_engine():
 
     players = pl.get_players()
     cards_to_use = ""
+    max_rounds = 5
 
     while not exit:
         # Limpiamos la pantalla e imprimimos el título principal
@@ -185,6 +187,12 @@ def start_engine():
 
                         if option == MAX_OPTION_1:
                             exit_submenu = True
+                        elif option == 1:
+                            pass
+                        elif option == 2:
+                            pass
+                        elif option == 3:
+                            pass
                     except ValueError:
                         print()
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
@@ -206,6 +214,26 @@ def start_engine():
 
                         if option == MAX_OPTION_3:
                             exit_submenu = True
+                        elif option == 1:
+                            pass
+                        elif option == 2:
+                            pass
+                        elif option == 3:
+                            pass
+                        elif option == 4:
+                            pass
+                        elif option == 5:
+                            pass
+                        elif option == 6:
+                            pass
+                        elif option == 7:
+                            pass
+                        elif option == 8:
+                            pass
+                        elif option == 9:
+                            pass
+                        elif option == 10:
+                            pass
                     except ValueError:
                         print()
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')

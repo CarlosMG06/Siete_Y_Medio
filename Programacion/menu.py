@@ -36,9 +36,9 @@ def settings_submenu(padding = 0):
     :param padding: (int) -> Medida máxima horizontal que debe tener el título
     :return: None
     """
-    text = """1) Set Game Players                                                                        
-2) Set Card's Deck                                                                         
-3) Set Max Rounds (Default 5 Rounds)                                                       
+    text = """1) Set Game Players
+2) Set Card's Deck
+3) Set Max Rounds (Default 5 Rounds)
 4) Go back 
     """
     print_menu(text, padding)
