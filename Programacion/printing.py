@@ -58,6 +58,9 @@ def print_line(text, padding = 0, fill_char = '*'):
     """
     print(text.center(padding, fill_char))
 
+def print_line_centered(text, fill_char = "*"):
+    print("".ljust(30) + text.center(70, fill_char))
+
 def print_menu(menu, padding):
     """
     Imprimimos el menú recibido por parámetro
@@ -74,3 +77,56 @@ def print_menu(menu, padding):
             line = ""
             continue
         line += char
+
+def print_players(players, padding):
+    if len(list(players)) <= 2:
+        offset = 8
+    else:
+        offset = 2
+
+    nameTxt = "Name".ljust(padding // len(list(players)) - offset)
+    humanTxt = "Human".ljust(padding // len(list(players)) - offset)
+    priorityTxt = "Priority".ljust(padding // len(list(players)) - offset)
+    typeTxt = "Type".ljust(padding // len(list(players)) - offset)
+    bankTxt = "Bank".ljust(padding // len(list(players)) - offset)
+    betTxt = "Bet".ljust(padding // len(list(players)) - offset)
+    pointsTxt = "Points".ljust(padding // len(list(players)) - offset)
+    cardsTxt = "Cards".ljust(padding // len(list(players)) - offset)
+    roundPointsTxt = "Roundpoints".ljust(padding // len(list(players)) - offset)
+    
+    for player in list(players):
+        nameTxt += players[player]["name"].ljust(padding // len(list(players)) - offset)
+        humanTxt += str(players[player]["human"]).ljust(padding // len(list(players)) - offset)
+        priorityTxt += str(players[player]["priority"]).ljust(padding // len(list(players)) - offset)
+        typeTxt += str(players[player]["type"]).ljust(padding // len(list(players)) - offset)
+        bankTxt += str(players[player]["bank"]).ljust(padding // len(list(players)) - offset)
+        betTxt += str(players[player]["bet"]).ljust(padding // len(list(players)) - offset)
+        pointsTxt += str(players[player]["points"]).ljust(padding // len(list(players)) - offset)
+        indCardsTxt = ""
+        for card in players[player]["cards"]:
+            indCardsTxt += card
+            if players[player]["cards"].index(card) != len(players[player]["cards"]) - 1:
+                indCardsTxt += ";"
+            else:
+                cardsTxt += indCardsTxt.ljust(padding // len(list(players)) - offset)
+        if indCardsTxt == "":
+            cardsTxt += "".ljust(padding // len(list(players)) - offset)
+        roundPointsTxt += str(players[player]["roundPoints"]).ljust(padding // len(list(players)) - offset)
+
+    print(nameTxt)
+    print(humanTxt)
+    print(priorityTxt)
+    print(typeTxt)
+    print(bankTxt)
+    print(betTxt)
+    print(pointsTxt)
+    print(cardsTxt)
+    print(roundPointsTxt)
+
+def print_selected_players(players):
+    for player in players.keys():
+        txt = " ".ljust(30) + player.ljust(15)
+        txt += players[player]["name"].ljust(25)
+        txt += str(players[player]["human"]).ljust(10)
+        txt += players[player]["type"].ljust(20)
+        print(txt)

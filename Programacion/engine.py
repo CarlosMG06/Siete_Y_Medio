@@ -6,6 +6,18 @@ import titles
 import texts
 import players as pl
 from sizes import *
+import game
+import mazos
+
+# Constantes necesarias para la impresión del título
+TOTAL_WIDTH = 128               # Espacio total de la línea, desde el inicio de la línea
+LEFT_SPACE_OPTIONS = 51         # Espacio necesario para dejar espacio al inicio de la línea
+LEFT_SPACE_OPTIONS_REPORTS = 16 # Espacio necesario para dejar espacio al inicio de la línea para el submenú de reportes
+MIN_OPTION = 1                  # Mínima opción a comprobar
+# Diferents opciones máximas a comprobar
+MAX_OPTION_1 = 4
+MAX_OPTION_2 = 6
+MAX_OPTION_3 = 11
 
 def start_engine():
     exit = False
@@ -62,9 +74,102 @@ def start_engine():
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
                         input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
             elif option == 2:
-                max_rounds = settings.settings_option()
+                exit_submenu = False
+
+                while not exit_submenu:
+                    utils.clear_screen()
+                    p.print_title(titles.TITLES["settings"], padding=TOTAL_WIDTH)
+                    settings_submenu(padding=LEFT_SPACE_OPTIONS)
+                    try:
+                        option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
+                        if option < MIN_OPTION or option > MAX_OPTION_1:
+                            print()
+                            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
+                            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                            continue
+
+                        if option == 1:
+                            exit_setPlayersSubmenu = False
+                            while not exit_setPlayersSubmenu:
+
+                                exit_showSelectedPlayers = False
+                                while not exit_showSelectedPlayers:
+                                    utils.clear_screen()
+                                    p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
+                                    
+                                    p.print_line_centered("Actual Players In Game", fill_char="*")
+                                    p.print_selected_players(game.selectedPlayers)
+                                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                                    break
+                                
+                                utils.clear_screen()
+                                p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
+                                pl.show_players_no_input(players)
+                                p.print_line("Option (id to add to game), -id to remove player, sh to show actual players in game, -1 to go back", padding=TOTAL_WIDTH, fill_char=" ")
+                                eleccion = str(input())
+                                if eleccion == "-1":
+                                    break
+
+                                if len(eleccion) == 9: #La longitud de un DNI
+                                    players_dic = pl.player_list_to_dic(players)
+                                    if eleccion in players_dic.keys():
+                                        game.selectedPlayers[eleccion] = players_dic[eleccion]
+                                        p.print_line(game.selectedPlayers[eleccion]["name"] + " has been added to the game", padding=TOTAL_WIDTH, fill_char= " ")
+                                        input()
+                                    else:
+                                        p.print_line(eleccion + " isn't a valid player", padding=TOTAL_WIDTH, fill_char= " ")
+                                        input()
+
+                                if len(eleccion) == 10: #La longitud de un DNI con un menos delante
+                                    if eleccion[1:] in game.selectedPlayers.keys():
+                                        p.print_line(eleccion[1:] + " has been deleted from the game", padding=TOTAL_WIDTH, fill_char= " ")
+                                        del game.selectedPlayers[eleccion[1:]]
+                                        input()
+                                    else:
+                                        p.print_line(eleccion[1:] + " isn't currently playing", padding=TOTAL_WIDTH, fill_char= " ")
+                                        input()
+
+                                break
+
+                        if option == 2:
+                            exit_decksubmenu = False
+                            while not exit_decksubmenu:
+                                utils.clear_screen()
+                                p.print_title(titles.TITLES["decks"], padding=TOTAL_WIDTH)
+                                #imprimir el menu ya hecho en modulo menu.py
+                                decks_submenu(padding=LEFT_SPACE_OPTIONS)
+                                eleccion = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
+
+                                if eleccion < MIN_OPTION or eleccion > MAX_OPTION_1:
+                                    print()
+                                    p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
+                                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                                    continue
+
+                                if eleccion == MAX_OPTION_1:
+                                    exit_decksubmenu = True
+                                
+                                if eleccion == 1:
+                                    game.activeDeck = mazos.esp48
+                                    input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP48")
+
+                                if eleccion == 2:
+                                    game.activeDeck = mazos.esp40
+                                    input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP40")
+                                
+                                if eleccion == 3:
+                                    game.activeDeck = mazos.poker
+                                    input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: Poker")
+
+
+                        if option == MAX_OPTION_1:
+                            exit_submenu = True
+                    except ValueError:
+                        print()
+                        p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
+                        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
             elif option == 3:
-                pass
+                game.start_game(padding=TOTAL_WIDTH)
             elif option == 4:
                 exit_submenu = False
 

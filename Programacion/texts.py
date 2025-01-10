@@ -5,6 +5,8 @@ TEXTS = {
     "invalid_option": " Invalid Option ",
     "continue": "Press Enter to Continue",
     "exit": " Goodbye! Thanks for playing! ",
+    "invalidDeck": "No deck assigned, select one before starting the game",
+    "exit": " Goodbye! Have a good day! ",
     "player_value_changed_ok": " Player value changed correctly! ",
     "player_value_changed_error": " Player key does not exist: ",
     "demand_name": "Introduce your name:\t",
