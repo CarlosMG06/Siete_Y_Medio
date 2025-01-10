@@ -425,7 +425,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
     if player["isbank"]:
         better_plays = []
         for index, result in enumerate(players_results):
-            if player["roundPoints"] < result:
+            if player["roundPoints"] < result and result <= MAX_POINTS:
                 better_plays.append(index)
 
         if len(better_plays) != 0:
