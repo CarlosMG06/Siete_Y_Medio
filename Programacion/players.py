@@ -387,7 +387,7 @@ def separete_players(players):
 
     return bot_players, human_players
 
-def cpu_demand_card(player, deck, players_results):
+def cpu_demand_card(player, deck, players_results, players_bets):
     """
     Revisamos si el jugador de la CPU puede (dependiendo de si es banca o su perfil) pedir carta para seguir jugando
     su turno
@@ -418,15 +418,28 @@ def cpu_demand_card(player, deck, players_results):
     # REVISAR CON EL DICCIONARIO DE ÁLVARO PARA COGER EL TIPO DE JUGADOR QUE ES Y SI ES BANCA
     # Consultamos los riesgos según el tipo de jugador:
     #   1. El riesgo calculado es menor al riesgo de jugador, devolvemos True para coger carta
-    #   2. Si es banca y algún jugador tiene más puntos que nosotros, devolvemos True para coger carta
+    #   2. Si es banca y algún jugador tiene más puntos que nosotros:
+    #       2.1 Si nos quedamos sin puntos al perder, devolvemos True para coger carta
     #   3. Si el riesgo es mayor al de nuestro jugador y no somos banca, devolvemos False para saltar nuestro turno y
     #   quedarnos tal y como estamos
-    if risk <= RISKS[player["type"]]:
-        can_demand = True
-    elif player["isbank"]:
-        for result in players_results:
+    if player["isbank"]:
+        better_plays = []
+        for index, result in enumerate(players_results):
             if player["roundPoints"] < result:
+                better_plays.append(index)
+
+        if len(better_plays) != 0:
+            if risk <= RISKS[player["type"]]:
                 can_demand = True
-                break
-                
+            else:
+                lost_points = 0
+                for index in better_plays:
+                    lost_points += players_bets[index]
+
+                if player["points"] - lost_points <= 0:
+                    can_demand = True
+
+    elif risk <= RISKS[player["type"]]:
+        can_demand = True
+
     return can_demand
