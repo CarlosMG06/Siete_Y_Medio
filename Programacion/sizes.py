@@ -16,8 +16,16 @@ SP_COLUMN_NAME = 35
 SP_COLUMN_TYPE = 15
 
 # Márgenes para los diferentes reportes
-RP_2_WIDTH = 43
-RP_2_ID_GAME = 10
-RP_2_ID_PLAYER = 12
-RP_2_ROUND = 8
-RP_2_MAX_BET = 10
+# Hacemos un +3 para tener los mismos espacios al principio que al final
+RP_ID_GAME = 10
+RP_ID_PLAYER = 15
+RP_MAX_BET = 15
+RP_MIN_BET = 15
+RP_ROUNDS = 10
+RP_AVG_BET = 16
+RP_WIN_ROUNDS = 16
+RP_PCE_WON = 18
+
+RP_2_WIDTH = RP_ID_GAME + RP_ID_PLAYER + RP_MAX_BET + 3
+RP_3_WIDTH = RP_ID_GAME + RP_ID_PLAYER + RP_MIN_BET + 3
+RP_4_WIDTH = RP_ID_GAME + RP_ID_PLAYER + RP_ROUNDS + RP_AVG_BET + RP_WIN_ROUNDS + RP_PCE_WON + 3
