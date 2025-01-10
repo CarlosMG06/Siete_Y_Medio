@@ -20,5 +20,8 @@ TEXTS = {
     "select_players_id": " ID",
     "select_players_name": "Name",
     "select_players_type": "Type",
-    "player_deleted": " Player deleted successfully!"
+    "player_deleted": " Player deleted successfully! ",
+    "demand_max_rounds": "Enter new Max Rounds: ",
+    "error_max_rounds": " Max Rounds Has To Be Between 1 and 30 ",
+    "setup_max_rounds": " Established maximum of rounds to ",
 }
