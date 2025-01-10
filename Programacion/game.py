@@ -32,25 +32,21 @@ def initializePlayers(players):
 
 def start_game(padding):
     global activeDeck
-    if activeDeck != None:
         
-        #Se inicializan los jugadores seleccionados
-        playersInSession = initializePlayers(selectedPlayers)
-        #Se barajan las cartas
-        activeDeck = utils.shuffle_cards(activeDeck)
-        
-        aa = True
-        while aa:
-            #Printeando la pantalla con los jugadores y puntos.
-            utils.clear_screen()
-            printing.print_title(titles.TITLES["game_title"], padding=padding)
-            printing.print_players(playersInSession, padding)
-            print("")
-            printing.print_line("Enter to continue", padding, " ")
+    #Se inicializan los jugadores seleccionados
+    playersInSession = initializePlayers(selectedPlayers)
+    #Se barajan las cartas
+    activeDeck = utils.shuffle_cards(activeDeck)
 
-            #Para salir por ahora es poniendo "quit" ya que aún no tiene funcionalidad.
-            if input() == "quit":
-                aa = False
-    else:
-        printing.print_line(texts.TEXTS["invalidDeck"], padding, "=")
-        input()
+    aa = True
+    while aa:
+        #Printeando la pantalla con los jugadores y puntos.
+        utils.clear_screen()
+        printing.print_title(titles.TITLES["game_title"], padding=padding)
+        printing.print_players(playersInSession, padding)
+        print("")
+        printing.print_line("Enter to continue", padding, " ")
+
+        #Para salir por ahora es poniendo "quit" ya que aún no tiene funcionalidad.
+        if input() == "quit":
+            aa = False
