@@ -1,3 +1,4 @@
+import settings
 import utils
 import printing as p
 from menu import *
@@ -11,6 +12,7 @@ def start_engine():
 
     players = pl.get_players()
     cards_to_use = ""
+    max_rounds = 5
 
     while not exit:
         # Limpiamos la pantalla e imprimimos el título principal
@@ -60,26 +62,7 @@ def start_engine():
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
                         input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
             elif option == 2:
-                exit_submenu = False
-
-                while not exit_submenu:
-                    utils.clear_screen()
-                    p.print_title(titles.TITLES["settings"], padding=TOTAL_WIDTH)
-                    settings_submenu(padding=LEFT_SPACE_OPTIONS)
-                    try:
-                        option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
-                        if option < MIN_OPTION or option > MAX_OPTION_1:
-                            print()
-                            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-                            continue
-
-                        if option == MAX_OPTION_1:
-                            exit_submenu = True
-                    except ValueError:
-                        print()
-                        p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-                        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                max_rounds = settings.settings_option()
             elif option == 3:
                 pass
             elif option == 4:
@@ -99,6 +82,12 @@ def start_engine():
 
                         if option == MAX_OPTION_1:
                             exit_submenu = True
+                        elif option == 1:
+                            pass
+                        elif option == 2:
+                            pass
+                        elif option == 3:
+                            pass
                     except ValueError:
                         print()
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
@@ -120,6 +109,26 @@ def start_engine():
 
                         if option == MAX_OPTION_3:
                             exit_submenu = True
+                        elif option == 1:
+                            pass
+                        elif option == 2:
+                            pass
+                        elif option == 3:
+                            pass
+                        elif option == 4:
+                            pass
+                        elif option == 5:
+                            pass
+                        elif option == 6:
+                            pass
+                        elif option == 7:
+                            pass
+                        elif option == 8:
+                            pass
+                        elif option == 9:
+                            pass
+                        elif option == 10:
+                            pass
                     except ValueError:
                         print()
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
