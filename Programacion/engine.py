@@ -112,19 +112,19 @@ def start_engine():
                                     players_dic = pl.player_list_to_dic(players)
                                     if eleccion in players_dic.keys():
                                         game.selectedPlayers[eleccion] = players_dic[eleccion]
-                                        p.print_line(game.selectedPlayers[eleccion]["name"] + " añadid@ al juego.", padding=TOTAL_WIDTH, fill_char= " ")
+                                        p.print_line(game.selectedPlayers[eleccion]["name"] + " has been added to the game", padding=TOTAL_WIDTH, fill_char= " ")
                                         input()
                                     else:
-                                        p.print_line(eleccion + " no es un jugador válido", padding=TOTAL_WIDTH, fill_char= " ")
+                                        p.print_line(eleccion + " isn't a valid player", padding=TOTAL_WIDTH, fill_char= " ")
                                         input()
 
                                 if len(eleccion) == 10: #La longitud de un DNI con un menos delante
                                     if eleccion[1:] in game.selectedPlayers.keys():
-                                        p.print_line(eleccion[1:] + " se ha eliminado del juego activo", padding=TOTAL_WIDTH, fill_char= " ")
+                                        p.print_line(eleccion[1:] + " has been deleted from the game", padding=TOTAL_WIDTH, fill_char= " ")
                                         del game.selectedPlayers[eleccion[1:]]
                                         input()
                                     else:
-                                        p.print_line(eleccion[1:] + " no se encuentra en el juego activo", padding=TOTAL_WIDTH, fill_char= " ")
+                                        p.print_line(eleccion[1:] + " isn't currently playing", padding=TOTAL_WIDTH, fill_char= " ")
                                         input()
 
                                 break
