@@ -68,6 +68,11 @@ def start_engine():
             elif option == 2:
                 settings.settings_option(players)
             elif option == 3:
+                # Controlamos la opción de entrada al juego:
+                #   1. Revisamos que hayan de 2 a 6 jugadores seleccionados
+                #   2. Revisamos que se haya seleccionado un mazo de cartas
+                #   3. Vamos al juego
+                #   En el caso que 1 y 2 falle, mostramos error correspondiente en el orden de 1 y 2, pero solo 1 error
                 if len(game.selectedPlayers) < MIN_PLAYERS or len(game.selectedPlayers) > MAX_PLAYERS:
                     print()
                     p.print_line(texts.TEXTS["error_init_play_players"], padding=TOTAL_WIDTH, fill_char='=')
