@@ -9,7 +9,7 @@ import titles
 import texts
 import players as p
 
-players = p.get_players()
+
 
 players6 = {
             "11111111A": 
@@ -45,35 +45,54 @@ players4 = {
                 {"name": "John", "human": True, "bank": False, "initialCard": "", "priority": 3, "type": 40, "bet": 2, "points": 12, "cards": [], "roundPoints": 7},
             }
 
+selectedPlayers = {}
+
 #Estos diccionarios de jugadores son únicamente como ejemplo para programar, después se reemplaza por el diccionario real.
 
 activeDeck = None #Cambia dinamicamente durante la ejecución del juego
 
 def initializePlayers(players):
-    initializedPlayers = {}
-
-    for player in players: #da error, averiguar por qué
+    
+    initializedPlayers = players.copy()
+    """
+    for player in players:
+        initializedPlayers[player["id"]] = {}
         initializedPlayers[player["id"]]["name"] = player["data"]["name"]
         initializedPlayers[player["id"]]["human"] = player["data"]["human"]
         initializedPlayers[player["id"]]["bank"] = player["data"]["bank"]
-        initializedPlayers[player["id"]]["initialCard"] = "" #Esto da error por algún motivo, entiende como si fuera un bool? y no se le puede dar un valor no booleano
+        initializedPlayers[player["id"]]["initialCard"] = "" 
         initializedPlayers[player["id"]]["priority"] = 0
         if player["data"]["type"] == "Moderated":
             initializedPlayers[player["id"]]["type"] = 40
+        elif player["data"]["type"] == "Bold":
+            initializedPlayers[player["id"]]["type"] = 50
         else:
-            initializedPlayers[player["id"]]["type"] = 20 #Cambiar luego solo es por probar
+            initializedPlayers[player["id"]]["type"] = 30
         initializedPlayers[player["id"]]["bet"] = 0
         initializedPlayers[player["id"]]["points"] = 20
         initializedPlayers[player["id"]]["cards"] = []
         initializedPlayers[player["id"]]["roundPoints"] = 0
+    """
+
+    for player in initializedPlayers.keys():
+        initializedPlayers[player]["initialCard"] = ""
+        initializedPlayers[player]["bet"] = 0
+        initializedPlayers[player]["points"] = 20
+        initializedPlayers[player]["cards"] = []
+        initializedPlayers[player]["roundPoints"] = 0
+        initializedPlayers[player]["priority"] = 0
 
     return initializedPlayers
 
 def start_game(padding):
     global activeDeck
     if activeDeck != None:
+        players = p.get_players() #El motivo por el que no se ven en el juego los nuevos jugadores creados es porque al mostrar los jugadores en show/remove se usa
+                                    #la lista de jugadores en el modulo engine, mientras que aquí estoy usando este.
+                                    #Hacer que el dic de playersInSession se haga sin usar el p.get_players ya que es solo para los jugadores de la sesión, no todos.
+
         #Se inicializan los jugadores seleccionados
-        playersInSession = initializePlayers(players)
+        playersInSession = initializePlayers(selectedPlayers)
         #Se barajan las cartas
         activeDeck = utils.shuffle_cards(activeDeck)
 

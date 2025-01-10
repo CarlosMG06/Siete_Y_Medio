@@ -58,6 +58,9 @@ def print_line(text, padding = 0, fill_char = '*'):
     """
     print(text.center(padding, fill_char))
 
+def print_line_centered(text, fill_char = "*"):
+    print("".ljust(30) + text.center(70, fill_char))
+
 def print_menu(menu, padding):
     """
     Imprimimos el menú recibido por parámetro
@@ -119,3 +122,11 @@ def print_players(players, padding):
     print(pointsTxt)
     print(cardsTxt)
     print(roundPointsTxt)
+
+def print_selected_players(players):
+    for player in players.keys():
+        txt = " ".ljust(30) + player.ljust(15)
+        txt += players[player]["name"].ljust(25)
+        txt += str(players[player]["human"]).ljust(10)
+        txt += players[player]["type"].ljust(20)
+        print(txt)

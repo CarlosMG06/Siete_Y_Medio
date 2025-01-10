@@ -362,6 +362,52 @@ def show_players(players):
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
 
+def show_players_no_input(players):
+    """
+    Mostramos por pantalla los diferentes jugadores que tenemos guardados, separados por Bots y Humanos
+    :param players: (list) -> Lista de los jugadores
+    :return: None
+    """
+
+    # Imprimimos el marco superior que será siempre estático
+    p.print_line(texts.TEXTS["select_players"].center(TOTAL_WIDTH, '*'))
+    p.print_line(texts.TEXTS["select_players_bot"].center(HALF_WIDTH - 1) + '||' + texts.TEXTS[
+        "select_players_human"].center(HALF_WIDTH - 1))
+    p.print_line(''.ljust(TOTAL_WIDTH, '-'))
+    p.print_line(texts.TEXTS["select_players_id"].ljust(SP_COLUMN_ID) + texts.TEXTS["select_players_name"].ljust(
+        SP_COLUMN_NAME) + texts.TEXTS["select_players_type"].ljust(SP_COLUMN_TYPE) + '||' + texts.TEXTS["select_players_id"].ljust(SP_COLUMN_ID) + texts.TEXTS["select_players_name"].ljust(
+        SP_COLUMN_NAME) + texts.TEXTS["select_players_type"].ljust(SP_COLUMN_TYPE))
+    p.print_line(''.ljust(TOTAL_WIDTH, '*'))
+
+    # Separamos los tipos de jugadores y revisamos cuál es mayor
+    bot_players, human_players = separete_players(players)
+    most_players = 0
+    if len(bot_players) >= len(human_players):
+        most_players = len(bot_players)
+    else:
+        most_players = len(human_players)
+
+    # Mostramos todos los jugadores
+    for index in range(most_players):
+        if index >= len(bot_players):
+            bot_line = "".ljust(HALF_WIDTH - 1)
+        else:
+            bot_line = " " + bot_players[index]["id"].ljust(SP_COLUMN_ID - 1) + bot_players[index]["data"][
+                "name"].ljust(
+                SP_COLUMN_NAME) + bot_players[index]["data"]["type"].ljust(SP_COLUMN_TYPE)
+
+        if index >= len(human_players):
+            human_line = "".ljust(HALF_WIDTH - 1)
+        else:
+            human_line = " " + human_players[index]["id"].ljust(SP_COLUMN_ID - 1) + human_players[index]["data"][
+                "name"].ljust(
+                SP_COLUMN_NAME) + human_players[index]["data"]["type"].ljust(SP_COLUMN_TYPE)
+
+        p.print_line(bot_line + '||' + human_line)
+
+    # Cerramos la tabla
+    p.print_line(''.ljust(TOTAL_WIDTH, '*'))
+
 
 def separete_players(players):
     """
@@ -378,3 +424,15 @@ def separete_players(players):
             bot_players.append(player)
 
     return bot_players, human_players
+
+
+def player_list_to_dic(players):
+    player_dic = {}
+    for player in players:
+        player_dic[player["id"]] = {}
+        player_dic[player["id"]]["name"] = player["data"]["name"]
+        player_dic[player["id"]]["human"] = player["data"]["human"]
+        player_dic[player["id"]]["bank"] = player["data"]["bank"]
+        player_dic[player["id"]]["type"] = player["data"]["type"]
+    
+    return player_dic

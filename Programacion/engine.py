@@ -86,6 +86,42 @@ def start_engine():
                             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
                             continue
 
+                        if option == 1:
+                            exit_setPlayersSubmenu = False
+                            while not exit_setPlayersSubmenu:
+
+                                exit_showSelectedPlayers = False
+                                while not exit_showSelectedPlayers:
+                                    utils.clear_screen()
+                                    p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
+                                    
+                                    p.print_line_centered("Actual Players In Game", fill_char="*")
+                                    p.print_selected_players(game.selectedPlayers)
+                                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                                    break
+                                
+                                utils.clear_screen()
+                                p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
+                                pl.show_players_no_input(players)
+                                p.print_line("Option (id to add to game), -id to remove player, sh to show actual players in game, -1 to go back", padding=TOTAL_WIDTH, fill_char=" ")
+                                eleccion = str(input())
+                                if eleccion == "-1":
+                                    break
+
+                                if len(eleccion) == 9: #La longitud de un DNI
+                                    players_dic = pl.player_list_to_dic(players)
+                                    if eleccion in players_dic.keys():
+                                        game.selectedPlayers[eleccion] = players_dic[eleccion]
+                                        print(game.selectedPlayers)
+                                        input()
+                                    else:
+                                        print("not in players")
+                                        input()
+
+                                if len(eleccion) == 10: #La longitud de un DNI con un menos delante
+                                    pass
+                                break
+
                         if option == 2:
                             exit_decksubmenu = False
                             while not exit_decksubmenu:
