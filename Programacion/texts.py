@@ -4,9 +4,8 @@ TEXTS = {
     "value_error": " Value must be an Integer ",
     "invalid_option": " Invalid Option ",
     "continue": "Press Enter to Continue",
-    "exit": "Goodbye! Have a good day!",
+    "exit": " Goodbye! Thanks for playing! ",
     "invalidDeck": "No deck assigned, select one before starting the game",
-    "exit": " Goodbye! Have a good day! ",
     "player_value_changed_ok": " Player value changed correctly! ",
     "player_value_changed_error": " Player key does not exist: ",
     "demand_name": "Introduce your name:\t",
@@ -22,5 +21,8 @@ TEXTS = {
     "select_players_id": " ID",
     "select_players_name": "Name",
     "select_players_type": "Type",
-    "player_deleted": " Player deleted successfully!"
+    "player_deleted": " Player deleted successfully! ",
+    "demand_max_rounds": "Enter new Max Rounds: ",
+    "error_max_rounds": " Max Rounds Has To Be Between 1 and 30 ",
+    "setup_max_rounds": " Established maximum of rounds to ",
 }
