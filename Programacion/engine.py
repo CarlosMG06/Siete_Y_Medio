@@ -76,7 +76,7 @@ def start_engine():
             elif option == 2:
                 settings.settings_option(players)
             elif option == 3:
-                game.start_game(padding=TOTAL_WIDTH)
+                game.game_main(padding=TOTAL_WIDTH)
             elif option == 4:
                 exit_submenu = False
 

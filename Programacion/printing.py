@@ -1,3 +1,6 @@
+import titles
+import utils
+
 def print_title(title, padding = 0, fill_char = '*'):
     """
     Generamos el marco estándar para imprimir los títulos de las diferentes pantallas
@@ -130,3 +133,10 @@ def print_selected_players(players):
         txt += str(players[player]["human"]).ljust(10)
         txt += players[player]["type"].ljust(20)
         print(txt)
+
+def print_main_game_scene(playersInSession, padding):
+    utils.clear_screen()
+    print_title(titles.TITLES["game_title"], padding=padding)
+    print_players(playersInSession, padding)
+    print("")
+    print_line("Enter to continue", padding, " ")
