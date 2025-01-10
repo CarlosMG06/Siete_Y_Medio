@@ -14,3 +14,10 @@ MAX_OPTION_3 = 11
 SP_COLUMN_ID = 13
 SP_COLUMN_NAME = 35
 SP_COLUMN_TYPE = 15
+
+# Márgenes para los diferentes reportes
+RP_2_WIDTH = 43
+RP_2_ID_GAME = 10
+RP_2_ID_PLAYER = 12
+RP_2_ROUND = 8
+RP_2_MAX_BET = 10

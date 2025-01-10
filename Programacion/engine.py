@@ -1,5 +1,6 @@
 import players as pl
 import printing as p
+import reports
 import utils
 import settings
 import titles
@@ -111,46 +112,7 @@ def start_engine():
                         p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
                         input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
             elif option == 5:
-                exit_submenu = False
-
-                while not exit_submenu:
-                    utils.clear_screen()
-                    p.print_title(titles.TITLES["reports"], padding=TOTAL_WIDTH)
-                    reports_submenu(padding=LEFT_SPACE_OPTIONS_REPORTS)
-                    try:
-                        option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS_REPORTS) + texts.TEXTS["option"] + ": "))
-                        if option < MIN_OPTION or option > MAX_OPTION_3:
-                            print()
-                            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-                            continue
-
-                        if option == MAX_OPTION_3:
-                            exit_submenu = True
-                        elif option == 1:
-                            pass
-                        elif option == 2:
-                            pass
-                        elif option == 3:
-                            pass
-                        elif option == 4:
-                            pass
-                        elif option == 5:
-                            pass
-                        elif option == 6:
-                            pass
-                        elif option == 7:
-                            pass
-                        elif option == 8:
-                            pass
-                        elif option == 9:
-                            pass
-                        elif option == 10:
-                            pass
-                    except ValueError:
-                        print()
-                        p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-                        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                reports.reports_option()
             elif option == MAX_OPTION_2:
                 exit = True
                 print()

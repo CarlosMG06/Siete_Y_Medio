@@ -26,5 +26,12 @@ TEXTS = {
     "error_max_rounds": " Max Rounds Has To Be Between 1 and 30 ",
     "setup_max_rounds": " Established maximum of rounds to ",
     "error_init_play_players": " Set the players that compose the game first [2-6] ",
-    "error_init_play_deck": " Set the deck of cards first "
+    "error_init_play_deck": " Set the deck of cards first ",
+    "report_2_id_game": "ID Game",
+    "report_2_id_player": "ID Player",
+    "report_2_round": "Round",
+    "report_2_max_bet": "Max Bet",
+    "report_next_page": "+ to go ahead, exit to go Reports: ",
+    "report_next_page_back_page": "+ to go ahead, - to go back , exit to go Reports: ",
+    "report_back_page": "- to go back, exit to go Reports: ",
 }
