@@ -31,21 +31,21 @@ CREATE TABLE player_game(
 );
 
 CREATE TABLE card(
+	deck_id VARCHAR(5) NOT NULL,
+    FOREIGN KEY (deck_id) REFERENCES deck(id),
 	suit VARCHAR(10) NOT NULL,
     real_value INT UNSIGNED NOT NULL,
-    PRIMARY KEY (suit, real_value),
-    value_in_game INT UNSIGNED NOT NULL,
-    deck_id VARCHAR(5) NOT NULL,
-    FOREIGN KEY (deck_id) REFERENCES deck(id)
+    PRIMARY KEY (deck_id, suit, real_value),
+    value_in_game INT UNSIGNED NOT NULL
 );
 
 CREATE TABLE round_player(
 	game_id INT UNSIGNED NOT NULL,
-    player_id VARCHAR(9) NOT NULL,
-	FOREIGN KEY (game_id) REFERENCES game(id),
-    FOREIGN KEY (player_id) REFERENCES player(id),
+    FOREIGN KEY (game_id) REFERENCES game(id),
     round_number INT NOT NULL,
-	PRIMARY KEY (game_id, player_id, round_number),
+    player_id VARCHAR(9) NOT NULL,
+    FOREIGN KEY (player_id) REFERENCES player(id),
+	PRIMARY KEY (game_id, round_number, player_id),
 	start_points INT UNSIGNED NOT NULL,
     end_points INT UNSIGNED NOT NULL,
     bet_amount INT UNSIGNED
@@ -57,7 +57,8 @@ CREATE VIEW v_game AS
 		count(DISTINCT pg.player_id) AS player_count,
         count(DISTINCT rp.round_number) AS round_count
     FROM game g LEFT JOIN player_game pg ON g.id = pg.game_id
-				LEFT JOIN round_player rp ON g.id = rp.game_id;
+				LEFT JOIN round_player rp ON g.id = rp.game_id
+	GROUP BY g.id;
 
 /*
 SELECT sum(timestampdiff(MINUTE, vg.start_time, vg.end_time)) 
