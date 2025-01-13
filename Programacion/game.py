@@ -13,7 +13,6 @@ import random
 
 selectedPlayers = {}
 playedCards = [] #Lista con las cartas jugadas hasta el momento para que no se repitan
-#Estos diccionarios de jugadores son únicamente como ejemplo para programar, después se reemplaza por el diccionario real.
 
 activeDeck = None #Cambia dinamicamente durante la ejecución del juego
 playersInSession = {} #Donde se guardan los jugadores y los valores dinámicos que ocurren durante la partida
@@ -62,70 +61,100 @@ def deal_card(player):
 
     playedCards.append(card)
     playersInSession[player]["cards"].append(card)
-    print(playersInSession[player]["cards"])
-    input()
 
 def assign_priority(playersInSession):
     """Se añade la prioridad repartiendo una carta a todo el mundo"""
+    global playedCards
+    
 
     for player in playersInSession.keys():
         #Se reparte una carta a cada jugador
         deal_card(player)
-    
-    values = {} #Aquí guardo los valores de las cartas junto con el id y la prioridad del palo
-    for player in playersInSession.keys():
-        values[player] = {}
-        values[player]["value"] = activeDeck[playersInSession[player]["cards"][0]]["value"]
-        values[player]["priority"] = activeDeck[playersInSession[player]["cards"][0]]["priority"]
 
-    #Hay que ordenar los valores según los valores de las cartas y las prioridades si es necesario.
-    print("diccionario de valores:")
-    print(values)
+    #Para asignar prioridades se compararán uno por uno en un diccionario los valores de los jugadores
+    dicValores = {}
+
+    for jugador in playersInSession:
+        dicValores[jugador] = {}
+        dicValores[jugador]["numValue"] = activeDeck[playersInSession[jugador]["cards"][0]]["value"]
+        dicValores[jugador]["priority"] = activeDeck[playersInSession[jugador]["cards"][0]]["priority"]
+    
+    #hacer una función que ordene el diccionario en una lista o como sea
+    ordenado = sort_priorities(dicValores)
+
+    #Se muestra por pantalla lo que ha recibido cada uno y quién será la banca
+    printing.print_line_centered(" Priority assignement ", "=")
     print()
+    for jugador in playersInSession:
+        printing.print_line_centered(f"{playersInSession[jugador]['name']} has received the card: {activeDeck[playersInSession[jugador]['cards'][0]]['literal']}", " ")
 
-    valueList = []
-    for player in values.keys():
-        valueList.append(values[player]["value"])
+    #Según el orden hay que asignar una banca y el orden de jugada.
+    orderTxt = "Order will now be: "
+    for jugador in ordenado: #ordenado está de menor prioridad a mayor, la banca es el último index
+        
+        playersInSession[jugador]["priority"] = ordenado.index(jugador) + 1
 
-    print("Lista de los valores sin más:")
-    print(valueList)
-
-    valueList = utils.doBurbuja(valueList)
-    print("Lista de valores ordenados")
-    print(valueList)
-
-        #Con los valores de las cartas se ordena la prioridad
-    orden = [] #Lista que se crea con los ordenes de prioridad, tiene los ids de los jugadores, la banca será el del index mayor, y el orden de menor a mayor.
-    for value in valueList:
-        for player in values.keys():
-            if value == values[player]["value"]:
-                orden.append(player)
-
-    print("Orden unicamente segun valor númerico:")
-    print(orden)
-
-        #Aquí hay que hacer que en caso de haber repetidos, se juzgue según el palo
+        if ordenado.index(jugador) + 1 == len(ordenado):
+            orderTxt += playersInSession[jugador]["name"]
+            playersInSession[jugador]["bank"] = True
+            print()
+            printing.print_line_centered(f" {playersInSession[jugador]['name']} is now the bank ", "=")
+            print()
+            printing.print_line_centered(orderTxt, " ")
+        else:
+            orderTxt += playersInSession[jugador]["name"] + " -> "
+            playersInSession[jugador]["bank"] = False
     
-    for value in valueList:
-        if valueList.index(value) != len(valueList) - 1:
-            if value == valueList[valueList.index(value) + 1]: #En caso de que sea igual al número que tiene a la derecha (es repetido)
-                jugadoresConValoresRepetidos = []
-                for player in orden:
-                    if activeDeck[playersInSession[player]["cards"][0]]["value"] == value:
-                        jugadoresConValoresRepetidos.append(player)
-                
-                #Una vez tenemos los jugadores con valores repetidos, se comprueban los palos de las cartas
-                prioridadPalos = []
-                for jugador in jugadoresConValoresRepetidos:
-                    playersInSession[jugador]["priority"] #mirar la prioridad de la carta
+    #Por último se limpia la lista de cartas jugadas y se eliminan las cartas del inventario de los jugadores
+    for jugador in playersInSession:
+        playersInSession[jugador]["cards"] = []
+        
+    playedCards = []
 
     input()
 
-    #Según el orden hay que asignar una banca y el orden de jugada.
 
-    #Por último se limpia la lista de cartas jugadas y se eliminan las cartas del inventario de los jugadores
-    playedCards = []
     
+def sort_priorities(dic):
+    """Dic con los valores númericos y las prioridades de la carta de los jugadores"""
+    result = []
+
+    dicList = list(dic)
+
+    result.append(dicList[0])
+    for jugador in dicList:
+        #Ordenar las prioridades de menor a mayor, es decir si sacan 2, 8 y 5, la prioridad es 1, 3, 2   
+        if dicList.index(jugador) != 0:
+            if activeDeck[playersInSession[result[-1]]["cards"][0]]["value"] == activeDeck[playersInSession[jugador]["cards"][0]]["value"]: #Si el valor es igual se comprueba la prioridad
+                if activeDeck[playersInSession[result[-1]]["cards"][0]]["priority"] < activeDeck[playersInSession[jugador]["cards"][0]]["priority"]:
+                    result.append(jugador)
+                else:
+                    result.insert(-1, jugador) 
+                
+            else:
+
+                if activeDeck[playersInSession[result[-1]]["cards"][0]]["value"] < activeDeck[playersInSession[jugador]["cards"][0]]["value"]:
+                    result.append(jugador)
+                else:
+                    offset = -1
+
+                    while activeDeck[playersInSession[result[offset]]["cards"][0]]["value"] > activeDeck[playersInSession[jugador]["cards"][0]]["value"]:
+                        if len(result) != abs(offset):
+                            if (activeDeck[playersInSession[result[offset - 1]]["cards"][0]]["value"] > activeDeck[playersInSession[jugador]["cards"][0]]["value"]
+                                or (activeDeck[playersInSession[result[offset - 1]]["cards"][0]]["value"] == activeDeck[playersInSession[jugador]["cards"][0]]["value"]
+                                    and activeDeck[playersInSession[result[offset - 1]]["cards"][0]]["priority"] > activeDeck[playersInSession[jugador]["cards"][0]]["priority"])):
+                                offset -= 1
+                                continue
+                            break
+                        else:
+                            break
+                    
+                    if len(result) == 1 or abs(offset) == len(result):
+                        result.insert(0, jugador)
+                    else:
+                        result.insert(offset, jugador)
+
+    return result
 
 
 def game_logic(playersInSession):
@@ -134,4 +163,3 @@ def game_logic(playersInSession):
 def game_main(padding):
     start_game(padding)
     game_logic(playersInSession)
-    #deal_card(playersInSession["33337777C"])
