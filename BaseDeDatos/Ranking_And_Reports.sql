@@ -20,6 +20,71 @@ CREATE VIEW v_ranking AS
 					JOIN
 */
 
+# 1
+CREATE OR REPLACE VIEW v_report_most_common_initial_card AS
+WITH CardCounts AS (
+    SELECT 
+        pg.player_id,
+        c.suit,
+        pg.initial_card_id,
+        count(*) AS initial_card_count,
+        (SELECT count(*) 
+         FROM player_game 
+         WHERE player_id = pg.player_id) AS games_played
+    FROM player_game pg
+	JOIN card c ON pg.initial_card_id = c.id
+    GROUP BY pg.player_id, pg.initial_card_id, c.suit
+),
+MaxCounts AS (
+    SELECT player_id, max(initial_card_count) AS max_count
+    FROM CardCounts
+    GROUP BY player_id
+),
+TiedCards AS (
+    SELECT 
+        cc.player_id,
+        GROUP_CONCAT(cc.initial_card_id ORDER BY cc.initial_card_id) AS tied_cards,
+        GROUP_CONCAT(cc.suit ORDER BY cc.initial_card_id) AS tied_suits,
+        cc.initial_card_count,
+        cc.games_played
+    FROM CardCounts cc
+    JOIN MaxCounts mc ON cc.player_id = mc.player_id 
+	                  AND cc.initial_card_count = mc.max_count
+    GROUP BY cc.player_id, cc.initial_card_count, cc.games_played
+)
+SELECT 
+    player_id,
+    tied_suits AS most_common_initial_cards_suits,
+    tied_cards AS most_common_initial_card_ids,
+    initial_card_count,
+    games_played
+FROM TiedCards
+WHERE games_played >= 3;
+/* 
+CREATE OR REPLACE VIEW v_report_most_common_initial_card AS
+	SELECT 
+		pg.player_id,
+		c.suit AS most_common_initial_card_suit,
+		pg.initial_card_id AS most_common_initial_card_id,
+		count(*) AS initial_card_count,
+		(SELECT count(*) 
+		 FROM player_game 
+		 WHERE player_id = pg.player_id) AS games_played
+	FROM player_game pg JOIN card c ON pg.initial_card_id = c.id
+	GROUP BY pg.player_id, pg.initial_card_id, c.suit
+	HAVING count(*) = (
+			SELECT max(card_count)
+			FROM (
+				SELECT count(*) AS card_count
+				FROM player_game
+				WHERE player_id = pg.player_id
+				GROUP BY initial_card_id
+				) AS max_card_count
+			) 
+	AND (SELECT count(*) 
+         FROM player_game 
+         WHERE player_id = pg.player_id) >= 3;
+*/
 
 # 2
 CREATE OR REPLACE VIEW v_report_highest_bet AS
