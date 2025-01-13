@@ -103,3 +103,16 @@ def decks_submenu(padding = 0):
 
     print_menu(text, padding)
 
+def reports_option_6_submenu(padding = 0):
+    """
+        Generamos el texto del submenú y seleccionar el tipo de reporte a mostrar
+        :param padding: (int) -> Medida máxima horizontal que debe tener el menú
+        :return:
+        """
+    text = """1) Rounds won by the bank in each game.
+   Distinguishing user.
+2) Rounds won by the bank in each game.
+   Without distinguishing user.
+3) Go back
+        """
+    print_menu(text, padding)
