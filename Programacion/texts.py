@@ -44,4 +44,12 @@ TEXTS = {
     "report_next_page": "+ to go ahead, exit to go Reports: ",
     "report_next_page_back_page": "+ to go ahead, - to go back , exit to go Reports: ",
     "report_back_page": "- to go back, exit to go Reports: ",
+    "ranking_id_player": "Player ID",
+    "ranking_name": "Name",
+    "ranking_earnings": "Earnings",
+    "ranking_games_played": "Games Played",
+    "ranking_minutes_played": "Minutes Played",
+    "ranking_next_page": "+ to go ahead, exit to go Rankings: ",
+    "ranking_next_page_back_page": "+ to go ahead, - to go back , exit to go Rankings: ",
+    "ranking_back_page": "- to go back, exit to go Rankings: ",
 }

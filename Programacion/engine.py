@@ -1,5 +1,6 @@
 import players as pl
 import printing as p
+import rankings
 import reports
 import utils
 import settings
@@ -85,32 +86,7 @@ def start_engine():
                 else:
                     game.start_game(padding=TOTAL_WIDTH)
             elif option == 4:
-                exit_submenu = False
-
-                while not exit_submenu:
-                    utils.clear_screen()
-                    p.print_title(titles.TITLES["rankings"], padding=TOTAL_WIDTH)
-                    ranking_submenu(padding=LEFT_SPACE_OPTIONS)
-                    try:
-                        option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
-                        if option < MIN_OPTION or option > MAX_OPTION_1:
-                            print()
-                            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-                            continue
-
-                        if option == MAX_OPTION_1:
-                            exit_submenu = True
-                        elif option == 1:
-                            pass
-                        elif option == 2:
-                            pass
-                        elif option == 3:
-                            pass
-                    except ValueError:
-                        print()
-                        p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-                        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                rankings.rankings_option()
             elif option == 5:
                 reports.reports_option()
             elif option == MAX_OPTION_2:
