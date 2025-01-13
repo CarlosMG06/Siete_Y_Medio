@@ -15,12 +15,10 @@ CREATE TABLE deck(
 );
 
 CREATE TABLE card(
-	id VARCHAR(3) PRIMARY KEY, 
-    # O Oros, C Copas, E Espadas, B Bastos
-    # D Diamonds, H Hearts, S Spades, T Clubs
+	id VARCHAR(3) PRIMARY KEY,
 	suit VARCHAR(10) NOT NULL,
-    real_value INT UNSIGNED NOT NULL,
-    value_in_game INT UNSIGNED NOT NULL
+    real_value INT UNSIGNED AS(CAST(SUBSTR(id, -1, 2) AS DECIMAL)),
+    value_in_game INT UNSIGNED AS(IF(real_value>7, 0.5, real_value)) STORED
 );
 
 CREATE TABLE deck_card(
