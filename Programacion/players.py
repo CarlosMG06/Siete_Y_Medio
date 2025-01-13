@@ -469,7 +469,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
     #       2.2 Si no estamos en nuestro riesgo pero nos quedamos sin puntos al perder, devolvemos True para coger carta
     #   3. Si el riesgo es mayor al de nuestro jugador y no somos banca, devolvemos False para saltar nuestro turno y
     #   quedarnos tal y como estamos
-    if player["isbank"]:
+    if player["bank"]:
         better_plays = []
         for index, result in enumerate(players_results):
             if player["roundPoints"] < result and result <= MAX_POINTS:
