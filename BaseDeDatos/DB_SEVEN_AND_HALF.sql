@@ -14,6 +14,22 @@ CREATE TABLE deck(
     deck_description VARCHAR(50)
 );
 
+CREATE TABLE card(
+	id VARCHAR(3) PRIMARY KEY, 
+    # O Oros, C Copas, E Espadas, B Bastos
+    # D Diamonds, H Hearts, S Spades, T Clubs
+	suit VARCHAR(10) NOT NULL,
+    real_value INT UNSIGNED NOT NULL,
+    value_in_game INT UNSIGNED NOT NULL
+);
+
+CREATE TABLE deck_card(
+	card_id VARCHAR(3) NOT NULL,
+    FOREIGN KEY (card_id) REFERENCES card(id),
+	deck_id VARCHAR(5) NOT NULL,
+    FOREIGN KEY (deck_id) REFERENCES deck(id)
+);
+
 CREATE TABLE cardgame(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     players INT UNSIGNED NOT NULL,
@@ -22,15 +38,6 @@ CREATE TABLE cardgame(
     end_time DATETIME NOT NULL,
     deck_id VARCHAR(5) NOT NULL,
     FOREIGN KEY (deck_id) REFERENCES deck(id)
-);
-
-CREATE TABLE card(
-	id VARCHAR(3) PRIMARY KEY,
-	deck_id VARCHAR(5) NOT NULL,
-    FOREIGN KEY (deck_id) REFERENCES deck(id),
-	suit VARCHAR(10) NOT NULL,
-    real_value INT UNSIGNED NOT NULL,
-    value_in_game INT UNSIGNED NOT NULL
 );
 
 CREATE TABLE player_game(
