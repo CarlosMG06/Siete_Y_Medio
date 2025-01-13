@@ -1,7 +1,7 @@
 import random
 import string
 
-import menu
+from menu import *
 import utils
 from sizes import *
 import texts
@@ -25,6 +25,36 @@ RISKS = {
     "Moderated": 40,
     "Bold": 50
 }
+
+def players_option(players):
+    exit_submenu = False
+
+    while not exit_submenu:
+        utils.clear_screen()
+        p.print_title(titles.TITLES["players"], padding=TOTAL_WIDTH)
+        players_submenu(padding=LEFT_SPACE_OPTIONS)
+        try:
+            option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
+            if option < MIN_OPTION or option > MAX_OPTION_1:
+                print()
+                p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
+                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                continue
+
+            if option == MAX_OPTION_1:
+                exit_submenu = True
+            elif option == 1:
+                players = create_human_player(players)
+            elif option == 2:
+                players = create_bot_player(players)
+            elif option == 3:
+                show_players(players)
+        except ValueError:
+            print()
+            p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
+            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+
+    return players
 
 def get_players_from_bbdd(**kwargs):
     """
@@ -141,7 +171,7 @@ def create_human_player(players):
     while True:
         print()
         p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"])
-        menu.profile_menu(LEFT_SPACE_OPTIONS)
+        profile_menu(LEFT_SPACE_OPTIONS)
         try:
             option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
             if option >= 1 and option <= 3:
@@ -237,7 +267,7 @@ def create_bot_player(players):
     while True:
         print()
         p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"])
-        menu.profile_menu(LEFT_SPACE_OPTIONS)
+        profile_menu(LEFT_SPACE_OPTIONS)
         try:
             option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
             if option >= 1 and option <= 3:

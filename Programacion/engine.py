@@ -8,6 +8,7 @@ import titles
 import texts
 import game
 from menu import *
+from players import players_option
 from sizes import *
 
 MIN_PLAYERS = 2
@@ -41,32 +42,7 @@ def start_engine():
                 continue
 
             if option == MIN_OPTION:
-                exit_submenu = False
-
-                while not exit_submenu:
-                    utils.clear_screen()
-                    p.print_title(titles.TITLES["players"], padding=TOTAL_WIDTH)
-                    players_submenu(padding=LEFT_SPACE_OPTIONS)
-                    try:
-                        option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
-                        if option < MIN_OPTION or option > MAX_OPTION_1:
-                            print()
-                            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-                            continue
-
-                        if option == MAX_OPTION_1:
-                            exit_submenu = True
-                        elif option == 1:
-                            players = pl.create_human_player(players)
-                        elif option == 2:
-                            players = pl.create_bot_player(players)
-                        elif option == 3:
-                            pl.show_players(players)
-                    except ValueError:
-                        print()
-                        p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-                        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                players = players_option(players)
             elif option == 2:
                 settings.settings_option(players)
             elif option == 3:
