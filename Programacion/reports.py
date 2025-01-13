@@ -181,26 +181,8 @@ def reports_option():
 
             if option == MAX_OPTION_3:
                 exit_submenu = True
-            elif option == 1:
-                show_report(1)
-            elif option == 2:
-                show_report(2)
-            elif option == 3:
-                show_report(3)
-            elif option == 4:
-                show_report(4)
-            elif option == 5:
-                show_report(5)
-            elif option == 6:
-                select_option_6()
-            elif option == 7:
-                show_report(7)
-            elif option == 8:
-                show_report(8)
-            elif option == 9:
-                show_report(9)
-            elif option == 10:
-                show_report(10)
+            else:
+                show_report(option)
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
