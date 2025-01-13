@@ -36,6 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.engine.executor": "Run",
     "Python.main.executor": "Debug",
     "Python.printing.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",

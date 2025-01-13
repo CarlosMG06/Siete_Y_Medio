@@ -1,9 +1,15 @@
+import os
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+
 import printing as p
 import texts
 import titles
 import utils
 from sizes import *
 from menu import *
+
+SAVE_REPORT_PATH = os.path.dirname(os.path.abspath(__file__)).replace("Programacion", "Marcas/Reports")
 
 REPORT_LIMIT = 15
 reports = {
@@ -23,7 +29,8 @@ reports = {
             RP_TIMES_REPEATED,
             RP_TOTAL_GAMES
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "init_card_most_repeated_player.xml"
     },
 2: {
         "width": RP_2_WIDTH,
@@ -37,7 +44,8 @@ reports = {
             RP_ID_PLAYER,
             RP_MAX_BET
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "game_max_bet_player.xml"
     },
 3: {
         "width": RP_3_WIDTH,
@@ -51,7 +59,8 @@ reports = {
             RP_ID_PLAYER,
             RP_MIN_BET
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "game_min_bet_player.xml"
     },
 4: {
         "width": RP_4_WIDTH,
@@ -71,7 +80,8 @@ reports = {
             RP_WIN_ROUNDS,
             RP_PCE_WON
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "pce_won_rounds_avg_bet.xml"
     },
 5: {
         "width": RP_5_WIDTH,
@@ -83,7 +93,8 @@ reports = {
             RP_ID_GAME,
             RP_WIN_ROUNDS
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "won_game_bots.xml"
     },
 6.1: {
         "width": RP_61_WIDTH,
@@ -97,7 +108,8 @@ reports = {
             RP_ID_PLAYER,
             RP_WIN_ROUNDS
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "bank_wins_distinguish_user.xml"
     },
 6.2: {
         "width": RP_62_WIDTH,
@@ -109,7 +121,8 @@ reports = {
                     RP_ID_GAME,
                     RP_WIN_ROUNDS
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "bank_wins.xml"
     },
 7: {
         "width": RP_7_WIDTH,
@@ -121,7 +134,8 @@ reports = {
             RP_ID_GAME,
             RP_USER_BEEN_BANK
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "banks_players.xml"
     },
 8: {
         "width": RP_8_WIDTH,
@@ -133,7 +147,8 @@ reports = {
             RP_ID_GAME,
             RP_AVG_BET
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "game_avg_bet.xml"
     },
 9: {
         "width": RP_9_WIDTH,
@@ -145,7 +160,8 @@ reports = {
             RP_ID_GAME,
             RP_AVG_BET
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "first_round_avg_bet.xml"
     },
 10: {
         "width": RP_10_WIDTH,
@@ -159,7 +175,8 @@ reports = {
             RP_ROUNDS,
             RP_AVG_BET
                 ],
-        "query": ""
+        "query": "",
+        "file_name": "last_round_avg_bet.xml"
     }
 }
 
@@ -181,6 +198,8 @@ def reports_option():
 
             if option == MAX_OPTION_3:
                 exit_submenu = True
+            elif option == 6:
+                select_option_6()
             else:
                 show_report(option)
         except ValueError:
@@ -193,12 +212,23 @@ def show_report(option):
     rp_titles = reports[option]["titles"]
     rp_widths = reports[option]["widths"]
     rp_query = reports[option]["query"]
+    rp_file_name = reports[option]["file_name"]
 
     page = 1
     # Recoger el count de todos los elementos que puedan recogerse de la base de datos
     total_pages = 10
     center_padding = (TOTAL_WIDTH - rp_width) // 2
     exit = False
+
+    # Exportamos los resultados a XML
+    results = []
+    for row in range(10):
+        result = {}
+        for columns in range(len(rp_titles)):
+            key = rp_titles[columns].replace(" ", "-")
+            result[key] = "PlaceHolder"
+        results.append(result)
+    export_to_xml(results, rp_file_name)
 
     while not exit:
         # Limpiamos pantalla y mostramos título principal
@@ -271,3 +301,26 @@ def select_option_6():
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+
+def export_to_xml(results_dict, file_name):
+    path = os.path.join(SAVE_REPORT_PATH, file_name)
+    results = ET.Element('Resultados')
+
+    for result in results_dict:
+        row = ET.SubElement(results, 'Fila')
+        for key, value in result.items():
+            node = ET.SubElement(row, key)
+            node.text = value
+
+    xml = prettify(results)
+
+    file = open(path, 'wb')
+    file.write(xml)
+    file.close()
+
+def prettify(elem):
+    """Return a pretty-printed XML string for the Element.
+    """
+    rough_string = ET.tostring(elem, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    return reparsed.toprettyxml(encoding='utf-8', indent="  ")
