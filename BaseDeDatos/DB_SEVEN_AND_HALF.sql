@@ -46,8 +46,8 @@ CREATE TABLE player_game(
     PRIMARY KEY (game_id, player_id),
     initial_card_id VARCHAR(3) NOT NULL,
     FOREIGN KEY (initial_card_id) REFERENCES card(id),
-    starting_points INT UNSIGNED NOT NULL,
-    ending_points INT UNSIGNED NOT NULL
+    starting_points INT NOT NULL,
+    ending_points INT NOT NULL
 );
 
 CREATE TABLE player_game_round(

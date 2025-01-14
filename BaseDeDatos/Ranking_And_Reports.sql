@@ -1,24 +1,15 @@
 USE seven_and_half;
 
-/* WIP
-SELECT sum(timestampdiff(MINUTE, g.start_time, g.end_time)) 
-        FROM player p JOIN player_game pg ON p.id = pg.player_id
-					  JOIN v_game g ON pg.game_id = g.game_id
-GROUP BY g.game_id;
-
-CREATE VIEW v_ranking AS
+CREATE OR REPLACE VIEW v_ranking AS
 	SELECT 
-		p.id as player_id,
-        p.player_name,
-        count(DISTINCT pg.game_id) AS games_played,
-        (
-        SELECT sum(timestampdiff(MINUTE, g.start_time, g.end_time)) 
-        FROM player p JOIN player_game pg ON p.id = pg.player_id
-					  JOIN v_game g ON pg.game_id
-        ) AS minutes_played
-	SELECT player p JOIN player_game pg ON p.id = pg.player_id
-					JOIN
-*/
+		p.id AS player_id,
+		p.player_name,
+		count(DISTINCT pg.game_id) AS games_played,
+		sum(timestampdiff(MINUTE, cg.start_time, cg.end_time)) AS minutes_played
+	FROM player p
+		JOIN player_game pg ON p.id = pg.player_id
+		JOIN cardgame cg ON pg.game_id = cg.id
+	GROUP BY p.id, p.player_name;
 
 # 1
 CREATE OR REPLACE VIEW v_report_most_common_initial_card AS
@@ -104,16 +95,66 @@ CREATE OR REPLACE VIEW v_report_lowest_bet AS
         FROM player_game_round pgr2
         WHERE pgr.game_id = pgr2.game_id
         );
-# 6
-/* WIP
-CREATE VIEW v_report_bank_wins AS
+        
+# 4
+CREATE OR REPLACE VIEW v_report_round_win_rate AS 
+	WITH RoundsWon AS (
+		SELECT pgr1.game_id, pgr1.player_id,
+			count(
+				IF((pgr1.ending_points - pgr1.starting_points) = (
+					SELECT max(ending_points - starting_points)
+					FROM player_game_round pgr2
+					WHERE pgr2.game_id = pgr1.game_id 
+					  AND pgr2.round_number = pgr1.round_number),
+					1, NULL)
+			) AS rounds_won
+		FROM player_game_round pgr1
+		GROUP BY pgr1.game_id, pgr1.player_id
+	)
 	SELECT 
-		g.id, count(DISTINCT pgr.round_number) AS rounds_won_by_bank
-	FROM v_game g LEFT JOIN player_game_round pgr ON g.id = pgr.game_id
-	WHERE bet_amount IS NOT NULL # All non-bank players
-    GROUP BY game_id, round_number
-		HAVING sum(if(end_points >= start_points, 1, 0)) = 0; # Don't win points (Bank wins)
-*/
+		pgr.game_id,
+		pgr.player_id,
+		g.rounds,
+		avg(pgr.bet_amount) AS avg_bet,
+		rw.rounds_won,
+		(rw.rounds_won / g.rounds * 100) AS round_win_percentage
+	FROM player_game_round pgr
+		JOIN cardgame g ON pgr.game_id = g.id
+		JOIN RoundsWon rw ON pgr.game_id = rw.game_id 
+                                 AND pgr.player_id = rw.player_id
+	GROUP BY pgr.game_id, pgr.player_id, g.rounds, rw.rounds_won;
+	
+# 5
+CREATE OR REPLACE VIEW v_report_bot_wins AS
+	SELECT 
+		pg.game_id,
+		(pg.ending_points - pg.starting_points) AS points_gained_by_winning_bot
+	FROM player_game pg
+		JOIN player p ON pg.player_id = p.id
+	WHERE p.is_human = FALSE
+		AND (pg.ending_points - pg.starting_points) = (
+			SELECT max(ending_points - starting_points)
+			FROM player_game
+			WHERE game_id = pg.game_id
+		)
+	ORDER BY pg.game_id;
+        
+# 6
+CREATE OR REPLACE VIEW v_report_bank_wins AS
+	SELECT 
+		pgr1.game_id,
+		count(IF(pgr1.is_bank = True 
+				 AND (pgr1.ending_points - pgr1.starting_points) = (
+					   SELECT MAX(ending_points - starting_points)
+					   FROM player_game_round pgr2
+					   WHERE pgr2.game_id = pgr1.game_id 
+						 AND pgr2.round_number = pgr1.round_number
+				     ), 1, NULL)
+		) AS rounds_won_by_bank
+	FROM 
+		player_game_round pgr1
+	GROUP BY 
+		pgr1.game_id;
 
 # 7
 CREATE OR REPLACE VIEW v_report_bank_players AS
