@@ -167,9 +167,10 @@ def print_title_with_player(player, round, title, padding = 0, fill_char = '*'):
     # Imprimimos el límite inferior
     print(f'\n' + f' Round {round}, Turn of {player} '.center(padding, fill_char) + '\n')
 
-def print_round_screen(roundNumber, player):
+def print_round_screen(roundNumber, player, showMenu=True):
     print_title_with_player(player=player, round=roundNumber, title=titles.TITLES["game_title"], padding=sizes.TOTAL_WIDTH, fill_char="*")
-    menu.round_menu(padding=50)
+    if showMenu:
+        menu.round_menu(padding=50)
     
 def show_player_stats(player, playersInSession):
     print_title(titles.TITLES["player_stats"], sizes.TOTAL_WIDTH)

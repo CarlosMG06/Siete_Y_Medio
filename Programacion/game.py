@@ -191,77 +191,129 @@ def set_bet(player):
         input()
 
 
-    
+def order_card(player):
+    if playersInSession[player]["bet"] > 0:
+        if playersInSession[player]["roundPoints"] < 7.5:
+            sum_valid = 0
+            total_cards = 0
+            for card in activeDeck.values():
+                if card not in playedCards:
+                    if playersInSession[player]["roundPoints"] + card["realValue"] <= 7.5:
+                        sum_valid += 1
+                    total_cards += 1
+            risk = (sum_valid / total_cards) * 100 #Esto más que riesgo es la probabilidad de no pasarse
+            printing.print_line_centered(f"The risk to exceed 7.5 is {100 - risk}%, are you sure? (y/n)", " ")
+            sure = str(input())
+            if sure.lower() == "y":
+                deal_card(player)
+                printing.print_line_centered("New card ordered!", " ")
+                printing.print_line_centered(f"The new card is: {activeDeck[playersInSession[player]["cards"][-1]]["literal"]}", " ")
+                printing.print_line_centered(f"Now you have {playersInSession[player]["roundPoints"]}", " ")
+                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))                            
+        else:
+            if playersInSession[player]["roundPoints"] == 7.5:
+                printing.print_line_centered("You already have 7.5 points!", " ")
+                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+            else:
+                printing.print_line_centered("You have exceeded 7.5 points!", " ")
+                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+    else:
+        printing.print_line_centered("Make a bet before ordering a card", " ")
+        input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+                    
+def order_card_human_automatic(player):
+    while True:
+        if playersInSession[player]["roundPoints"] < 7.5:
+            sum_valid = 0
+            total_cards = 0
+            for card in activeDeck.values():
+                if card not in playedCards:
+                    if playersInSession[player]["roundPoints"] + card["realValue"] <= 7.5:
+                        sum_valid += 1
+                    total_cards += 1
+            risk = (sum_valid / total_cards) * 100 #Esto más que riesgo es la probabilidad de no pasarse
+            acceptable_risk = 0
+
+            if playersInSession[player]["type"] == "Moderated":
+                acceptable_risk = 50
+            if playersInSession[player]["type"] == "Cautious":
+                acceptable_risk = 30
+            if playersInSession[player]["type"] == "Bold":
+                acceptable_risk = 80
+
+            if (100 - risk) < acceptable_risk:
+                deal_card(player)
+            else:
+                break             
+        else:
+            break
 
 def rounds_logic(playersInSession, maxRounds):
+    global playedCards
     for round in range(0, maxRounds):
         for player in playersInSession:
-            turno = True
-            while turno:
-                utils.clear_screen()
-                printing.print_round_screen(round, playersInSession[player]["name"])
-                eleccion = input()
-                if int(eleccion) > 0 and int(eleccion) < 7 and eleccion.isdigit():
-                    if int(eleccion) == 6:
-                        printing.print_line(f" {playersInSession[player]['name']}'s turn is over ", padding=sizes.TOTAL_WIDTH, fill_char='=')
-                        input()
-                        break
+            if playersInSession[player]["human"]: #Si el jugador es humano se hará de esta forma
+                turno = True
+                while turno:
+                    utils.clear_screen()
+                    printing.print_round_screen(round, playersInSession[player]["name"])
+                    eleccion = input()
+                    if int(eleccion) > 0 and int(eleccion) < 7 and eleccion.isdigit():
+                        if int(eleccion) == 6:
+                            printing.print_line(f" {playersInSession[player]['name']}'s turn is over ", padding=sizes.TOTAL_WIDTH, fill_char='=')
+                            input()
+                            break
 
-                    if int(eleccion) == 1: #Show Stats, hacer función que muestre los stats del jugador
-                        utils.clear_screen()
-                        printing.show_player_stats(player, playersInSession=playersInSession)
-                        input()
+                        if int(eleccion) == 1: #Show Stats
+                            utils.clear_screen()
+                            printing.show_player_stats(player, playersInSession=playersInSession)
+                            input()
 
-                    if int(eleccion) == 2: #View Game Stats
-                        printing.print_main_game_scene(playersInSession, sizes.TOTAL_WIDTH)
-                        input()
-                    
-                    if int(eleccion) == 3: #Set Bet
-                        set_bet(player)
+                        if int(eleccion) == 2: #View Game Stats
+                            printing.print_main_game_scene(playersInSession, sizes.TOTAL_WIDTH)
+                            input()
+                        
+                        if int(eleccion) == 3: #Set Bet
+                            set_bet(player)
 
-                    if int(eleccion) == 4: #Order Card
-                        if playersInSession[player]["bet"] > 0:
-                            if playersInSession[player]["roundPoints"] < 7.5:
-                                sum_valid = 0
-                                total_cards = 0
+                        if int(eleccion) == 4: #Order Card
+                            order_card(player)
+                            
+                        if int(eleccion) == 5: #Automatic play
+                            playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
+                            order_card_human_automatic(player)
+                            utils.clear_screen()
+                            printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
+                            printing.print_line_centered(" AUTOMATIC PLAY ", "=")
+                            printing.print_line_centered(f"{playersInSession[player]["name"]} has made a bet of {playersInSession[player]["bet"]} points", " ")
+                            txtCards = ""
+                            for card in playersInSession[player]["cards"]:
+                                txtCards += card
+                                if playersInSession[player]["cards"].index(card) != len(playersInSession[player]["cards"]) - 1:
+                                    txtCards += ";"
 
-                                for card in activeDeck.values():
+                            printing.print_line_centered(f"Has ordered the cards: {txtCards}", " ")
+                            printing.print_line_centered(f"Has ended with {playersInSession[player]["roundPoints"]} round points.", " ")
 
-                                    if card not in playedCards:
-                                        if playersInSession[player]["roundPoints"] + card["realValue"] <= 7.5:
-                                            sum_valid += 1
-                                        total_cards += 1
-
-                                risk = (sum_valid / total_cards) * 100 #Esto más que riesgo es la probabilidad de no pasarse
-
-                                printing.print_line_centered(f"The risk to exceed 7.5 is {100 - risk}%, are you sure? (y/n)", " ")
-                                sure = str(input())
-
-                                if sure.lower() == "y":
-                                    deal_card(player)
-                                    printing.print_line_centered("New card ordered!", " ")
-                                    printing.print_line_centered(f"The new card is: {activeDeck[playersInSession[player]["cards"][-1]]["literal"]}", " ")
-                                    printing.print_line_centered(f"Now you have {playersInSession[player]["roundPoints"]}", " ")
-                                    input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
-                                
-                            else:
-                                if playersInSession[player]["roundPoints"] == 7.5:
-                                    printing.print_line_centered("You already have 7.5 points!", " ")
-                                    input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
-                                else:
-                                    printing.print_line_centered("You have exceeded 7.5 points!", " ")
-                                    input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
-                        else:
-                            printing.print_line_centered("Make a bet before ordering a card", " ")
                             input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
-                    
-                    if int(eleccion) == 5: #Automatic play
-                        pass
+                            break
 
 
-                else:
-                    printing.print_line(texts.TEXTS["invalid_option"], padding=sizes.TOTAL_WIDTH, fill_char='=')
-                    input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+
+                    else:
+                        printing.print_line(texts.TEXTS["invalid_option"], padding=sizes.TOTAL_WIDTH, fill_char='=')
+                        input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+            
+
+            else: #Si el jugador es un bot se hará de esta forma
+                pass
+
+        #A partir de aquí es cuando termina cada ronda.
+        for player in playersInSession:
+            playersInSession[player]["cards"] = []
+            playersInSession[player]["roundPoints"] = 0
+        playedCards = []
+
 
 
 

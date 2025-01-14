@@ -1,5 +1,6 @@
 import os
 import random
+import math
 
 def clear_screen():
     if os.name == 'nt':     # Windows
@@ -52,4 +53,4 @@ def doBurbuja(lista):
     return resultado
 
 def generate_random_number(start, end):
-    return random.randint(start, end)
+    return random.randint(math.floor(start), math.floor(end))
