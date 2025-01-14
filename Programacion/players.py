@@ -521,6 +521,26 @@ def cpu_demand_card(player, deck, players_results, players_bets):
 
     return can_demand
 
+def cpu_make_bet(player):
+    """
+    Calculamos la apuesta que debería hacer la CPU según el tipo de jugador que sea
+    :param player: (dict) -> Diccionario con todas las claves necesarias de cada jugador
+    :return: (int) -> Valor a apostar
+    """
+
+    min_bet = 1
+    max_bet = player["points"]
+
+    if player["type"] == "Cautious":
+        max_bet = int(player["points"] * 0.4)
+    elif player["type"] == "Moderated":
+        min_bet = int(player["points"] * 0.2)
+        max_bet = (player["points"] * 0.6)
+    elif player["type"] == "Bold":
+        min_bet = int(player["points"] * 0.4)
+
+    return utils.generate_random_number(min_bet, max_bet)
+
 def player_list_to_dic(players):
     player_dic = {}
     for player in players:

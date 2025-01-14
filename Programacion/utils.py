@@ -50,3 +50,6 @@ def doBurbuja(lista):
         resultado = lista
 
     return resultado
+
+def generate_random_number(start, end):
+    return random.randint(start, end)

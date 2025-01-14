@@ -60,6 +60,11 @@ def rankings_option():
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
 
 def show_ranking(column_to_order):
+    """
+    Mostramos el ranking que corresponde por pantalla
+    :param column_to_order: (int) -> Número de la opción por la que hemos de ordenar el ranking
+    :return: None
+    """
     page = 1
     # Recoger el count de todos los elementos que puedan recogerse de la base de datos
     total_pages = 10
@@ -93,6 +98,14 @@ def show_ranking(column_to_order):
         exit, page = handle_user_input(page, total_pages, center_padding)
 
 def handle_user_input(page, total_pages, center_padding):
+    """
+    Manejamos el input del usuario a la hora de avanzar, retroceder o salir de la pantalla de Reportes
+    :param page: (int) -> Página en la que nos encontramos actualmente
+    :param total_pages: (int) -> Total de páginas que tenemos disponibles
+    :param center_padding: (int) -> Padding que tenemos a la izquierda para que el texto quede a la misma altura que
+    columna izquierda del reporte
+    :return: (tuple) -> Bool, si ha de salir o no, Int, número de página
+    """
     if page == 1:
         text = texts.TEXTS["ranking_next_page"]
     elif page == total_pages:
