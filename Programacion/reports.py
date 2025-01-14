@@ -182,6 +182,10 @@ reports = {
 
 
 def reports_option():
+    """
+    Gestión del submenú de reportes
+    :return: None
+    """
     exit_submenu = False
 
     while not exit_submenu:
@@ -208,6 +212,12 @@ def reports_option():
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
 
 def show_report(option):
+    """
+    Mostramos el reporte que corresponde por pantalla
+    :param option: (int) -> Número con la opción de reporte seleccionada
+    :return: None
+    """
+    # Recogemos los diferentes componentes del diccionario de la option indicada
     rp_width = reports[option]["width"]
     rp_titles = reports[option]["titles"]
     rp_widths = reports[option]["widths"]
@@ -255,6 +265,14 @@ def show_report(option):
         exit, page = handle_user_input(page, total_pages, center_padding)
 
 def handle_user_input(page, total_pages, center_padding):
+    """
+    Manejamos el input del usuario a la hora de avanzar, retroceder o salir de la pantalla de Reportes
+    :param page: (int) -> Página en la que nos encontramos actualmente
+    :param total_pages: (int) -> Total de páginas que tenemos disponibles
+    :param center_padding: (int) -> Padding que tenemos a la izquierda para que el texto quede a la misma altura que
+    columna izquierda del reporte
+    :return: (tuple) -> Bool, si ha de salir o no, Int, número de página
+    """
     if page == 1:
         text = texts.TEXTS["report_next_page"]
     elif page == total_pages:
@@ -303,23 +321,41 @@ def select_option_6():
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
 
 def export_to_xml(results_dict, file_name):
+    """
+    Exportamos los resultados recibidos en forma de diccionario en forma de XML
+    :param results_dict: (list) -> Lista con los resultados guardado en formato de key-value
+    :param file_name: (string) -> Nombre del archivo en el que deberemos guardar el archivo XML
+    :return: None
+    """
+    # Nos guardamos el PATH final en el que se encontrará el archivo XML que generemos
     path = os.path.join(SAVE_REPORT_PATH, file_name)
+
+    # Generamos la raíz de nuestro archivo XML
     results = ET.Element('Resultados')
 
+    # Por cada fila de resultados, deberemos hacer una etiqueta Fila, donde dentro generaremos las etiquetas con las
+    # claves y su valor
     for result in results_dict:
         row = ET.SubElement(results, 'Fila')
         for key, value in result.items():
             node = ET.SubElement(row, key)
             node.text = value
 
+    # Recogemos la estructura de XML generada por la función prettify, que nos devuelve una string binaria
     xml = prettify(results)
 
+    # Abrimos el archivo correspondiente en escritura binaria (wb):
+    # Con eso abrimos el archivo y eliminamos el contenido e indicamos que vamos a escribir en binario
+    # EJEMPLO EN LINUX, con string normal: echo "hola" > prueba.txt
+    # Por último, cerramos el archivo
     file = open(path, 'wb')
     file.write(xml)
     file.close()
 
 def prettify(elem):
-    """Return a pretty-printed XML string for the Element.
+    """
+    Return a pretty-printed XML string for the Element.
+    https://pymotw.com/2/xml/etree/ElementTree/create.html
     """
     rough_string = ET.tostring(elem, 'utf-8')
     reparsed = minidom.parseString(rough_string)
