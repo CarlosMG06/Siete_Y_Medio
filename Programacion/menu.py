@@ -116,3 +116,13 @@ def reports_option_6_submenu(padding = 0):
 3) Go back
         """
     print_menu(text, padding)
+
+def round_menu(padding = 0):
+    text = """1) View Stats
+2) View Game Stats
+3) Set Bet
+4) Order Card
+5) Automatic Play
+6) Stand
+"""
+    print_menu(text, padding)

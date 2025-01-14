@@ -1,5 +1,7 @@
 import titles
 import utils
+import sizes
+import menu
 
 def print_title(title, padding = 0, fill_char = '*'):
     """
@@ -140,3 +142,65 @@ def print_main_game_scene(playersInSession, padding):
     print_players(playersInSession, padding)
     print("")
     print_line("Enter to continue", padding, " ")
+
+def print_title_with_player(player, round, title, padding = 0, fill_char = '*'):
+    """
+    Generamos el marco estándar para imprimir los títulos de las diferentes pantallas
+    :param title: (string) -> String del título en formato ASCII Art
+    :param padding: (int) -> Medida máxima horizontal que debe tener el título
+    :param fill_char: (char) -> Carácter con el que se completará el padding
+    :return: None
+    """
+    # Imprimimos el límite superior
+    print(''.center(padding, fill_char))
+
+    # Iteramos por cada una de las líneas del texto en modo ASCII para centrar el texto
+    line = ""
+    for char in title:
+        if char == '\n':
+            line = line.center(padding)
+            print(line)
+            line = ""
+            continue
+        line += char
+
+    # Imprimimos el límite inferior
+    print(f'\n' + f' Round {round}, Turn of {player} '.center(padding, fill_char) + '\n')
+
+def print_round_screen(roundNumber, player):
+    print_title_with_player(player=player, round=roundNumber, title=titles.TITLES["game_title"], padding=sizes.TOTAL_WIDTH, fill_char="*")
+    menu.round_menu(padding=50)
+    
+def show_player_stats(player, playersInSession):
+    print_title(titles.TITLES["player_stats"], sizes.TOTAL_WIDTH)
+    print_line(text=f" Stats of {playersInSession[player]["name"]} ", padding=sizes.TOTAL_WIDTH)
+    print()
+
+    txtName = " ".ljust(50) + f"Name".ljust(20) + str(playersInSession[player]["name"])
+    txtType = " ".ljust(50) + f"Type".ljust(20) + str(playersInSession[player]["type"])
+    txtHuman = " ".ljust(50) + f"Human".ljust(20) + str(playersInSession[player]["human"])
+    txtBank = " ".ljust(50) + f"Bank".ljust(20) + str(playersInSession[player]["bank"])
+    txtInitialCard = " ".ljust(50) + f"Initial Card".ljust(20) + str(playersInSession[player]["initialCard"])
+    txtPriority = " ".ljust(50) + f"Priority".ljust(20) + str(playersInSession[player]["priority"])
+    txtBet = " ".ljust(50) + f"Bet".ljust(20) + str(playersInSession[player]["bet"])
+    txtPoints = " ".ljust(50) + f"Points".ljust(20) + str(playersInSession[player]["points"])
+    txtCards = " ".ljust(50) + f"Cards".ljust(20)
+    for card in playersInSession[player]["cards"]:
+        txtCards += card
+        if playersInSession[player]["cards"].index(card) != len(playersInSession[player]["cards"]) - 1:
+            txtCards += ";"
+    txtRoundPoints = " ".ljust(50) + f"Round Points".ljust(20) + str(playersInSession[player]["roundPoints"])
+
+    print(txtName)
+    print(txtType)
+    print(txtHuman)
+    print(txtBank)
+    print(txtInitialCard)
+    print(txtPriority)
+    print(txtBet)
+    print(txtPoints)
+    print(txtCards)
+    print(txtRoundPoints)
+
+
+

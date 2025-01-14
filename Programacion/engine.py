@@ -60,7 +60,7 @@ def start_engine():
                     p.print_line(texts.TEXTS["error_init_play_deck"], padding=TOTAL_WIDTH, fill_char='=')
                     input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
                 else:
-                    game.game_main(padding=TOTAL_WIDTH)
+                    game.game_main(maxRounds=max_rounds, padding=TOTAL_WIDTH)
             elif option == 4:
                 rankings.rankings_option()
             elif option == 5:
