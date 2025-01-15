@@ -1,6 +1,7 @@
 import os
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+import mysql.connector
 
 import printing as p
 import texts

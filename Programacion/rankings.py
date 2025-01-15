@@ -4,6 +4,15 @@ import titles
 import utils
 from sizes import *
 from menu import *
+from sshtunnel import SSHTunnelForwarder
+import mysql.connector
+from Programacion.config import *
+
+
+with SSHTunnelForwarder(**ssh_config) as tunnel:
+    connection = mysql.connector.connect(**db_config)
+
+
 
 RANKING_LIMIT = 10
 RANKING_TO_ORDER_COLUMNS = {
@@ -34,6 +43,7 @@ RANKING_WIDTHS = [
     R_GAMES_PLAYED,
     R_MINUTES_PLAYED
 ]
+QUERY = "SELECT * FROM v_ranking;"
 
 def rankings_option():
     exit_submenu = False
