@@ -157,8 +157,4 @@ poker = {
 
 }
 
-decks = [esp48, esp40, poker]
-
-deck_names = ["ESP48 - Baraja Española de 48 cartas",
-              "ESP40 - Baraja Española de 40 cartas",
-              "POK - Standard Poker Deck"]
+mazos = [esp48, esp40, poker]
