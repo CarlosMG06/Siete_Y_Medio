@@ -17,8 +17,8 @@ CREATE TABLE deck(
 CREATE TABLE card(
 	id VARCHAR(3) PRIMARY KEY,
 	suit VARCHAR(10) NOT NULL,
-    real_value INT UNSIGNED AS(CAST(SUBSTR(id, -1, 2) AS DECIMAL)),
-    value_in_game INT UNSIGNED AS(IF(real_value>7, 0.5, real_value)) STORED
+    real_value INT UNSIGNED AS(CAST(SUBSTR(id, 2, 2) AS DECIMAL)),
+    value_in_game DECIMAL(10,2) AS(IF(real_value>7, 0.5, real_value)) STORED
 );
 
 CREATE TABLE deck_card(
