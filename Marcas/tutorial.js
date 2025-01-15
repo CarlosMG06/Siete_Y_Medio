@@ -1,41 +1,103 @@
-bankScore = 20
-bankRoundPoints = 0
-playerScore = 20
-playerRoundPoints = 0
+// Tutorial 1
+const titles = ["12 de Espadas", "1 de Copas", "1 de Bastos", "4 de Oros"]
+const cards = document.querySelectorAll(".card-t1")
+const cardTitles = document.querySelectorAll(".card-name-t1")
+const order = document.querySelector("#tutorial-players-order")
 
-const canvas = document.getElementById("tutorial-canvas")
-const buttons = document.getElementsByClassName("button")
+// Tutorial 2
+const cardImg = document.querySelector("#card-t2")
+const cardName = document.querySelector("#card-name-t2")
+const bankScores = document.querySelectorAll(".bank-scores")
+const playerScores = document.querySelectorAll(".player-scores")
+const insertBetForm = document.querySelector("#insert-bet")
+const demandCardForm = document.querySelector("#demand-card")
+const setBetBtn = document.querySelector("#btn-submit-bet")
+const demandCardBtn = document.querySelector("#btn-demand-card")
+const standBtn = document.querySelector("#btn-stand")
+const betInput = document.querySelector("#input-bet")
+const cardsDict = [
+    {
+        "src": "images/tutorial01_card01.avif",
+        "name": "12 de Espadas",
+        "value": 0.5
+    }
+]
+let cardIndex = 0
+let playerPoints = 0
 
-const context = canvas.getContext("2d")
+const Delay = ms => new Promise(res => setTimeout(res, ms));
 
-const backgroundImage = new Image()
-backgroundImage.src = 'images/background.avif'
-context.drawImage(backgroundImage, 0, 0, 1280, 720)
+const PriorityTutorial = async () => {
+    for (let index = 0; index < cards.length; index++) {
+        cards[index].style.visibility = "visible"
+        cardTitles[index].innerHTML = titles[index]
+        cardTitles[index].style.visibility = "visible"
 
-context.font = "48px Arial"
-context.fillStyle = "white"
-context.fillText(`Bank Score: ${bankScore}`, 900, 50);
-context.fillText(`Bank Round Points: ${bankRoundPoints}`, 738, 95);
-context.fillStyle = "red    "
-context.fillText(`Your Score: ${playerScore}`, 913, 150);
-context.fillText(`Your Round Points: ${playerRoundPoints}`, 751, 195);
+        await Delay(1750);
+    }
 
-const btnBet = {
-    "rect": (220, 100, 200, 75),
-    "style": '#001122',
-    "text": 'Realizar Apuesta'
+    order.style.visibility = "visible"
 }
 
-context.fillStyle = btnBet["style"].split(',');
-context.fillRect(btnBet["rect"]);
-context.fillText(btnBet["text"], 320, 145, 200);
+const ResetPriorityTutorial = () => {
+    order.style.visibility = "hidden"
 
-function init() {
-    update()
+    for (let index = 0; index < cards.length; index++) {
+        cards[index].style.visibility = "hidden"
+        cardTitles[index].innerHTML = ""
+        cardTitles[index].style.visibility = "hidden"
+    }
 }
 
-function update() {
+const PlayTutorialPart1 = () => {
+    insertBetForm.style.visibility = "visible"
+}
+
+const PlayTutorialPart2 = () => {
+    insertBetForm.style.visibility = "hidden"
+
+    cardImg.src = cardsDict[cardIndex]["src"]
+    cardName.innerHTML = cardsDict[cardIndex]["name"]
+    playerPoints += cardsDict[cardIndex]["value"]
+    playerScores[2].innerHTML = playerPoints
+    cardImg.style.visibility = "visible"
+    cardName.style.visibility = "visible"
+
+    Delay(500)
+    demandCardForm.style.visibility = "visible"
+    cardIndex++
+}
+
+const PlayTutorialPart3 = () => {
     
+
+
+    cardIndex++
+    if (cardIndex >= cardsDict.length) {
+        // Mostrar que se ha pasado
+    }
+
+    PlayTutorialPart4()
 }
 
-init()
+const PlayTutorialPart4 = () => {
+
+}
+
+setBetBtn.addEventListener("click", (event) => {
+    event.preventDefault()
+    if (parseInt(betInput.value) <= parseInt(playerScores[0].innerHTML)) {
+        playerScores[1].innerHTML = betInput.value
+        PlayTutorialPart2()
+    }
+})
+demandCardBtn.addEventListener("submit", (event) => {
+    event.preventDefault()
+    PlayTutorialPart3()
+})
+standBtn.addEventListener("submit", (event) => {
+    event.preventDefault()
+    console.log("Set Bet Button Clicked")
+    Delay(5000)
+    cardImg.src = "images/tutorial01_card01.avif"
+})

@@ -23,22 +23,103 @@
         </nav>
     </header>
     <main>
-        <section id="s-tutorial">
-            <canvas id="tutorial-canvas" width="1280" height="720" style="border:1px solid #000000;"></canvas>
-            <section id="s-score">
+        <section id="s-tutorial-plyer-priority">
+            <h2>Reparto de prioridades</h2>
+            <div class="tutorial-background">
                 <ul>
-                    <li><p>Bank Score: 20</p></li>
-                    <li><p>Bank Round Points: 0</p></li>
-                    <li><p>Your Score: 20</p></li>
-                    <li><p>Your Round points: 0</p></li>
+                    <li>
+                        <figure>
+                            <p>Jugador 1</p>
+                            <p class="card-name-t1" style="visibility: hidden;"></p>
+                            <div class="card-placeholder"></div>
+                            <img class="card-t1" src="images/tutorial01_card01.avif" alt="12 de espadas" style="visibility: hidden;" />
+                        </figure>
+                    </li>
+                    <li>
+                        <figure>
+                            <p>Jugador 2</p>
+                            <p class="card-name-t1" style="visibility: hidden;"></p>
+                            <div class="card-placeholder"></div>
+                            <img class="card-t1" src="images/tutorial01_card02.avif" alt="1 de Copas" style="visibility: hidden;" />
+                        </figure>
+                    </li>
+                    <li>
+                        <figure>
+                            <p>Jugador 3</p>
+                            <p class="card-name-t1" style="visibility: hidden;"></p>
+                            <div class="card-placeholder"></div>
+                            <img class="card-t1" src="images/tutorial01_card03.avif" alt="1 de Bastos" style="visibility: hidden;" />
+                        </figure>
+                    </li>
+                    <li>
+                        <figure>
+                            <p>Jugador 4</p>
+                            <p class="card-name-t1" style="visibility: hidden;"></p>
+                            <div class="card-placeholder"></div>
+                            <img class="card-t1" src="images/tutorial01_card04.avif" alt="4 de Oros" style="visibility: hidden;" />
+                        </figure>
+                    </li>
                 </ul>
-            </section>
-            <form>
-                <input type="number" value= 5 id="txt-bet" placeholder="Introduce tu apuesta" />
-                <input class="button" type="submit" value="Realizar apuesta" id="btn-realize-bet" onclick="" />
-                <input class="button" type="submit" value="Pedir carta" id="btn-demand-card" onclick="" />
-                <input class="button" type="submit" value="Plantarse" id="btn-stand" onclick="" />
-            </form>
+                <div id="tutorial-players-order" style="visibility: hidden;">
+                    <p>
+                        Orden de los jugadores:
+                        <ol>
+                            <li><p>Jugador 3 <span>&#x279C</span> <span class="txt-prioriry">Prioridad 1</span></p></li>
+                            <li><p>Jugador 2 <span>&#x279C</span> <span class="txt-prioriry">Prioridad 2</span></p></li>
+                            <li><p>Jugador 4 <span>&#x279C</span> <span class="txt-prioriry">Prioridad 3</span></p></li>
+                            <li><p>Jugador 1 <strong/>(Banca)</strong> <span>&#x279C</span> <span class="txt-prioriry">Prioridad 4</span></p></li>
+                        </ol>
+                    </p>
+                </div>
+            </div>
+            <button onclick="PriorityTutorial(); return false;">Mostrar tutorial</button>
+            <button onclick="ResetPriorityTutorial(); return false;">Resetear tutorial</button>
+        </section>
+        <section id="s-tutorial-play">
+            <h2>Jugada</h2>
+            <div class="tutorial-background">
+                <div id="play-scores">
+                    <ul>
+                        <li>
+                            <p>Puntos totales de la Banca: <span class="bank-scores">15</span></p>
+                        </li>
+                        <li>
+                            <p>Puntos apostados por la banca: <span class="bank-scores">6</span></p>
+                        </li>
+                        <li>
+                            <p>Puntuación de la banca: <span class="bank-scores">0</span></p>
+                        </li>
+                        <li>
+                            <p>Puntos totales del jugador: <span class="player-scores">20</span></p>
+                        </li>
+                        <li>
+                            <p>Puntos apostados por el jugador: <span class="player-scores">0</span></p>
+                        </li>
+                        <li>
+                            <p>Puntuación del jugador: <span class="player-scores">0</span></p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="middle-text">
+                    <form id="insert-bet" style="visibility: hidden;">
+                        <input type="number" value="5" placeholder="Introduce tu apuesta" id="input-bet" />
+                        <input type="submit" value="Apostar" id="btn-submit-bet"/>
+                    </form>
+                    <form id="demand-card" style="visibility: hidden;">
+                        <input type="submit" value="Pedir carta" id="btn-demand-card" />
+                        <input type="submit" value="Retirarse" id="btn-stand" />
+                    </form>
+                </div>
+                <div id="card-position">
+                    <figure>
+                        <p id="card-name-t2" style="visibility: hidden;"></p>
+                        <div class="card-placeholder"></div>
+                        <img id="card-t2" src="images/tutorial01_card03.avif" alt="1 de Bastos" style="visibility: hidden;" />
+                    </figure>
+                </div>
+            </div>
+            <button onclick="PlayTutorialPart1(); return false;">Mostrar tutorial</button>
+            <button onclick="ResetPriorityTutorial(); return false;">Resetear tutorial</button>
         </section>
     </main>
     <footer>
