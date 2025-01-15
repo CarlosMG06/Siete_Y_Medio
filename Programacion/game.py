@@ -41,13 +41,12 @@ def start_game(padding):
         #Se barajan las cartas
         activeDeck = utils.shuffle_cards(activeDeck)
 
-        aa = True
-        while aa:
-            #Printeando la pantalla con los jugadores y puntos.
-            printing.print_main_game_scene(playersInSession, padding)
-            
-            input()
-            break
+        #Se muestra la pantalla principal para mostrar los jugadores que hay, etc.
+        printing.print_title(titles.TITLES["game_title"], padding=padding)
+        printing.print_main_game_scene(playersInSession, padding)
+        
+        input()
+    
     else:
         printing.print_line(texts.TEXTS["invalidDeck"], padding, "=")
         input()
@@ -65,7 +64,8 @@ def deal_card(player):
     playersInSession[player]["roundPoints"] += activeDeck[card]["realValue"]
 
 def assign_priority(playersInSession):
-    """Se añade la prioridad repartiendo una carta a todo el mundo"""
+    """Se añade la prioridad repartiendo una carta a todo el mundo
+    -> Devuelve una lista de diccionarios con el orden de los jugadores"""
     global playedCards
     
 
@@ -87,6 +87,8 @@ def assign_priority(playersInSession):
     ordenado = sort_priorities(dicValores)
 
     #Se muestra por pantalla lo que ha recibido cada uno y quién será la banca
+    utils.clear_screen()
+    printing.print_title(titles.TITLES["game_title"], padding=sizes.TOTAL_WIDTH)
     printing.print_line_centered(" Priority assignement ", "=")
     print()
     for jugador in playersInSession:
@@ -117,6 +119,8 @@ def assign_priority(playersInSession):
     playedCards = []
 
     input()
+
+    return ordenado
 
 
     
@@ -170,7 +174,7 @@ def set_bet(player):
                 if apuesta.isdigit():
                     if int(apuesta) > 0:
                         if int(apuesta) <= playersInSession[player]["points"]:
-                            playersInSession[player]["bet"] = float(apuesta)
+                            playersInSession[player]["bet"] = int(apuesta)
                             printing.print_line_centered("Bet has been made succesfully", " ")
                             input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
                             break
@@ -203,7 +207,10 @@ def order_card(player):
                     total_cards += 1
             risk = (sum_valid / total_cards) * 100 #Esto más que riesgo es la probabilidad de no pasarse
             printing.print_line_centered(f"The risk to exceed 7.5 is {100 - risk}%, are you sure? (y/n)", " ")
-            sure = str(input())
+            if playersInSession[player]["human"]:
+                sure = str(input())
+            else:
+                sure = "y"
             if sure.lower() == "y":
                 deal_card(player)
                 printing.print_line_centered("New card ordered!", " ")
@@ -248,10 +255,147 @@ def order_card_human_automatic(player):
         else:
             break
 
-def rounds_logic(playersInSession, maxRounds):
+def check_losers_winners(orden):
+    """Devuelve 
+
+    losers (list) -> Es una lista de str con los ids de los jugadores
+
+    winners (list) -> Es una lista de dic con los ids de los jugadores como clave y los beneficios al ganar como entrada
+    
+    En la lista winners nunca estará la banca, la forma de saber si la banca es el único ganador es comprobando que no esté en la lista losers
+    """
+
+    losers = []
+    winners = []
+    if playersInSession[orden[-1]]["points"] == 7.5: #Gana la banca contra todos
+        losers = orden[:-1]
+        return losers
+    if playersInSession[orden[-1]]["points"] > 7.5: #Pierde la banca contra todos
+        losers.append(orden[-1])
+        return losers
+
+    for player in orden[:-1]: #Comprobar contra quién gana y quién pierde
+        if playersInSession[player]["roundPoints"] < playersInSession[orden[-1]]["points"]: #Si tiene menos puntos que la banca
+            losers.append(player)
+
+        elif playersInSession[player]["roundPoints"] > 7.5: #Si se pasa de 7.5 puntos
+            losers.append(player)
+
+        else:
+            dic = {}
+            dic[player] = {}
+            if playersInSession[player]["bet"] == 7.5:
+                dic[player]["profit"] = playersInSession[player]["bet"] * 2
+            else:
+                dic[player]["profit"] = playersInSession[player]["bet"]
+
+            winners.append(dic)
+    
+    #Las listas ya están ordenadas de menor a mayor prioridad
+    return losers, winners
+
+
+def distribute_points(orden):
+    losers, winners = check_losers_winners(orden)
+
+    if len(losers) == 1:
+        if playersInSession[losers[0]]["bank"]: #Si el único perdedor es la banca se tendrá que repartir por prioridades
+            pass
+        else: #Si el único perdedor no es la banca
+            pass
+    
+    else:
+        #Comprobar si en los más de un jugadores que hay perdedores está la banca, si no, eso quiere decir que la banca ha ganado a todos
+
+        #Primero se suma todo lo de los perdedores que no sean la banca a la banca
+        if playersInSession[orden[-1]] not in losers:
+            for player in losers:
+                playersInSession[orden[-1]]["points"] += playersInSession[player]["bet"] #Se suma a la banca los puntos
+                playersInSession[player]["points"] -= playersInSession[player]["bet"] #Se le resta al perdedor los puntos
+
+        else: #En caso de que la banca esté entre los perdedores, se tendrá que repartir los puntos
+              #En este punto los jugadores perdedores ya han pagado a la banca, por lo que se les omite
+            for player in orden[:-1]:
+                if player not in losers: #Si el jugador es ganador (y no la banca)
+                    if playersInSession[player]["roundPoints"] == 7.5: #Si el jugador tiene 7.5 roundPoints (gana el doble de la bet)
+
+                        #En caso de que cuando pague tenga más o igual a 0 paga
+                        if playersInSession[orden[-1]]["points"] - playersInSession[player]["bet"] * 2 == 0 or playersInSession[orden[-1]]["points"] - playersInSession[player]["bet"] * 2 > 0:
+                            playersInSession[player]["points"] += playersInSession[player]["bet"] * 2
+                            playersInSession[orden[-1]]["points"] -= playersInSession[player]["bet"] * 2
+                        else:
+                            #En caso de que no tenga para pagar paga con lo que le queda.
+                            playersInSession[player]["points"] += playersInSession[orden[-1]]["bet"]
+                            playersInSession[orden[-1]]["bet"] = 0
+
+                    else:
+
+                        #En caso de que cuando pague tenga más o igual 0 paga
+                        if playersInSession[orden[-1]]["points"] - playersInSession[player]["bet"] == 0 or playersInSession[orden[-1]]["points"] - playersInSession[player]["bet"] > 0:
+                            playersInSession[player]["points"] += playersInSession[player]["bet"]
+                            playersInSession[orden[-1]]["points"] -= playersInSession[player]["bet"]
+                        else:
+                            #En caso de que no tenga para pagar paga con lo que le queda.
+                            playersInSession[player]["points"] += playersInSession[orden[-1]]["bet"]
+                            playersInSession[orden[-1]]["bet"] = 0
+                        
+            
+            
+
+
+
+
+        
+
+
+def rounds_logic(playersInSession, maxRounds, orden):
     global playedCards
+    
     for round in range(0, maxRounds):
-        for player in playersInSession:
+        resultadosRonda = []
+        apuestasJugadores = []
+
+        #Que cada jugador haga la apuesta
+        print(orden)
+        input()
+        for player in orden:
+            if playersInSession[player]["human"]:
+                while True:
+                    utils.clear_screen()
+                    printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
+                    printing.print_line_centered("How much would you like to wager this round? (-1 to see game stats)", " ")
+
+                    eleccion = input()
+                    if eleccion != "-1":
+                        if eleccion.isdigit():
+                            if int(eleccion) < 1:
+                                printing.print_line_centered(f"Invalid amount", " ")
+                                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+                            elif int(eleccion) > playersInSession[player]["points"]:
+                                printing.print_line_centered(f"You can only wager up to {playersInSession[player]["points"]}!", " ")
+                                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+                            else:
+                                playersInSession[player]["bet"] = int(eleccion)
+                                printing.print_line_centered(f" Bet succesfully made ", "=")
+                                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+                                break
+
+                        else:
+                            printing.print_line_centered(" Please insert a valid amount ", "*")
+                            input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+                    else:
+                        printing.print_main_game_scene(playersInSession, sizes.TOTAL_WIDTH)
+                        input()
+            else:
+                playersInSession[player]["bet"] = p.cpu_make_bet(playersInSession[player])
+
+        #Se muestra la pantalla principal de las rondas antes de que empiece la ronda, para poder ver apuestas, puntos y demás
+        utils.clear_screen()
+        printing.print_main_game_scene(playersInSession, padding=sizes.TOTAL_WIDTH)
+        input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+
+        #Demás lógica de la ronda
+        for player in orden:
             if playersInSession[player]["human"]: #Si el jugador es humano se hará de esta forma
                 turno = True
                 while turno:
@@ -274,45 +418,66 @@ def rounds_logic(playersInSession, maxRounds):
                             input()
                         
                         if int(eleccion) == 3: #Set Bet
-                            set_bet(player)
+                            set_bet(player) #Esto está mal, no se debería poder cambiar la apuesta, quitarlo después
 
                         if int(eleccion) == 4: #Order Card
                             order_card(player)
                             
                         if int(eleccion) == 5: #Automatic play
-                            playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
-                            order_card_human_automatic(player)
-                            utils.clear_screen()
-                            printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
-                            printing.print_line_centered(" AUTOMATIC PLAY ", "=")
-                            printing.print_line_centered(f"{playersInSession[player]["name"]} has made a bet of {playersInSession[player]["bet"]} points", " ")
-                            txtCards = ""
-                            for card in playersInSession[player]["cards"]:
-                                txtCards += card
-                                if playersInSession[player]["cards"].index(card) != len(playersInSession[player]["cards"]) - 1:
-                                    txtCards += ";"
+                            lenCards = len(playersInSession[player]["cards"])
 
-                            printing.print_line_centered(f"Has ordered the cards: {txtCards}", " ")
-                            printing.print_line_centered(f"Has ended with {playersInSession[player]["roundPoints"]} round points.", " ")
+                            if lenCards == 0:
+                                #playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
+                                order_card_human_automatic(player)
+                                utils.clear_screen()
+                                printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
+                                printing.print_line_centered(" AUTOMATIC PLAY ", "=")
+                                printing.print_line_centered(f"{playersInSession[player]["name"]} has made a bet of {playersInSession[player]["bet"]} points", " ")
+                                txtCards = ""
+                                for card in playersInSession[player]["cards"]:
+                                    txtCards += card
+                                    if playersInSession[player]["cards"].index(card) != len(playersInSession[player]["cards"]) - 1:
+                                        txtCards += ";"
 
-                            input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
-                            break
+                                printing.print_line_centered(f"Has ordered the cards: {txtCards}", " ")
+                                printing.print_line_centered(f"Has ended with {playersInSession[player]["roundPoints"]} round points.", " ")
 
+                                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+                                break
 
+                            else:
+                                printing.print_line_centered(f"You have already ordered a card!", " ")
+                                printing.print_line_centered(f"Automatic play is not available anymore", " ")
+                                input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
 
                     else:
                         printing.print_line(texts.TEXTS["invalid_option"], padding=sizes.TOTAL_WIDTH, fill_char='=')
                         input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
-            
-
+                
+                #A partir de aquí es cuando termine el turno del jugador (pero aún sigue activa la ronda)
+                resultadosRonda.append(playersInSession[player]["roundPoints"])
+                apuestasJugadores.append(playersInSession[player]["bet"])
+                
             else: #Si el jugador es un bot se hará de esta forma
-                pass
+                if p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
+                    #playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
+
+                    while p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
+                        order_card(player)
+
+                else: #Si no puede demandar una carta, la apuesta será de uno
+                    playersInSession[player]["bet"] = 1
+        
+        #Ver quien gana y repartir puntos
 
         #A partir de aquí es cuando termina cada ronda.
         for player in playersInSession:
             playersInSession[player]["cards"] = []
             playersInSession[player]["roundPoints"] = 0
+            playersInSession[player]["bet"] = 0
         playedCards = []
+
+        #Mostrar los resultados de la ronda
 
 
 
@@ -320,8 +485,8 @@ def rounds_logic(playersInSession, maxRounds):
 
 
 def game_logic(playersInSession, maxRounds):
-    assign_priority(playersInSession)
-    rounds_logic(playersInSession, maxRounds)
+    orden = assign_priority(playersInSession)
+    rounds_logic(playersInSession, maxRounds, orden)
 
 def game_main(padding, maxRounds):
     start_game(padding)
