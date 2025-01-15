@@ -112,6 +112,23 @@ CREATE OR REPLACE VIEW v_report_bot_wins AS
 	ORDER BY pg.game_id;
         
 # 6
+# 6.1
+CREATE OR REPLACE VIEW v_report_bank_wins_per_player AS
+	SELECT 
+		pgr1.game_id,
+        pgr1.player_id,
+		sum(IF(pgr1.is_bank = True 
+				 AND (pgr1.ending_points - pgr1.starting_points) = (
+					   SELECT MAX(ending_points - starting_points)
+					   FROM player_game_round pgr2
+					   WHERE pgr2.game_id = pgr1.game_id 
+						 AND pgr2.round_number = pgr1.round_number
+				     ), 1, 0)
+		) AS rounds_won_as_bank
+	FROM player_game_round pgr1
+    WHERE pgr1.is_bank = True
+	GROUP BY pgr1.game_id, pgr1.player_id;
+# 6.2
 CREATE OR REPLACE VIEW v_report_bank_wins AS
 	SELECT 
 		pgr1.game_id,
