@@ -60,6 +60,6 @@ CREATE TABLE player_game_round(
     is_bank BOOL NOT NULL,
 	bet_amount INT UNSIGNED,
 	starting_points INT NOT NULL,
-    #  cards_value INT UNSIGNED NOT NULL,
+    cards_value INT UNSIGNED NOT NULL,
     ending_points INT NOT NULL
 );
