@@ -71,5 +71,6 @@ def start_engine():
                 p.print_line(texts.TEXTS["exit"], padding=TOTAL_WIDTH, fill_char='-')
         except ValueError:
             print()
+            print("aaaaa") #Cuando termina la ronda me manda aquí por algún motivo
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
