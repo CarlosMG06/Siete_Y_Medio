@@ -174,7 +174,7 @@ def print_round_screen(roundNumber, player, showMenu=True):
     
 def show_player_stats(player, playersInSession):
     print_title(titles.TITLES["player_stats"], sizes.TOTAL_WIDTH)
-    print_line(text=f" Stats of {playersInSession[player]["name"]} ", padding=sizes.TOTAL_WIDTH)
+    print_line(text=f" Stats of {playersInSession[player]['name']} ", padding=sizes.TOTAL_WIDTH)
     print()
 
     txtName = " ".ljust(50) + f"Name".ljust(20) + str(playersInSession[player]["name"])
