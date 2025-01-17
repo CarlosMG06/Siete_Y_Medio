@@ -1,6 +1,7 @@
 import os
 from sshtunnel import SSHTunnelForwarder
 import mysql.connector
+import printing as p
 
 from dotenv import load_dotenv
 load_dotenv(dotenv_path="Programacion\db_access.env")
@@ -12,39 +13,32 @@ ssh_config = {
    'remote_bind_address': ("localhost", 3306)
 }
 
-print(ssh_config["ssh_pkey"])
-
 db_config = {
     'user': os.getenv("DB_USER"),
     'password': '',
     'database': 'seven_and_half'
 }
 
-def connect_to_db():
-    global connection, cursor
+def execute_query_in_db(query):
+    # Conectarse a la BBDD
     with SSHTunnelForwarder(**ssh_config) as tunnel:
         connection = mysql.connector.connect(host="127.0.0.1", port=tunnel.local_bind_port, **db_config)
         cursor = connection.cursor()
 
-        print("Connected to:", cursor.fetchone()) # Comprobación debug
-
-connect_to_db()
-
-def disconnect_from_db():
-    cursor.close()
-    connection.close()
-
-def query_to_database(query):
-    connect_to_db()
-    pass
-    disconnect_from_db()
+    # Ejecutar la query
+        cursor.execute(query)
+        results = cursor.fetchall()
+    
+    # Desconectarse de la BBDD
+        cursor.close()
+        connection.close()
+        return results
 
 def insert_dict_into_db_table(dict, table):
-    connect_to_db()
-    pass
-    disconnect_from_db()
+    key_list = list(dict.keys())
+    value_list = list(dict.values())
+    query = f"INSERT INTO {table} ({", ".join(key_list)}) VALUES ({", ".join(value_list)})"
+    execute_query_in_db(query, print=False)
 
 def delete_player_from_db(player_id):
-    connect_to_db()
-    pass
-    disconnect_from_db()
+    query = f"DELETE FROM "

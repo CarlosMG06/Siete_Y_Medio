@@ -4,6 +4,7 @@ import titles
 import utils
 from sizes import *
 from menu import *
+from db_access_config import execute_query_in_db
 
 RANKING_LIMIT = 10
 RANKING_TO_ORDER_COLUMNS = {
@@ -90,6 +91,9 @@ def show_ranking(column_to_order):
         print()
 
         # Pedimos los datos a la base de datos limitados por 15, gestionando en que página nos encontramos
+        data = execute_query_in_db(QUERY, center_padding)
+        print(data)
+        
         line = ''.ljust(center_padding) + ''.ljust(R_PADDING)
         for index, title in enumerate(RANKING_TITLES):
             line += '+' + ''.rjust(RANKING_WIDTHS[index] - 1, '-')
