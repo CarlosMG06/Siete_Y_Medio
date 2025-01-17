@@ -1,6 +1,5 @@
 import os
 from sshtunnel import SSHTunnelForwarder
-import paramiko
 import mysql.connector
 
 from dotenv import load_dotenv
