@@ -346,7 +346,7 @@ def distribute_points(orden):
         else: #Si el único perdedor no es la banca
             canBankPay = True
             for player in orden:
-                if playersInSession[player] in losers: #Este perdedor no es la banca
+                if playersInSession[player] in losers and playersInSession[player]["points"] > 0: #Este perdedor no es la banca
                     playersInSession[orden[-1]]["points"] += playersInSession[player]["bet"]
                     playersInSession[player]["points"] -= playersInSession[player]["bet"]
                     printing.print_line_centered(f"{playersInSession[player]['name']} pays {playersInSession[player]['bet']} to the bank")
@@ -441,36 +441,37 @@ def rounds_logic(playersInSession, maxRounds, orden):
         apuestasJugadores = []
 
         #Que cada jugador haga la apuesta
-        for player in orden:
-            if playersInSession[player]["human"]:
-                while True:
-                    utils.clear_screen()
-                    printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
-                    printing.print_line_centered("How much would you like to wager this round? (-1 to see game stats)", " ")
+        for player in orden[:-1]: #Se omite la última posición ya que es la banca y ésta no apuesta
+            if playersInSession[player]["points"] > 0:
+                if playersInSession[player]["human"]:
+                    while True:
+                        utils.clear_screen()
+                        printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
+                        printing.print_line_centered("How much would you like to wager this round? (-1 to see game stats)", " ")
 
-                    eleccion = input()
-                    if eleccion != "-1":
-                        if eleccion.isdigit():
-                            if int(eleccion) < 1:
-                                printing.print_line_centered(f"Invalid amount", " ")
-                                input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
-                            elif int(eleccion) > playersInSession[player]["points"]:
-                                printing.print_line_centered(f"You can only wager up to {playersInSession[player]['points']}!", " ")
-                                input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
+                        eleccion = input()
+                        if eleccion != "-1":
+                            if eleccion.isdigit():
+                                if int(eleccion) < 1:
+                                    printing.print_line_centered(f"Invalid amount", " ")
+                                    input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
+                                elif int(eleccion) > playersInSession[player]["points"]:
+                                    printing.print_line_centered(f"You can only wager up to {playersInSession[player]['points']}!", " ")
+                                    input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
+                                else:
+                                    playersInSession[player]["bet"] = int(eleccion)
+                                    printing.print_line_centered(f" Bet succesfully made ", "=")
+                                    input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
+                                    break
+
                             else:
-                                playersInSession[player]["bet"] = int(eleccion)
-                                printing.print_line_centered(f" Bet succesfully made ", "=")
+                                printing.print_line_centered(" Please insert a valid amount ", "*")
                                 input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
-                                break
-
                         else:
-                            printing.print_line_centered(" Please insert a valid amount ", "*")
-                            input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
-                    else:
-                        printing.print_main_game_scene(playersInSession, sizes.TOTAL_WIDTH)
-                        input()
-            else:
-                playersInSession[player]["bet"] = p.cpu_make_bet(playersInSession[player])
+                            printing.print_main_game_scene(playersInSession, sizes.TOTAL_WIDTH)
+                            input()
+                else:
+                    playersInSession[player]["bet"] = p.cpu_make_bet(playersInSession[player])
 
         #Se muestra la pantalla principal de las rondas antes de que empiece la ronda, para poder ver apuestas, puntos y demás
         utils.clear_screen()
@@ -479,7 +480,7 @@ def rounds_logic(playersInSession, maxRounds, orden):
 
         #Demás lógica de la ronda
         for player in orden:
-            if playersInSession[player]["human"]: #Si el jugador es humano se hará de esta forma
+            if playersInSession[player]["human"] and playersInSession[player]["points"] > 0: #Si el jugador es humano se hará de esta forma
                 turno = True
                 while turno:
                     utils.clear_screen()
@@ -543,13 +544,14 @@ def rounds_logic(playersInSession, maxRounds, orden):
                 apuestasJugadores.append(playersInSession[player]["bet"])
                 
             else: #Si el jugador es un bot se hará de esta forma
-                if p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
+                if playersInSession[player]["points"] > 0:
+                    if p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
 
-                    while p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
-                        deal_card(player)
+                        while p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
+                            deal_card(player)
 
-                else: #Si no puede demandar una carta, la apuesta será de uno
-                    playersInSession[player]["bet"] = 1
+                    else: #Si no puede demandar una carta, la apuesta será de uno
+                        playersInSession[player]["bet"] = 1
 
         #Se muestra como queda la ronda después de cada turno (sin distribuir puntos todavía)
         utils.clear_screen()
@@ -586,7 +588,11 @@ def game_main(padding, maxRounds):
 
 #PROBLEMAS
 
-#AHORA MISMO NO HAY FORMA DE DESCALIFICAR A ALGUIEN DEL JUEGO CUANDO SE QUEDA SIN PUNTOS.
-#FALTA HACER QUE LA BANCA NO APUESTE
+#AHORA MISMO NO HAY FORMA DE DESCALIFICAR A ALGUIEN DEL JUEGO CUANDO SE QUEDA SIN PUNTOS. X?
+#FALTA HACER QUE LA BANCA NO APUESTE X
 #QUITAR LO DE SET BET EN EL MENÚ
 #HACER QUE EL ORDEN DE PRIORIDADES SE HAGA DE FORMA CORRECTA (EN CASO DE QUE NO LO SEA YA, NO SÉ SI UNA PRIORIDAD MÁS ALTA ES MEJOR QUE UNA MÁS BAJA A LA HORA DE REPARTIR PUNTOS)
+
+#POSIBLES BUGS
+
+#CUANDO TIENE MUY POCOS PUNTOS LOS BOTS A VECES PUEDEN APOSTAR 0
