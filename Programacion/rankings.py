@@ -5,18 +5,6 @@ import utils
 from sizes import *
 from menu import *
 
-from sshtunnel import SSHTunnelForwarder
-import mysql.connector
-from db_access_config import *
-
-with SSHTunnelForwarder(**ssh_config) as tunnel:
-    connection = mysql.connector.connect(host="127.0.0.1", port=tunnel.local_bind_port, **db_config)
-    cursor = connection.cursor()
-    print("Connected to:", cursor.fetchone())
-    cursor.close()
-    connection.close()
-
-
 RANKING_LIMIT = 10
 RANKING_TO_ORDER_COLUMNS = {
     1: {
