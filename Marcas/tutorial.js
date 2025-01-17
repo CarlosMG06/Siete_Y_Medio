@@ -396,20 +396,20 @@ const PlayTutorialPart2 = async () => {
 }
 
 const PlayTutorialPart3 = async () => {
-    if (parseFloat(playerScores[1]) > 7.5) {
+    cardToGet = GetRandomNumber(0, cardsCopy.length - 1)
+    ShowCardTutorial2(cardToGet, cardsCopy, playerScores)
+    await Delay(500)
+    demandCardForm.style.visibility = "visible"
+    cardsCopy.splice(cardToGet, 1)
+
+    if (parseFloat(playerScores[1].innerHTML) > 7.5) {
         demandCardForm.style.visibility = "hidden"
         msgText.innerHTML = "¡Te has pasado!"
         msgDiv.style.visibility = "visible"
         playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) - parseInt(playerScores[2].innerHTML)
         bankScores[0].innerHTML = parseInt(bankScores[0].innerHTML) + parseInt(playerScores[2].innerHTML)
         return 
-    }
-
-    cardToGet = GetRandomNumber(0, cardsCopy.length - 1)
-    ShowCardTutorial2(cardToGet, cardsCopy, playerScores)
-    await Delay(500)
-    demandCardForm.style.visibility = "visible"
-    cardsCopy.splice(cardToGet, 1)
+    }    
 }
 
 const PlayTutorialPart4 = async () => {
@@ -433,16 +433,16 @@ const PlayTutorialPart4 = async () => {
         cardsCopy.splice(cardToGet, 1)
     }
 
-    if (parseFloat(bankScores[1].innerHTML) < parseFloat(playerScores[1].innerHTML)) {
+    if (parseFloat(playerScores[1].innerHTML) === 7.5 && parseFloat(bankScores[1].innerHTML) != 7.5) {
+        msgText.innerHTML = "¡Has ganado! Eres candidato a la banca"
+        playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) + Math.min(parseInt(playerScores[2].innerHTML), parseInt(bankScores[0].innerHTML))
+        bankScores[0].innerHTML = parseInt(bankScores[0].innerHTML) - parseInt(playerScores[2].innerHTML)
+    }
+    else if (parseFloat(bankScores[1].innerHTML) > 7.5) {
         msgText.innerHTML = "¡Has ganado!"
         playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) + Math.min(parseInt(playerScores[2].innerHTML), parseInt(bankScores[0].innerHTML))
         bankScores[0].innerHTML = parseInt(bankScores[0].innerHTML) - parseInt(playerScores[2].innerHTML)
         
-    }
-    else if (parseFloat(playerScores[1].innerHTML) === 7.5 && parseFloat(bankScores[1].innerHTML) != 7.5) {
-        msgText.innerHTML = "¡Has ganado! Eres candidato a la banca"
-        playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) + Math.min(parseInt(playerScores[2].innerHTML), parseInt(bankScores[0].innerHTML))
-        bankScores[0].innerHTML = parseInt(bankScores[0].innerHTML) - parseInt(playerScores[2].innerHTML)
     }
     else if (parseFloat(bankScores[1].innerHTML) === parseFloat(playerScores[1].innerHTML)) {
         msgText.innerHTML = "¡Gana la banca por empate!"
