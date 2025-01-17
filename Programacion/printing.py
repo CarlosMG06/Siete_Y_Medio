@@ -141,7 +141,6 @@ def print_main_game_scene(playersInSession, padding):
     print_title(titles.TITLES["game_title"], padding=padding)
     print_players(playersInSession, padding)
     print("")
-    print_line("Enter to continue", padding, " ")
 
 def print_title_with_player(player, round, title, padding = 0, fill_char = '*'):
     """
