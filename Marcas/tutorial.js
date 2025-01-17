@@ -1,5 +1,4 @@
 // Tutorial 1
-const titles = ["12 de Espadas", "1 de Copas", "1 de Bastos", "4 de Oros"]
 const cards = document.querySelectorAll(".card-t1")
 const cardTitles = document.querySelectorAll(".card-name-t1")
 const order = document.querySelector("#tutorial-players-order")
@@ -19,244 +18,322 @@ const standBtn = document.querySelector("#btn-stand")
 const betInput = document.querySelector("#input-bet")
 const cardDeck = [
     {
+        "id": "01O",
         "src": "images/carta_01_oros.avif",
         "name": "1 de Oros",
         "value": 1
     },
     {
+        "id": "02O",
         "src": "images/carta_02_oros.avif",
         "name": "2 de Oros",
         "value": 2
     },
     {
+        "id": "03O",
         "src": "images/carta_03_oros.avif",
         "name": "3 de Oros",
         "value": 3
     },
     {
+        "id": "04O",
         "src": "images/carta_04_oros.avif",
         "name": "4 de Oros",
         "value": 4
     },
     {
+        "id": "05O",
         "src": "images/carta_05_oros.avif",
         "name": "5 de Oros",
         "value": 5
     },
     {
+        "id": "06O",
         "src": "images/carta_06_oros.avif",
         "name": "6 de Oros",
         "value": 6
     },
     {
+        "id": "07O",
         "src": "images/carta_07_oros.avif",
         "name": "7 de Oros",
         "value": 7
     },
     {
+        "id": "08O",
         "src": "images/carta_08_oros.avif",
         "name": "8 de Oros",
         "value": 0.5
     },
     {
+        "id": "09O",
         "src": "images/carta_09_oros.avif",
         "name": "9 de Oros",
         "value": 0.5
     },
     {
+        "id": "10O",
         "src": "images/carta_10_oros.avif",
         "name": "10 de Oros",
         "value": 0.5
     },
     {
+        "id": "11O",
         "src": "images/carta_11_oros.avif",
         "name": "11 de Oros",
         "value": 0.5
     },
     {
+        "id": "12O",
         "src": "images/carta_12_oros.avif",
         "name": "12 de Oros",
         "value": 0.5
     },
     {
+        "id": "01C",
         "src": "images/carta_01_copas.avif",
         "name": "1 de Copas",
         "value": 1
     },
     {
+        "id": "02C",
         "src": "images/carta_02_copas.avif",
         "name": "2 de Copas",
         "value": 2
     },
     {
+        "id": "03C",
         "src": "images/carta_03_copas.avif",
         "name": "3 de Copas",
         "value": 3
     },
     {
+        "id": "04C",
         "src": "images/carta_04_copas.avif",
         "name": "4 de Copas",
         "value": 4
     },
     {
+        "id": "05C",
         "src": "images/carta_05_copas.avif",
         "name": "5 de Copas",
         "value": 5
     },
     {
+        "id": "06C",
         "src": "images/carta_06_copas.avif",
         "name": "6 de Copas",
         "value": 6
     },
     {
+        "id": "07C",
         "src": "images/carta_07_copas.avif",
         "name": "7 de Copas",
         "value": 7
     },
     {
+        "id": "08C",
         "src": "images/carta_08_copas.avif",
         "name": "8 de Copas",
         "value": 0.5
     },
     {
+        "id": "09C",
         "src": "images/carta_09_copas.avif",
         "name": "9 de Copas",
         "value": 0.5
     },
     {
+        "id": "10C",
         "src": "images/carta_10_copas.avif",
         "name": "10 de Copas",
         "value": 0.5
     },
     {
+        "id": "11C",
         "src": "images/carta_11_copas.avif",
         "name": "11 de Copas",
         "value": 0.5
     },
     {
+        "id": "12C",
         "src": "images/carta_12_copas.avif",
         "name": "12 de Copas",
         "value": 0.5
     },
     {
+        "id": "01B",
         "src": "images/carta_01_bastos.avif",
         "name": "1 de Bastos",
         "value": 1
     },
     {
+        "id": "02B",
         "src": "images/carta_02_bastos.avif",
         "name": "2 de Bastos",
         "value": 2
     },
     {
+        "id": "03B",
         "src": "images/carta_03_bastos.avif",
         "name": "3 de Bastos",
         "value": 3
     },
     {
+        "id": "04B",
         "src": "images/carta_04_bastos.avif",
         "name": "4 de Bastos",
         "value": 4
     },
     {
+        "id": "05B",
         "src": "images/carta_05_bastos.avif",
         "name": "5 de Bastos",
         "value": 5
     },
     {
+        "id": "06B",
         "src": "images/carta_06_bastos.avif",
         "name": "6 de Bastos",
         "value": 6
     },
     {
+        "id": "07B",
         "src": "images/carta_07_bastos.avif",
         "name": "7 de Bastos",
         "value": 7
     },
     {
+        "id": "08B",
         "src": "images/carta_08_bastos.avif",
         "name": "8 de Bastos",
         "value": 0.5
     },
     {
+        "id": "09B",
         "src": "images/carta_09_bastos.avif",
         "name": "9 de Bastos",
         "value": 0.5
     },
     {
+        "id": "10B",
         "src": "images/carta_10_bastos.avif",
         "name": "10 de Bastos",
         "value": 0.5
     },
     {
+        "id": "11B",
         "src": "images/carta_11_bastos.avif",
         "name": "11 de Bastos",
         "value": 0.5
     },
     {
+        "id": "12B",
         "src": "images/carta_12_bastos.avif",
         "name": "12 de Bastos",
         "value": 0.5
     },
     {
+        "id": "01E",
         "src": "images/carta_01_espadas.avif",
         "name": "1 de Espadas",
         "value": 1
     },
     {
+        "id": "02E",
         "src": "images/carta_02_espadas.avif",
         "name": "2 de Espadas",
         "value": 2
     },
     {
+        "id": "03E",
         "src": "images/carta_03_espadas.avif",
         "name": "3 de Espadas",
         "value": 3
     },
     {
+        "id": "04E",
         "src": "images/carta_04_espadas.avif",
         "name": "4 de Espadas",
         "value": 4
     },
     {
+        "id": "05E",
         "src": "images/carta_05_espadas.avif",
         "name": "5 de Espadas",
         "value": 5
     },
     {
+        "id": "06E",
         "src": "images/carta_06_espadas.avif",
         "name": "6 de Espadas",
         "value": 6
     },
     {
+        "id": "07E",
         "src": "images/carta_07_espadas.avif",
         "name": "7 de Espadas",
         "value": 7
     },
     {
+        "id": "08E",
         "src": "images/carta_08_espadas.avif",
         "name": "8 de Espadas",
         "value": 0.5
     },
     {
+        "id": "09E",
         "src": "images/carta_09_espadas.avif",
         "name": "9 de Espadas",
         "value": 0.5
     },
     {
+        "id": "10E",
         "src": "images/carta_10_espadas.avif",
         "name": "10 de Espadas",
         "value": 0.5
     },
     {
+        "id": "11E",
         "src": "images/carta_11_espadas.avif",
         "name": "11 de Espadas",
         "value": 0.5
     },
     {
+        "id": "12E",
         "src": "images/carta_12_espadas.avif",
         "name": "12 de Espadas",
         "value": 0.5
+    }
+]
+
+const cardPriority = {
+    "O": 1,
+    "C": 2,
+    "B": 4,
+    "E": 3
+}
+
+const playersPriorities = [
+    {
+        "name": "Jordi",
+        "priority": 1,
+        "cardId": ""
+    },
+    {
+        "name": "Marina",
+        "priority": 1,
+        "cardId": ""
+    },
+    {
+        "name": "Aurora",
+        "priority": 1,
+        "cardId": ""
+    },
+    {
+        "name": "Albert",
+        "priority": 1,
+        "cardId": ""
     }
 ]
 
@@ -266,14 +343,29 @@ let points = 0
 const Delay = ms => new Promise(res => setTimeout(res, ms));
 
 const PriorityTutorial = async () => {
-    for (let index = 0; index < cards.length; index++) {
-        cards[index].style.visibility = "visible"
-        cardTitles[index].innerHTML = titles[index]
-        cardTitles[index].style.visibility = "visible"
 
-        await Delay(1750);
+    cardsCopy = [...cardDeck]
+    for (let index = 0; index < playersPriorities.length; index++) {
+        cardToGet = GetRandomNumber(0, cardsCopy.length - 1)
+        ShowCardTutorial1(index, cardToGet, cardsCopy)
+        playersPriorities[index]["cardId"] = cardsCopy[cardToGet]["id"]
+        cardsCopy.splice(cardToGet, 1)
+        await Delay(1500)
     }
 
+    playersOrder = OrderPlayers(playersPriorities)
+
+    order.innerHTML = `
+    <p>
+        Orden de los jugadores:
+        <ol>
+            <li><p>${playersOrder[0]} <span>&#x279C</span> <span class="txt-prioriry">Prioridad 1</span></p></li>
+            <li><p>${playersOrder[1]} <span>&#x279C</span> <span class="txt-prioriry">Prioridad 2</span></p></li>
+            <li><p>${playersOrder[2]} <span>&#x279C</span> <span class="txt-prioriry">Prioridad 3</span></p></li>
+            <li><p>${playersOrder[3]} <strong/>(Banca)</strong> <span>&#x279C</span> <span class="txt-prioriry">Prioridad 4</span></p></li>
+        </ol>
+    </p>
+    `
     order.style.visibility = "visible"
 }
 
@@ -383,6 +475,57 @@ const ResetPlayTutorial = () => {
     insertBetForm.style.visibility = "hidden"
 
     points = 0
+}
+
+const ShowCardTutorial1 = (playerIndex, cardIndex, dict) => {
+    cards[playerIndex].src = dict[cardIndex]["src"]
+    cardTitles[playerIndex].innerHTML = dict[cardIndex]["name"]
+    cards[playerIndex].style.visibility = "visible"
+    cardTitles[playerIndex].style.visibility = "visible"
+}
+
+const OrderPlayers = (playerList) => {
+    let orderFull = []
+    let order = []
+
+    for (let index = 0; index < playerList.length; index++) {
+        let number = parseInt(playerList[index]["cardId"].slice(0, 2))
+        let palo = playerList[index]["cardId"].slice(-1)
+        let position = 0
+
+        for (let subIndex = 0; subIndex < orderFull.length; subIndex++) {
+            if (number < orderFull[subIndex]["number"]) {
+                position = subIndex
+                break
+            }
+
+            if (number === orderFull["number"]) {
+                let priorityNew = cardPriority[palo]
+                let priorityCurrent = cardPriority[orderFull[subIndex]["palo"]]
+                position = priorityNew < priorityCurrent ? subIndex : subIndex + 1
+                break
+            }
+            position = subIndex + 1
+        }
+
+        player = {
+            "name": playerList[index]["name"],
+            "number": number,
+            "palo": palo
+        }
+        if (position >= orderFull.length) {
+            orderFull.push(player)
+        }
+        else {
+            orderFull.splice(position, 0, player)
+        }
+    }
+
+    for (let index = 0; index < orderFull.length; index++) {
+        order.push(orderFull[index]["name"])
+    }
+
+    return order
 }
 
 const ShowCardTutorial2 = (cardIndex, dict, scores) => {
