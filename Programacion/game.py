@@ -436,7 +436,76 @@ def distribute_points(orden):
 
 
 
-        
+def check_bank_status(orden):
+    #Hacer que cambie la banca a quien tiene que ser la banca y que reordene la lista orden
+    #No tienen que intercambiar prioridad
+    newOrder = []
+
+    
+    #Aquí se comprueba en caso de que la banca no haya perdido si alguien ha sacado 7.5 y la banca no.
+    #Hace falta cambiar siquiera el orden?? Sí, todo el programa está hecho con la idea de que la banca está al final de la lista
+    
+    #Para asegurarme de que sea según el orden de prioridad debería invertir el orden de "orden"
+    for player in orden:
+        if playersInSession[player]["roundPoints"] == 7.5 and playersInSession[orden[-1]]["roundPoints"] != 7.5:
+            playersInSession[orden[-1]]["bank"] = False
+            playersInSession[player]["bank"] = True
+
+            printing.print_line_centered(f"{playersInSession[player]["name"]} is the new bank", " ")
+            ganador = player
+            #Necesito hacer que el jugador que saca 7.5 se quede al final de la lista y que al resto se les ordene en "orden" según la prioridad que tienen.
+            #Se recorre la lista con las prioridades y se comprueba que no sea el ganador, se añade en newOrder en orden ya que orden ya está ordenado
+            for player in orden:
+                if player != ganador:
+                    newOrder.append(player)
+            
+            #Por último se añade al ganador como último index de la lista representando la banca
+            newOrder.append(ganador)
+
+            txt = "New order is: "
+            for player in newOrder:
+                if playersInSession[player]["points"] > 0:
+                    if newOrder.index(player) != len(newOrder) - 1:
+                        txt += f"{playersInSession[player]["name"]} -> "
+                    else:
+                        txt += f"{playersInSession[player]["name"]}"
+
+            printing.print_line_centered(f" {txt} ", "=")
+
+            return newOrder
+    
+    puntosBanca = playersInSession[orden[-1]]["points"]
+    #En caso de que la banca se haya quedado sin puntos pero alguien no haya sacado 7.5 se pasa al anterior en la lista de prioridad
+    if puntosBanca == 0:
+        playersInSession[orden[-1]]["bank"] = False
+        playersInSession[orden[-2]]["bank"] = True
+
+        newOrder = orden[:-1] #Se hace que la lista de newOrder tenga todos menos a la banca que acaba de perder y desupués se le añade al principio
+                             #Por ahora voy a probar a ni añadirla al principio. HAY QUE HACERLO
+        newOrder.insert(0, orden[-1])
+        printing.print_line_centered(f"The bank has been eliminated, {playersInSession[orden[-2]]["name"]} is the new bank", " ")
+        return newOrder
+
+
+    if len(newOrder) == 0: #Si ha habido algún cambio en newOrder quiere decir que algo ha cambiado en el orden de prioridades
+        newOrder = orden
+
+    return newOrder
+
+
+def check_game_winner(orden):
+    #El ganador es la persona con más puntos de la partida
+
+    #Se asigna como ganador al primero de la lista, después se recorre un bucle y va asignando como ganador a la persona con mayor puntaje del juego
+    winner = orden[0]
+
+    for player in orden[1:]:
+        if playersInSession[player]["points"] > playersInSession[winner]["points"]:
+            winner = player
+
+    return winner
+
+
 
 
 def rounds_logic(playersInSession, maxRounds, orden):
@@ -568,6 +637,9 @@ def rounds_logic(playersInSession, maxRounds, orden):
         
         #Ver quien gana y repartir puntos
         distribute_points(orden=orden)
+
+        orden = check_bank_status(orden=orden)
+
         input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
 
         #A partir de aquí es cuando termina cada ronda.
@@ -576,6 +648,29 @@ def rounds_logic(playersInSession, maxRounds, orden):
             playersInSession[player]["roundPoints"] = 0
             playersInSession[player]["bet"] = 0
         playedCards = []
+
+        #Comprobar si hay más de una persona con puntos, en caso de que no, la persona que queda es la ganadora.
+        numPersonasConPuntos = 0
+        for player in playersInSession:
+            if playersInSession[player]["points"] > 0:
+                numPersonasConPuntos += 1
+
+        if numPersonasConPuntos == 1:
+            for player in playersInSession:
+                if playersInSession[player]["points"] != 0:
+                    winner = player
+                    break
+            break
+    
+    #A partir de aquí es cuando termina la partida
+    winner = check_game_winner(orden=orden)
+
+    utils.clear_screen()
+    printing.print_title(titles.TITLES["game_title"], padding=sizes.TOTAL_WIDTH)
+    printing.print_line_centered(" WINNER ", "=")
+    printing.print_line_centered(f" {playersInSession[winner]["name"]} has won the game with {playersInSession[winner]["points"]} points! ")
+
+    input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
 
 
 
