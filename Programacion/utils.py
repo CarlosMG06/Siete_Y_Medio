@@ -53,4 +53,6 @@ def doBurbuja(lista):
     return resultado
 
 def generate_random_number(start, end):
+    if math.floor(start) == 0:
+        start =+ 1
     return random.randint(math.floor(start), math.floor(end))
