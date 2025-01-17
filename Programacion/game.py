@@ -298,11 +298,8 @@ def check_losers_winners(orden):
 
 def distribute_points(orden):
     losers = check_losers_winners(orden)
-    for loser in losers:
-        print(playersInSession[loser]["name"])
-    input("losers")
 
-    #utils.clear_screen()
+    utils.clear_screen()
     printing.print_title(title=titles.TITLES["game_title"], padding=sizes.TOTAL_WIDTH)
 
     printing.print_line_centered(f" ROUND RESULTS ", "=")
@@ -310,34 +307,37 @@ def distribute_points(orden):
     if len(losers) == 1:
         if playersInSession[losers[0]]["bank"]: #Si el único perdedor es la banca se tendrá que repartir por prioridades
             canBankPay = True
-            for player in orden[:-1]:
+
+            #El orden en "orden" es de menor a mayor prioridad, pero la repartición de puntos es de mayor a menor prioridad
+            for player in orden[::-1][1:]: #Se invierte el orden de "orden" y se skipea el index 1, que es la banca
                 if canBankPay:
-                    if playersInSession[player]["roundPoints"] != 7.5:
-                        #Si la apuesta es mayor que el dinero que tiene la banca (no tiene dinero suficiente para pagar)
-                        if playersInSession[player]["bet"] > playersInSession[orden[-1]]["points"] or playersInSession[player]["bet"] - playersInSession[orden[-1]]["points"] == 0:                    
-                            playersInSession[player]["points"] += playersInSession[orden[-1]]["points"]
-                            printing.print_line_centered(f"Bank has payed {playersInSession[orden[-1]]['points']} to {playersInSession[player]['name']}", " ")
-                            playersInSession[orden[-1]]["points"] = 0
-                            canBankPay = False
-                            
+                    if playersInSession[player]["points"] > 0:
+                        if playersInSession[player]["roundPoints"] != 7.5:
+                            #Si la apuesta es mayor que el dinero que tiene la banca (no tiene dinero suficiente para pagar)
+                            if playersInSession[player]["bet"] > playersInSession[orden[-1]]["points"] or playersInSession[player]["bet"] - playersInSession[orden[-1]]["points"] == 0:                    
+                                playersInSession[player]["points"] += playersInSession[orden[-1]]["points"]
+                                printing.print_line_centered(f"Bank has payed {playersInSession[orden[-1]]['points']} to {playersInSession[player]['name']}", " ")
+                                playersInSession[orden[-1]]["points"] = 0
+                                canBankPay = False
+                                
 
+                            else:
+                                playersInSession[player]["points"] += playersInSession[player]["bet"]
+                                playersInSession[orden[-1]]["points"] -= playersInSession[player]["bet"]
+                                printing.print_line_centered(f"Bank has payed {playersInSession[player]['bet']} to {playersInSession[player]['name']}", " ")
                         else:
-                            playersInSession[player]["points"] += playersInSession[player]["bet"]
-                            playersInSession[orden[-1]]["points"] -= playersInSession[player]["bet"]
-                            printing.print_line_centered(f"Bank has payed {playersInSession[player]['bet']} to {playersInSession[player]['name']}", " ")
-                    else:
-                        #Si la apuesta es mayor que el dinero que tiene la banca (no tiene dinero suficiente para pagar)
-                        if playersInSession[player]["bet"] * 2 > playersInSession[orden[-1]]["points"] or (playersInSession[player]["bet"] * 2) - playersInSession[orden[-1]]["points"] == 0:                    
-                            playersInSession[player]["points"] += playersInSession[orden[-1]]["points"]
-                            printing.print_line_centered(f"Bank has payed {playersInSession[orden[-1]]['points']} to {playersInSession[player]['name']}", " ")
-                            playersInSession[orden[-1]]["points"] = 0
-                            canBankPay = False
-                            
+                            #Si la apuesta es mayor que el dinero que tiene la banca (no tiene dinero suficiente para pagar)
+                            if playersInSession[player]["bet"] * 2 > playersInSession[orden[-1]]["points"] or (playersInSession[player]["bet"] * 2) - playersInSession[orden[-1]]["points"] == 0:                    
+                                playersInSession[player]["points"] += playersInSession[orden[-1]]["points"]
+                                printing.print_line_centered(f"Bank has payed {playersInSession[orden[-1]]['points']} to {playersInSession[player]['name']}", " ")
+                                playersInSession[orden[-1]]["points"] = 0
+                                canBankPay = False
+                                
 
-                        else:
-                            playersInSession[player]["points"] += playersInSession[player]["bet"] * 2
-                            playersInSession[orden[-1]]["points"] -= playersInSession[player]["bet"] * 2
-                            printing.print_line_centered(f"Bank has payed {playersInSession[player]['bet'] * 2} to {playersInSession[player]['name']}", " ")
+                            else:
+                                playersInSession[player]["points"] += playersInSession[player]["bet"] * 2
+                                playersInSession[orden[-1]]["points"] -= playersInSession[player]["bet"] * 2
+                                printing.print_line_centered(f"Bank has payed {playersInSession[player]['bet'] * 2} to {playersInSession[player]['name']}", " ")
                 else:
                     printing.print_line_centered(f"Bank is out of money and can't pay anymore.", " ")
 
@@ -345,13 +345,16 @@ def distribute_points(orden):
 
         else: #Si el único perdedor no es la banca
             canBankPay = True
-            for player in orden:
+            for player in orden: #Aquí el único perdedor (que no es la banca) le paga a la banca
                 if playersInSession[player] in losers and playersInSession[player]["points"] > 0: #Este perdedor no es la banca
                     playersInSession[orden[-1]]["points"] += playersInSession[player]["bet"]
                     playersInSession[player]["points"] -= playersInSession[player]["bet"]
                     printing.print_line_centered(f"{playersInSession[player]['name']} pays {playersInSession[player]['bet']} to the bank")
                 
-                else: #Aquí se tratan los ganadores (en el caso de que solo haya un perdedor)
+            #Aquí es donde se reparten los puntos a los ganadores, aunque la banca en este punto aunque haya ganado contra 1 ya tiene los puntos gracias al bucle anterior
+            for player in orden[::-1][1:]: #Se invierte el orden de "orden" y se skipea a la banca
+                 #Aquí se tratan los ganadores (en el caso de que solo haya un perdedor)
+                if playersInSession[player] not in losers and playersInSession[player]["points"] > 0:
                     if playersInSession[player]["bank"] == False: #En caso de que no sea la banca, ya que no hace falta hacer nada con la banca si es ganadora en este momento
                         #La banca tiene que pagar a los ganadores
                         if canBankPay:
@@ -385,16 +388,16 @@ def distribute_points(orden):
 
         #Primero se suma todo lo de los perdedores que no sean la banca a la banca
         for player in losers:
-            if playersInSession[player]["bank"] == False:
+            if playersInSession[player]["bank"] == False and playersInSession[player]["points"] > 0:
                 printing.print_line_centered(f"{playersInSession[player]['name']} pays {playersInSession[player]['bet']} to the bank", " ")
                 playersInSession[orden[-1]]["points"] += playersInSession[player]["bet"] #Se suma a la banca los puntos
                 playersInSession[player]["points"] -= playersInSession[player]["bet"] #Se le resta al perdedor los puntos
 
 
-        #En este punto los jugadores perdedores ya han pagado a la banca, por lo que se les omite
+        #En este punto los jugadores perdedores ya han pagado a la banca, por lo que se omite a la banca
         canBankPay = True
-        for player in orden[:-1]:
-            if player not in losers: #Si el jugador es ganador (y no la banca)
+        for player in orden[::-1][1:]: #Se invierte y skipea la banca
+            if player not in losers and playersInSession[player]["points"] > 0: #Si el jugador es ganador (y no la banca)
                 if canBankPay:
                     if playersInSession[player]["roundPoints"] == 7.5: #Si el jugador tiene 7.5 roundPoints (gana el doble de la bet)
                         #En caso de que cuando pague tenga más o igual a 0 paga
@@ -426,11 +429,84 @@ def distribute_points(orden):
                     printing.print_line_centered(f"Bank is out of money and can't pay anymore", " ")
 
         #PROBLEMA: A VECES LA BANCA NO REPARTE LOS PUNTOS A ALGUIEN CONTRA QUIEN PIERDE (QUIZAS SOLO OCURRE SI OTROS PIERDEN CONTRA ELLA, O SI EL GANADOR SACA 7.5)
+        #ARREGLADO ?
+
+        #PROBLEMA: A VECES LA BANCA REPARTE PUNTOS A ALGUIEN CONTRA QUIEN GANA POR ALGÚN MOTIVO
 
 
 
 
-        
+def check_bank_status(orden):
+    #Hacer que cambie la banca a quien tiene que ser la banca y que reordene la lista orden
+    #No tienen que intercambiar prioridad
+    newOrder = []
+
+    
+    #Aquí se comprueba en caso de que la banca no haya perdido si alguien ha sacado 7.5 y la banca no.
+    #Hace falta cambiar siquiera el orden?? Sí, todo el programa está hecho con la idea de que la banca está al final de la lista
+    
+    #Para asegurarme de que sea según el orden de prioridad debería invertir el orden de "orden"
+    for player in orden:
+        if playersInSession[player]["roundPoints"] == 7.5 and playersInSession[orden[-1]]["roundPoints"] != 7.5:
+            playersInSession[orden[-1]]["bank"] = False
+            playersInSession[player]["bank"] = True
+
+            printing.print_line_centered(f"{playersInSession[player]["name"]} is the new bank", " ")
+            ganador = player
+            #Necesito hacer que el jugador que saca 7.5 se quede al final de la lista y que al resto se les ordene en "orden" según la prioridad que tienen.
+            #Se recorre la lista con las prioridades y se comprueba que no sea el ganador, se añade en newOrder en orden ya que orden ya está ordenado
+            for player in orden:
+                if player != ganador:
+                    newOrder.append(player)
+            
+            #Por último se añade al ganador como último index de la lista representando la banca
+            newOrder.append(ganador)
+
+            txt = "New order is: "
+            for player in newOrder:
+                if playersInSession[player]["points"] > 0:
+                    if newOrder.index(player) != len(newOrder) - 1:
+                        txt += f"{playersInSession[player]["name"]} -> "
+                    else:
+                        txt += f"{playersInSession[player]["name"]}"
+
+            printing.print_line_centered(f" {txt} ", "=")
+
+            return newOrder
+    
+    puntosBanca = playersInSession[orden[-1]]["points"]
+    #En caso de que la banca se haya quedado sin puntos pero alguien no haya sacado 7.5 se pasa al anterior en la lista de prioridad
+    if puntosBanca == 0:
+        playersInSession[orden[-1]]["bank"] = False
+        playersInSession[orden[-2]]["bank"] = True
+
+        newOrder = orden[:-1] #Se hace que la lista de newOrder tenga todos menos a la banca que acaba de perder y desupués se le añade al principio
+                             #Por ahora voy a probar a ni añadirla al principio. HAY QUE HACERLO
+        newOrder.insert(0, orden[-1])
+        printing.print_line_centered(f"The bank has been eliminated, {playersInSession[orden[-2]]["name"]} is the new bank", " ")
+        return newOrder
+
+
+    if len(newOrder) == 0: #Si ha habido algún cambio en newOrder quiere decir que algo ha cambiado en el orden de prioridades
+        newOrder = orden
+
+    return newOrder
+
+
+def check_game_winner(orden):
+    #El ganador es la persona con más puntos de la partida
+
+    #Se asigna como ganador al primero de la lista, después se recorre un bucle y va asignando como ganador a la persona con mayor puntaje del juego
+    winner = orden[0]
+
+    for player in orden[1:]:
+        if playersInSession[player]["points"] > playersInSession[winner]["points"]:
+            winner = player
+
+    return winner
+
+
+
 
 
 def rounds_logic(playersInSession, maxRounds, orden):
@@ -480,65 +556,81 @@ def rounds_logic(playersInSession, maxRounds, orden):
 
         #Demás lógica de la ronda
         for player in orden:
-            if playersInSession[player]["human"] and playersInSession[player]["points"] > 0: #Si el jugador es humano se hará de esta forma
-                turno = True
-                while turno:
-                    utils.clear_screen()
-                    printing.print_round_screen(round, playersInSession[player]["name"])
-                    eleccion = input()
-                    if int(eleccion) > 0 and int(eleccion) < 7 and eleccion.isdigit():
-                        if int(eleccion) == 6:
+            skipTurn = False
+            #Comprobar si es la banca y tiene que hacer algún movimiento o todos ya se han pasado
+            if player == orden[-1]:
+                lenJugadores = len(orden[:-1])
+                jugadoresQueSeHanPasado = 0
+                for player in orden[:-1]:
+                    if playersInSession[player]["roundPoints"] > 7.5:
+                        jugadoresQueSeHanPasado += 1
+                
+            if player == orden[-1] and jugadoresQueSeHanPasado  + 1 == lenJugadores:
+                skipTurn = True
+            if not skipTurn:
+                if playersInSession[player]["human"] and playersInSession[player]["points"] > 0: #Si el jugador es humano se hará de esta forma
+                    while True:
+                        utils.clear_screen()
+                        printing.print_round_screen(round, playersInSession[player]["name"])
+                        try:
+                            eleccion = input()
+                            if int(eleccion) > 0 and int(eleccion) < 6 and eleccion.isdigit():
+                                if int(eleccion) == 5:
+                                    printing.print_line(f" {playersInSession[player]['name']}'s turn is over ", padding=sizes.TOTAL_WIDTH, fill_char='=')
+                                    
+                                    input()
+                                    break
 
-                            printing.print_line(f" {playersInSession[player]['name']}'s turn is over ", padding=sizes.TOTAL_WIDTH, fill_char='=')
-                            input()
-                            break
+                                if int(eleccion) == 1: #Show Stats
+                                    utils.clear_screen()
+                                    printing.show_player_stats(player, playersInSession=playersInSession)
+                                    input()
 
-                        if int(eleccion) == 1: #Show Stats
-                            utils.clear_screen()
-                            printing.show_player_stats(player, playersInSession=playersInSession)
-                            input()
+                                if int(eleccion) == 2: #View Game Stats
+                                    printing.print_main_game_scene(playersInSession, sizes.TOTAL_WIDTH)
+                                    input()
+                                
+                                if int(eleccion) == 10: #Set Bet
+                                    set_bet(player) #Esto está mal, no se debería poder cambiar la apuesta, quitarlo después
 
-                        if int(eleccion) == 2: #View Game Stats
-                            printing.print_main_game_scene(playersInSession, sizes.TOTAL_WIDTH)
-                            input()
-                        
-                        if int(eleccion) == 3: #Set Bet
-                            set_bet(player) #Esto está mal, no se debería poder cambiar la apuesta, quitarlo después
+                                if int(eleccion) == 3: #Order Card
+                                    order_card(player)
+                                    
+                                if int(eleccion) == 4: #Automatic play
+                                    lenCards = len(playersInSession[player]["cards"])
 
-                        if int(eleccion) == 4: #Order Card
-                            order_card(player)
-                            
-                        if int(eleccion) == 5: #Automatic play
-                            lenCards = len(playersInSession[player]["cards"])
+                                    if lenCards == 0:
+                                        #playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
+                                        order_card_human_automatic(player)
+                                        utils.clear_screen()
+                                        printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
+                                        printing.print_line_centered(" AUTOMATIC PLAY ", "=")
+                                        printing.print_line_centered(f"{playersInSession[player]['name']} has made a bet of {playersInSession[player]['bet']} points", " ")
+                                        txtCards = ""
+                                        for card in playersInSession[player]["cards"]:
+                                            txtCards += card
+                                            if playersInSession[player]["cards"].index(card) != len(playersInSession[player]["cards"]) - 1:
+                                                txtCards += ";"
 
-                            if lenCards == 0:
-                                #playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
-                                order_card_human_automatic(player)
-                                utils.clear_screen()
-                                printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
-                                printing.print_line_centered(" AUTOMATIC PLAY ", "=")
-                                printing.print_line_centered(f"{playersInSession[player]['name']} has made a bet of {playersInSession[player]['bet']} points", " ")
-                                txtCards = ""
-                                for card in playersInSession[player]["cards"]:
-                                    txtCards += card
-                                    if playersInSession[player]["cards"].index(card) != len(playersInSession[player]["cards"]) - 1:
-                                        txtCards += ";"
+                                        printing.print_line_centered(f"Has ordered the cards: {txtCards}", " ")
+                                        printing.print_line_centered(f"Has ended with {playersInSession[player]['roundPoints']} round points.", " ")
 
-                                printing.print_line_centered(f"Has ordered the cards: {txtCards}", " ")
-                                printing.print_line_centered(f"Has ended with {playersInSession[player]['roundPoints']} round points.", " ")
+                                        input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
+                                        break
 
-                                input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
-                                break
+                                    else:
+                                        printing.print_line_centered(f"You have already ordered a card!", " ")
+                                        printing.print_line_centered(f"Automatic play is not available anymore", " ")
+                                        input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
 
                             else:
-                                printing.print_line_centered(f"You have already ordered a card!", " ")
-                                printing.print_line_centered(f"Automatic play is not available anymore", " ")
+                                printing.print_line(texts.TEXTS["invalid_option"], padding=sizes.TOTAL_WIDTH, fill_char='=')
                                 input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
-
-                    else:
-                        printing.print_line(texts.TEXTS["invalid_option"], padding=sizes.TOTAL_WIDTH, fill_char='=')
-                        input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
-                
+                        
+                        except ValueError:
+                            printing.print_line(texts.TEXTS["value_error"], padding=sizes.TOTAL_WIDTH, fill_char='=')
+                            input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+                    
                 #A partir de aquí es cuando termine el turno del jugador (pero aún sigue activa la ronda)
                 resultadosRonda.append(playersInSession[player]["roundPoints"])
                 apuestasJugadores.append(playersInSession[player]["bet"])
@@ -560,8 +652,10 @@ def rounds_logic(playersInSession, maxRounds, orden):
         
         #Ver quien gana y repartir puntos
         distribute_points(orden=orden)
-        input("bbbbbb")
         
+        orden = check_bank_status(orden)
+
+        input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
 
         #A partir de aquí es cuando termina cada ronda.
         for player in playersInSession:
@@ -570,7 +664,32 @@ def rounds_logic(playersInSession, maxRounds, orden):
             playersInSession[player]["bet"] = 0
         playedCards = []
 
-        #Mostrar los resultados de la ronda
+        #Comprobar si hay más de una persona con puntos, en caso de que no, la persona que queda es la ganadora.
+        numPersonasConPuntos = 0
+        for player in playersInSession:
+            if playersInSession[player]["points"] > 0:
+                numPersonasConPuntos += 1
+
+        if numPersonasConPuntos == 1:
+            for player in playersInSession:
+                if playersInSession[player]["points"] != 0:
+                    winner = player
+                    break
+            break
+
+
+    #A partir de aquí es cuando termina la partida
+
+    winner = check_game_winner(orden=orden)
+
+    utils.clear_screen()
+    printing.print_title(titles.TITLES["game_title"], padding=sizes.TOTAL_WIDTH)
+    printing.print_line_centered(" WINNER ", "=")
+    printing.print_line_centered(f" {playersInSession[winner]["name"]} has won the game with {playersInSession[winner]["points"]} points! ")
+
+    input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
+
+
 
 
 
@@ -588,10 +707,12 @@ def game_main(padding, maxRounds):
 
 #PROBLEMAS
 
-#AHORA MISMO NO HAY FORMA DE DESCALIFICAR A ALGUIEN DEL JUEGO CUANDO SE QUEDA SIN PUNTOS. X?
-#FALTA HACER QUE LA BANCA NO APUESTE X
-#QUITAR LO DE SET BET EN EL MENÚ
-#HACER QUE EL ORDEN DE PRIORIDADES SE HAGA DE FORMA CORRECTA (EN CASO DE QUE NO LO SEA YA, NO SÉ SI UNA PRIORIDAD MÁS ALTA ES MEJOR QUE UNA MÁS BAJA A LA HORA DE REPARTIR PUNTOS)
+
+#BUGS
+
+#A VECES CUANDO TIENEN LOS MISMOS ROUNDPOINTS LA BANCA Y OTRO JUGADOR, PIERDE LA BANCA
+#EN EL MENÚ DE ELEGIR ACCIÓN, SI SE ELIGE STAND HAY QUE HACER UN INPUT 2 VECES PARA QUE PASE DE TURNO
+
 
 #POSIBLES BUGS
 
