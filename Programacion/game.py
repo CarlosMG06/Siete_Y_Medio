@@ -530,6 +530,7 @@ def rounds_logic(playersInSession, maxRounds, orden):
                     if playersInSession[player]["bet"] == 0:
                         playersInSession[player]["bet"] = 1
 
+        
         #Se muestra la pantalla principal de las rondas antes de que empiece la ronda, para poder ver apuestas, puntos y demás
         utils.clear_screen()
         printing.print_main_game_scene(playersInSession, padding=sizes.TOTAL_WIDTH)
@@ -537,11 +538,21 @@ def rounds_logic(playersInSession, maxRounds, orden):
 
         #Demás lógica de la ronda
         for player in orden:
+            #Se reparte una carta al jugador antes de nada
+            if playersInSession[player]["points"] > 0:
+                deal_card(player=player)
+                
+
             if playersInSession[player]["human"] and playersInSession[player]["points"] > 0: #Si el jugador es humano se hará de esta forma
                 turno = True
+                isFirst = True
                 while turno:
                     utils.clear_screen()
                     printing.print_round_screen(round, playersInSession[player]["name"])
+                    if isFirst:
+                        print()
+                        printing.print_line_centered(f"{playersInSession[player]['name']} has received {playersInSession[player]['cards'][0]} as first card.", " ")
+                        isFirst = False
                     eleccion = input()
                     try:
                         if int(eleccion) > 0 and int(eleccion) < 6 and eleccion.isdigit():
@@ -566,13 +577,14 @@ def rounds_logic(playersInSession, maxRounds, orden):
                             if int(eleccion) == 4: #Automatic play
                                 lenCards = len(playersInSession[player]["cards"])
 
-                                if lenCards == 0:
+                                if lenCards == 1:
                                     #playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
                                     order_card_human_automatic(player)
                                     utils.clear_screen()
                                     printing.print_round_screen(round, playersInSession[player]["name"], showMenu=False)
                                     printing.print_line_centered(" AUTOMATIC PLAY ", "=")
-                                    printing.print_line_centered(f"{playersInSession[player]['name']} has made a bet of {playersInSession[player]['bet']} points", " ")
+                                    if not playersInSession[player]["bank"]:
+                                        printing.print_line_centered(f"{playersInSession[player]['name']} has made a bet of {playersInSession[player]['bet']} points", " ")
                                     txtCards = ""
                                     for card in playersInSession[player]["cards"]:
                                         txtCards += card
