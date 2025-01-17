@@ -2,6 +2,7 @@
 const cards = document.querySelectorAll(".card-t1")
 const cardTitles = document.querySelectorAll(".card-name-t1")
 const order = document.querySelector("#tutorial-players-order")
+const startTutorial1Btn = document.querySelector("#tutorial1-btn")
 
 // Tutorial 2
 const cardImg = document.querySelector("#card-t2")
@@ -16,6 +17,7 @@ const setBetBtn = document.querySelector("#btn-submit-bet")
 const demandCardBtn = document.querySelector("#btn-demand-card")
 const standBtn = document.querySelector("#btn-stand")
 const betInput = document.querySelector("#input-bet")
+const startTutorial2Btn = document.querySelector("#tutorial2-btn")
 const cardDeck = [
     {
         "id": "01O",
@@ -308,10 +310,10 @@ const cardDeck = [
 ]
 
 const cardPriority = {
-    "O": 1,
-    "C": 2,
-    "B": 4,
-    "E": 3
+    "O": 4,
+    "C": 3,
+    "E": 2,
+    "B": 1
 }
 
 const playersPriorities = [
@@ -343,7 +345,7 @@ let points = 0
 const Delay = ms => new Promise(res => setTimeout(res, ms));
 
 const PriorityTutorial = async () => {
-
+    startTutorial1Btn.disabled = true
     cardsCopy = [...cardDeck]
     for (let index = 0; index < playersPriorities.length; index++) {
         cardToGet = GetRandomNumber(0, cardsCopy.length - 1)
@@ -377,9 +379,12 @@ const ResetPriorityTutorial = () => {
         cardTitles[index].innerHTML = ""
         cardTitles[index].style.visibility = "hidden"
     }
+
+    startTutorial1Btn.disabled = false
 }
 
 const PlayTutorialPart1 = () => {
+    startTutorial2Btn.disabled = true
     insertBetForm.style.visibility = "visible"
 }
 
@@ -475,6 +480,8 @@ const ResetPlayTutorial = () => {
     insertBetForm.style.visibility = "hidden"
 
     points = 0
+
+    startTutorial2Btn.disabled = false
 }
 
 const ShowCardTutorial1 = (playerIndex, cardIndex, dict) => {
