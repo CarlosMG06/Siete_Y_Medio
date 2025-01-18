@@ -22,125 +22,127 @@
             </ul>
         </nav>
     </header>
-    <section id="s-intro">
-        <h2>Introducción</h2>
-        <p>El siete y medio es un juego de cartas que habitualmente utiliza la baraja española de 40 cartas. El juego consiste en obtener siete puntos y medio, o acercarse a esta puntuación lo más posible.</p>
-        <p> Las cartas tienen, indistintamente de su palo, el valor que indica su propio índice, excepto las figuras (sota, caballo y rey) que tienen un valor de medio punto cada una, y los (ocho, nueve, diez) en caso de utilizar una baraja española de 48 cartas o una baraja de póker.</p>
-        <p>El objetivo es ganar los puntos apostados en cada ronda. Cada jugador compite contra la banca. Para ganar la apuesta, cada jugador ha de intentar sumar siete y medio o el número más cercano sin pasarse de esta cantidad superando a la banca</p>
-    </section>
-    <section id="s-gameplay">
-        <h2>Desarrollo del juego</h2>
-        <ol>
-            <li>
-                <p>Habrá un <strong>mínimo de 2 jugadores</strong> y un <strong>máximo de 6 jugadores</strong> que se establecerán antes de empezar la partida.</p> <p>Podrán jugar tanto jugadores humanos como jugadores <em>máquina</em>.</p><p>Se establecerá una baraja de entre las posibles para jugar.</p>
-            </li>
-            <li>
-                <p>Se reparte 1 carta del mazo a cada jugador para establecer prioridades.</p><p><strong>El jugador que consiga la carta más alta es el que tiene mayor prioridad</strong>.</p> <p>En caso de que 2 o más jugadores saquen la carta más alta, la prioridad es:</p>
-                <ol>
-                    <li>Oros</li>
-                    <li>Copas</li>
-                    <li>Espadas</li>
-                    <li>Bastos</li>
-                </ol>
-                <p class="disclaimer">En caso de jugar una baraja de póker, por ejemplo, la prioridad de las cartas se establecen según los equivalentes a oros, copas, espadas, bastos.</p>
-            </li>
-            <li>
-                <p>El jugador con <strong>mayor prioridad será la banca</strong>, y los turnos irán en <strong>función de la prioridad</strong>, primero el jugador con menor prioridad, luego el siguiente con menor prioridad, y por último la banca.</p>
-                <p>Cada jugador inicia la partida con <strong>20 puntos</strong>.</p>
-                <p>Habrá un <strong>máximo de 30 rondas</strong>.</p>
-            </li>
-            <li><p>Antes de repartirse ninguna carta, <strong>se establecen las apuestas para cada ronda</strong>.</p></li>
-            <li><p>Seguidamente, el programa reparte una carta a cada jugador y comienza la primera ronda.</p><p>Cada jugador <strong>decide si quiere recibir más cartas</strong> del mazo. Si no quiere más cartas, <strong>se planta</strong>.</p><p>Puede pedir tantas cartas del mazo como crea conveniente y se puede plantar cuando quiera.</p></li>
-            <li>
-                <p>Cuando todos han acabado de escoger cartas, <strong>juega la banca</strong>, si la banca no se pasa, se compara la puntuación de la banca con la de cada jugador:</p>
-                <ul>
-                    <li>
-                        <p>Si el jugador tiene igual de puntos o menos que la banca, <strong>paga lo apostado a la banca</strong>.</p>
-                    </li>
-                    <li>
-                        <p>Si el jugador se ha pasado, <strong>lo apostado a la banca</strong>.</p>
-                    </li>
-                    <li>
-                        <p>Si el jugador tiene siete y medio y la banca no, <strong>gana el doble de lo apostado y pasará a ser uno de los candidatos a la banca</strong>.</p>
-                    </li>
-                    <li>
-                        <p>En caso de no tener siete y medio, pero tener más puntos que la banca, <strong>la banca le paga lo apostado</strong>.</p>
-                    </li>
-                </ul>
-                <p>Si la banca se pasa, <strong>pagará a todos los jugadores que no se hayan pasado</strong> lo que hayan apostado.</p>
-                <p>El jugador que pierde todos sus puntos, <strong>queda eliminado</strong> de la partida. Los otros pueden seguir jugando más rondas.</p>
-            </li>
-            <li>
-                <p>Una vez realizado los pagos, si la banca no ha sacado siete y medio, y hay candidatos a la banca, el <strong>jugador con más prioridad</strong> de entre los candidatos, <strong>pasará a ser la nueva banca</strong>.</p>
-                <p>En caso de quedar eliminada la banca, si no hay candidatos a la banca, <strong>el jugador con más prioridad</strong> pasará a ser la nueva banca.</p>
-            </li>
-            <li>
-                <p>El jugador ganador es el que más puntos ha obtenido después de todas las rondas jugadas.</p>
-            </li>
-        </ol>        
-    </section>
-    <section id="s-rule-point-distribution">
-        <h2>Reglas para repartir los puntos apostados</h2>
-        <ul>
-            <li>
-                <p>La banca juega contra todos y cada uno de los jugadores, y, por lo tanto, si ella se ha pasado, deberá pagar su apuesta a todos aquellos jugadores que se hubieran plantado sin pasarse.</p>
-            </li>
-            <li>
-                <p>Si la banca se ha plantado, comprueba con cada jugador su jugada para ver a quién vence y con quién pierde. En cada apuesta vence quien más se acerque a siete y medio.</p>
-            </li>
-            <li>
-                <p>En caso de empate gana la banca; por lo tanto, si la banca tiene siete y medio, gana automáticamente a todos los jugadores.</p>
-            </li>
-            <li>
-                <p>La banca debe pagar la cantidad apostada, a cada jugador con el que pierda, y a la inversa, cada jugador que pierda con la banca debe pagarle a esta lo apostado.</p>
-            </li>
-            <li>
-                <p>Si un jugador tiene siete y medio (y la banca no) cobra el doble de lo apostado y además <strong>pasa a ser candidato a banca</strong> la ronda siguiente.</p>
-            </li>
-            <li>
-                <p>En caso de que haya más de un jugador con siete y medio, y la banca <strong>NO</strong>, el jugador con más prioridad de entre los que tienen siete y medio pasará a ser la banca.</p>
-            </li>
-            <li>
-                <p>El jugador que pierde sus puntos queda eliminado de la partida.</p>
-            </li>
-            <li>
-                <p>Si la banca queda eliminada y ningún jugador tiene siete y medio, el jugador con más prioridad pasará a ser la banca.</p>
-            </li>
-            <li>
-                <p>Si la banca ha de pagar a varios jugadores, pero no tiene suficientes puntos para pagar a todos, irá realizando los pagos que pueda según la prioridad de los jugadores. Es decir:</p>
-                <ul>
-                    <li>
-                        <p>Primero paga al jugador con más prioridad, luego al segundo, y así sucesivamente mientras tenga puntos para pagar. Es posible que el último jugador al que tenga que pagar no reciba los puntos que debería (la banca no tiene más puntos).</p>
-                    </li>
-                    <li>
-                        <p>Si la banca se queda sin puntos, quedará eliminada y se elegirá una nueva banca:</p>
-                        <ul>
-                            <li>
-                                <p>Entre los jugadores que tengan 7.5, si hay alguno.</p>
-                            </li>
-                            <li>
-                                <p>Entre todos si no hay ningún jugador con 7.5, siempre en función de la prioridad de los jugadores.</p>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <p>La partida continúa hasta que:</p>
-                <ul>
-                    <li>
-                        <p>Un único jugador se hace con todos los puntos en juego, quedando los demás eliminados.</p>
-                    </li>
-                    <li>
-                        <p>Hasta que se disputa el máximo de manos fijadas para la partida, que puede ser hasta un máximo de 30, en cuyo caso el vencedor es quien acumula mayor cantidad de puntos al final de la partida.</p>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <p>La cantidad de puntos a apostar, salvo en el caso de un jugador humano, que podrá establecer la apuesta manualmente, se realizará en función del perfil de jugador.</p>
-            </li>
-        </ul>
-    </section>
+    <main>
+        <section id="s-intro">
+            <h2>Introducción</h2>
+            <p>El siete y medio es un juego de cartas que habitualmente utiliza la baraja española de 40 cartas. El juego consiste en obtener siete puntos y medio, o acercarse a esta puntuación lo más posible.</p>
+            <p> Las cartas tienen, indistintamente de su palo, el valor que indica su propio índice, excepto las figuras (sota, caballo y rey) que tienen un valor de medio punto cada una, y los (ocho, nueve, diez) en caso de utilizar una baraja española de 48 cartas o una baraja de póker.</p>
+            <p>El objetivo es ganar los puntos apostados en cada ronda. Cada jugador compite contra la banca. Para ganar la apuesta, cada jugador ha de intentar sumar siete y medio o el número más cercano sin pasarse de esta cantidad superando a la banca</p>
+        </section>
+        <section id="s-gameplay">
+            <h2>Desarrollo del juego</h2>
+            <ol>
+                <li>
+                    <p>Habrá un <strong>mínimo de 2 jugadores</strong> y un <strong>máximo de 6 jugadores</strong> que se establecerán antes de empezar la partida.</p> <p>Podrán jugar tanto jugadores humanos como jugadores <em>máquina</em>.</p><p>Se establecerá una baraja de entre las posibles para jugar.</p>
+                </li>
+                <li>
+                    <p>Se reparte 1 carta del mazo a cada jugador para establecer prioridades.</p><p><strong>El jugador que consiga la carta más alta es el que tiene mayor prioridad</strong>.</p> <p>En caso de que 2 o más jugadores saquen la carta más alta, la prioridad es:</p>
+                    <ol>
+                        <li>Oros</li>
+                        <li>Copas</li>
+                        <li>Espadas</li>
+                        <li>Bastos</li>
+                    </ol>
+                    <p class="disclaimer">En caso de jugar una baraja de póker, por ejemplo, la prioridad de las cartas se establecen según los equivalentes a oros, copas, espadas, bastos.</p>
+                </li>
+                <li>
+                    <p>El jugador con <strong>mayor prioridad será la banca</strong>, y los turnos irán en <strong>función de la prioridad</strong>, primero el jugador con menor prioridad, luego el siguiente con menor prioridad, y por último la banca.</p>
+                    <p>Cada jugador inicia la partida con <strong>20 puntos</strong>.</p>
+                    <p>Habrá un <strong>máximo de 30 rondas</strong>.</p>
+                </li>
+                <li><p>Antes de repartirse ninguna carta, <strong>se establecen las apuestas para cada ronda</strong>.</p></li>
+                <li><p>Seguidamente, el programa reparte una carta a cada jugador y comienza la primera ronda.</p><p>Cada jugador <strong>decide si quiere recibir más cartas</strong> del mazo. Si no quiere más cartas, <strong>se planta</strong>.</p><p>Puede pedir tantas cartas del mazo como crea conveniente y se puede plantar cuando quiera.</p></li>
+                <li>
+                    <p>Cuando todos han acabado de escoger cartas, <strong>juega la banca</strong>, si la banca no se pasa, se compara la puntuación de la banca con la de cada jugador:</p>
+                    <ul>
+                        <li>
+                            <p>Si el jugador tiene igual de puntos o menos que la banca, <strong>paga lo apostado a la banca</strong>.</p>
+                        </li>
+                        <li>
+                            <p>Si el jugador se ha pasado, <strong>lo apostado a la banca</strong>.</p>
+                        </li>
+                        <li>
+                            <p>Si el jugador tiene siete y medio y la banca no, <strong>gana el doble de lo apostado y pasará a ser uno de los candidatos a la banca</strong>.</p>
+                        </li>
+                        <li>
+                            <p>En caso de no tener siete y medio, pero tener más puntos que la banca, <strong>la banca le paga lo apostado</strong>.</p>
+                        </li>
+                    </ul>
+                    <p>Si la banca se pasa, <strong>pagará a todos los jugadores que no se hayan pasado</strong> lo que hayan apostado.</p>
+                    <p>El jugador que pierde todos sus puntos, <strong>queda eliminado</strong> de la partida. Los otros pueden seguir jugando más rondas.</p>
+                </li>
+                <li>
+                    <p>Una vez realizado los pagos, si la banca no ha sacado siete y medio, y hay candidatos a la banca, el <strong>jugador con más prioridad</strong> de entre los candidatos, <strong>pasará a ser la nueva banca</strong>.</p>
+                    <p>En caso de quedar eliminada la banca, si no hay candidatos a la banca, <strong>el jugador con más prioridad</strong> pasará a ser la nueva banca.</p>
+                </li>
+                <li>
+                    <p>El jugador ganador es el que más puntos ha obtenido después de todas las rondas jugadas.</p>
+                </li>
+            </ol>        
+        </section>
+        <section id="s-rule-point-distribution">
+            <h2>Reglas para repartir los puntos apostados</h2>
+            <ul>
+                <li>
+                    <p>La banca juega contra todos y cada uno de los jugadores, y, por lo tanto, si ella se ha pasado, deberá pagar su apuesta a todos aquellos jugadores que se hubieran plantado sin pasarse.</p>
+                </li>
+                <li>
+                    <p>Si la banca se ha plantado, comprueba con cada jugador su jugada para ver a quién vence y con quién pierde. En cada apuesta vence quien más se acerque a siete y medio.</p>
+                </li>
+                <li>
+                    <p>En caso de empate gana la banca; por lo tanto, si la banca tiene siete y medio, gana automáticamente a todos los jugadores.</p>
+                </li>
+                <li>
+                    <p>La banca debe pagar la cantidad apostada, a cada jugador con el que pierda, y a la inversa, cada jugador que pierda con la banca debe pagarle a esta lo apostado.</p>
+                </li>
+                <li>
+                    <p>Si un jugador tiene siete y medio (y la banca no) cobra el doble de lo apostado y además <strong>pasa a ser candidato a banca</strong> la ronda siguiente.</p>
+                </li>
+                <li>
+                    <p>En caso de que haya más de un jugador con siete y medio, y la banca <strong>NO</strong>, el jugador con más prioridad de entre los que tienen siete y medio pasará a ser la banca.</p>
+                </li>
+                <li>
+                    <p>El jugador que pierde sus puntos queda eliminado de la partida.</p>
+                </li>
+                <li>
+                    <p>Si la banca queda eliminada y ningún jugador tiene siete y medio, el jugador con más prioridad pasará a ser la banca.</p>
+                </li>
+                <li>
+                    <p>Si la banca ha de pagar a varios jugadores, pero no tiene suficientes puntos para pagar a todos, irá realizando los pagos que pueda según la prioridad de los jugadores. Es decir:</p>
+                    <ul>
+                        <li>
+                            <p>Primero paga al jugador con más prioridad, luego al segundo, y así sucesivamente mientras tenga puntos para pagar. Es posible que el último jugador al que tenga que pagar no reciba los puntos que debería (la banca no tiene más puntos).</p>
+                        </li>
+                        <li>
+                            <p>Si la banca se queda sin puntos, quedará eliminada y se elegirá una nueva banca:</p>
+                            <ul>
+                                <li>
+                                    <p>Entre los jugadores que tengan 7.5, si hay alguno.</p>
+                                </li>
+                                <li>
+                                    <p>Entre todos si no hay ningún jugador con 7.5, siempre en función de la prioridad de los jugadores.</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p>La partida continúa hasta que:</p>
+                    <ul>
+                        <li>
+                            <p>Un único jugador se hace con todos los puntos en juego, quedando los demás eliminados.</p>
+                        </li>
+                        <li>
+                            <p>Hasta que se disputa el máximo de manos fijadas para la partida, que puede ser hasta un máximo de 30, en cuyo caso el vencedor es quien acumula mayor cantidad de puntos al final de la partida.</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p>La cantidad de puntos a apostar, salvo en el caso de un jugador humano, que podrá establecer la apuesta manualmente, se realizará en función del perfil de jugador.</p>
+                </li>
+            </ul>
+        </section>
+    </main>
     <footer>
         <p>&copy Nombre del grupo</p>
     </footer>

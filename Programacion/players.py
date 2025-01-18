@@ -489,7 +489,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
 
     # Calculamos el riesgo que tenemos de pasarnos en caso de pedir carta
     # (cartas_que_no_nos_pasarnos / total_de_cartas_en_el_mazo) * 100 para sacar porcentaje
-    risk = (sum_valid / total_cards) * 100
+    risk = 100 - ((sum_valid / total_cards) * 100)
 
     # REVISAR CON EL DICCIONARIO DE ÁLVARO PARA COGER EL TIPO DE JUGADOR QUE ES Y SI ES BANCA
     # Consultamos los riesgos según el tipo de jugador:
