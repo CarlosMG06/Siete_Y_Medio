@@ -1,53 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
+    <ID-Game>1</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Min-Bet>2</Min-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
+    <ID-Game>2</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Min-Bet>2</Min-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
+    <ID-Game>3</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Min-Bet>3</Min-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
+    <ID-Game>3</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Min-Bet>3</Min-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
+    <ID-Game>3</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Min-Bet>3</Min-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
+    <ID-Game>4</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Min-Bet>3</Min-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Min-Bet>PlaceHolder</Min-Bet>
+    <ID-Game>5</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Min-Bet>2</Min-Bet>
   </Fila>
 </Resultados>

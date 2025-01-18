@@ -1,73 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
+    <ID-Player>11115555A</ID-Player>
+    <Suit>Oros</Suit>
+    <Most-Repeated-Card>O06</Most-Repeated-Card>
+    <Times-Repeated>2</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
+    <ID-Player>22226666B</ID-Player>
+    <Suit>Bastos</Suit>
+    <Most-Repeated-Card>B08</Most-Repeated-Card>
+    <Times-Repeated>2</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
+    <ID-Player>33337777C</ID-Player>
+    <Suit>Copas</Suit>
+    <Most-Repeated-Card>C03</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
+    <ID-Player>33337777C</ID-Player>
+    <Suit>Copas</Suit>
+    <Most-Repeated-Card>C07</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
+    <ID-Player>33337777C</ID-Player>
+    <Suit>Copas</Suit>
+    <Most-Repeated-Card>C10</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
+    <ID-Player>33337777C</ID-Player>
+    <Suit>Hearts</Suit>
+    <Most-Repeated-Card>H03</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
-  </Fila>
-  <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
-  </Fila>
-  <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
-  </Fila>
-  <Fila>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Suit>PlaceHolder</Suit>
-    <Most-Repeated-Card>PlaceHolder</Most-Repeated-Card>
-    <Times-Repeated>PlaceHolder</Times-Repeated>
-    <Games-Played>PlaceHolder</Games-Played>
+    <ID-Player>44448888D</ID-Player>
+    <Suit>Espadas</Suit>
+    <Most-Repeated-Card>E09</Most-Repeated-Card>
+    <Times-Repeated>2</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
 </Resultados>

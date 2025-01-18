@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>1</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Rounds-Won>0</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>1</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Rounds-Won>2</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>1</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds-Won>1</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>2</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Rounds-Won>2</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>2</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds-Won>2</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>3</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Rounds-Won>2</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>3</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Rounds-Won>0</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>3</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Rounds-Won>1</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>4</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Rounds-Won>3</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>4</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds-Won>2</Rounds-Won>
+  </Fila>
+  <Fila>
+    <ID-Game>5</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds-Won>1</Rounds-Won>
   </Fila>
 </Resultados>

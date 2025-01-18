@@ -1,3 +1,5 @@
+import math
+
 import printing as p
 import texts
 import titles
@@ -5,7 +7,6 @@ import utils
 from sizes import *
 from menu import *
 from db_access_config import execute_query_in_db
-import math
 
 RANKING_LIMIT = 10
 RANKING_TO_ORDER_COLUMNS = {
@@ -93,7 +94,7 @@ def show_ranking(column_to_order):
         p.print_line(''.ljust(center_padding) + ''.ljust(RANKING_WIDTH, '*'))
 
         # Mostramos los datos limitados por 10, gestionando en que página nos encontramos
-        for row in data[RANKING_LIMIT*(page-1) : RANKING_LIMIT*page-1]:
+        for row in data[RANKING_LIMIT*(page-1) : RANKING_LIMIT*page]:
             line = ''.ljust(center_padding) + ''.ljust(R_PADDING)
             for index, column in enumerate(row):
                 if index < 2:
@@ -116,9 +117,9 @@ def handle_user_input(page, total_pages, center_padding):
     """
     text = ''
     if page != total_pages:
-        text += texts.TEXTS["ranking_next_page"]
+        text += texts.TEXTS["query_next_page"]
     if page != 1:
-        text += texts.TEXTS["ranking_back_page"]
+        text += texts.TEXTS["query_back_page"]
     text += texts.TEXTS["ranking_exit"]
     option = input('\n' + ''.ljust(center_padding) + text).strip()
 

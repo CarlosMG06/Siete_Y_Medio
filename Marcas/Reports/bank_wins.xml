@@ -1,43 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>1</ID-Game>
+    <Rounds-Won>3</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>2</ID-Game>
+    <Rounds-Won>4</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>3</ID-Game>
+    <Rounds-Won>3</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>4</ID-Game>
+    <Rounds-Won>5</Rounds-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
+    <ID-Game>5</ID-Game>
+    <Rounds-Won>1</Rounds-Won>
   </Fila>
 </Resultados>

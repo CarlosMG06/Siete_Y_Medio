@@ -63,7 +63,7 @@ def reports_submenu(padding = 0):
     :return: None
     """
     text = """1) Initial card more repeated by each user, only users who have played a minimum of 3 games.
-2) Player who makes the highest bet per game, find the round with the highest bet.
+2) Player who makes the highest bet per game.
 3) Player who makes the lowest bet per game.
 4) Percentage of rounds won per player in each game (%), as well as their average bet for the game.
 5) List of games won by Bots.

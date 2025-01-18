@@ -1,43 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>1</ID-Game>
+    <Average-Bet>5.067</Average-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>2</ID-Game>
+    <Average-Bet>5.500</Average-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>3</ID-Game>
+    <Average-Bet>5.313</Average-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>4</ID-Game>
+    <Average-Bet>5.214</Average-Bet>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>5</ID-Game>
+    <Average-Bet>3.333</Average-Bet>
   </Fila>
 </Resultados>

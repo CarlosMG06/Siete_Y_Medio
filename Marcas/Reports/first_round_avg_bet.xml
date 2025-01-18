@@ -1,43 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>1</ID-Game>
+    <Average-Bet-Of-First-Round>5.67</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>2</ID-Game>
+    <Average-Bet-Of-First-Round>6.50</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>3</ID-Game>
+    <Average-Bet-Of-First-Round>5.50</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>4</ID-Game>
+    <Average-Bet-Of-First-Round>5.00</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Average-Bet>PlaceHolder</Average-Bet>
+    <ID-Game>5</ID-Game>
+    <Average-Bet-Of-First-Round>4.00</Average-Bet-Of-First-Round>
   </Fila>
 </Resultados>

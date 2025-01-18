@@ -1,7 +1,7 @@
 import os
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
-import mysql.connector
+import math
 
 import printing as p
 import texts
@@ -9,6 +9,7 @@ import titles
 import utils
 from sizes import *
 from menu import *
+from db_access_config import execute_query_in_db
 
 SAVE_REPORT_PATH = os.path.dirname(os.path.abspath(__file__)).replace("Programacion", "Marcas/Reports")
 
@@ -30,7 +31,7 @@ reports = {
             RP_TIMES_REPEATED,
             RP_TOTAL_GAMES
                 ],
-        "query": "SELECT * FROM v_report_most_common_initial_card;",
+        "query": "SELECT * FROM v_report_most_common_initial_card ORDER BY player_id;",
         "file_name": "init_card_most_repeated_player.xml"
     },
 2: {
@@ -45,7 +46,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MAX_BET
                 ],
-        "query": "SELECT * FROM v_report_highest_bet;",
+        "query": "SELECT * FROM v_report_highest_bet ORDER BY game_id, player_id;",
         "file_name": "game_max_bet_player.xml"
     },
 3: {
@@ -60,7 +61,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MIN_BET
                 ],
-        "query": "SELECT * FROM v_report_lowest_bet;",
+        "query": "SELECT * FROM v_report_lowest_bet ORDER BY game_id, player_id;",
         "file_name": "game_min_bet_player.xml"
     },
 4: {
@@ -155,11 +156,11 @@ reports = {
         "width": RP_9_WIDTH,
         "titles": [
             texts.TEXTS["report_id_game"],
-            texts.TEXTS["report_avg_bet"]
+            texts.TEXTS["report_avg_bet_first_round"]
                 ],
         "widths": [
             RP_ID_GAME,
-            RP_AVG_BET
+            RP_AVG_BET_1ST_ROUND
                 ],
         "query": "SELECT * FROM v_report_avg_bet_1st_round;",
         "file_name": "first_round_avg_bet.xml"
@@ -168,13 +169,11 @@ reports = {
         "width": RP_10_WIDTH,
         "titles": [
             texts.TEXTS["report_id_game"],
-            texts.TEXTS["report_rounds"],
-            texts.TEXTS["report_avg_bet"]
+            texts.TEXTS["report_avg_bet_last_round"]
                 ],
         "widths": [
             RP_ID_GAME,
-            RP_ROUNDS,
-            RP_AVG_BET
+            RP_AVG_BET_LAST_ROUND
                 ],
         "query": "SELECT * FROM v_report_avg_bet_last_round;",
         "file_name": "last_round_avg_bet.xml"
@@ -224,21 +223,25 @@ def show_report(option):
     rp_widths = reports[option]["widths"]
     rp_query = reports[option]["query"]
     rp_file_name = reports[option]["file_name"]
+    rp_padding = RP_PADDING_ID_PLAYER if option == 1 else RP_PADDING_ID_GAME
 
     page = 1
-    # Recoger el count de todos los elementos que puedan recogerse de la base de datos
-    total_pages = 10
     center_padding = (TOTAL_WIDTH - rp_width) // 2
     exit = False
 
+    # Pedimos los datos correspondientes a la base de datos y calculamos las páginas totales
+    data = execute_query_in_db(rp_query)
+    total_pages = math.ceil(len(data)/REPORT_LIMIT)
+    
     # Exportamos los resultados a XML
     results = []
-    for row in range(10):
+    for row in data:
         result = {}
-        for columns in range(len(rp_titles)):
-            key = rp_titles[columns].replace(" ", "-")
-            result[key] = "PlaceHolder"
+        for index, column in enumerate(row):
+            key = rp_titles[index].replace(" ", "-")
+            result[key] = str(column)
         results.append(result)
+    print(results)
     export_to_xml(results, rp_file_name)
 
     while not exit:
@@ -249,18 +252,18 @@ def show_report(option):
         # Hacemos la cabecera de la tabla
         p.print_line(''.ljust(center_padding) + ''.ljust(rp_width, '*'))
 
-        line = ''.ljust(center_padding)
+        line = ''.ljust(center_padding) + ''.ljust(rp_padding)
         for index, title in enumerate(rp_titles):
             line += title.rjust(rp_widths[index])
         p.print_line(line)
         p.print_line(''.ljust(center_padding) + ''.ljust(rp_width, '*'))
-        print()
 
         # Pedimos los datos a la base de datos limitados por 15, gestionando en que página nos encontramos
-        line = ''.ljust(center_padding)
-        for index, title in enumerate(rp_titles):
-            line += '+' + ''.rjust(rp_widths[index] - 1, '-')
-        p.print_line(line)
+        for row in data[REPORT_LIMIT*(page-1) : REPORT_LIMIT*page]:
+            line = ''.ljust(center_padding) + ''.ljust(rp_padding)
+            for index, column in enumerate(row):
+                line += str(column).rjust(rp_widths[index])
+            p.print_line(line)
 
         # Gestionamos input del usuario para mostrar más resultados o salir al menú de reportes
         exit, page = handle_user_input(page, total_pages, center_padding)
@@ -274,12 +277,12 @@ def handle_user_input(page, total_pages, center_padding):
     columna izquierda del reporte
     :return: (tuple) -> Bool, si ha de salir o no, Int, número de página
     """
-    if page == 1:
-        text = texts.TEXTS["report_next_page"]
-    elif page == total_pages:
-        text = texts.TEXTS["report_back_page"]
-    else:
-        text = texts.TEXTS["report_next_page_back_page"]
+    text = ''
+    if page != total_pages:
+        text += texts.TEXTS["query_next_page"]
+    if page != 1:
+        text += texts.TEXTS["query_back_page"]
+    text += texts.TEXTS["report_exit"]
     option = input('\n' + ''.ljust(center_padding) + text).strip()
 
     if option == '+' and page != total_pages:
@@ -349,9 +352,9 @@ def export_to_xml(results_dict, file_name):
     # Con eso abrimos el archivo y eliminamos el contenido e indicamos que vamos a escribir en binario
     # EJEMPLO EN LINUX, con string normal: echo "hola" > prueba.txt
     # Por último, cerramos el archivo
-    file = open(path, 'wb')
-    file.write(xml)
-    file.close()
+    with open(path, 'wb') as file:
+        file.write(xml)
+        file.close()
 
 def prettify(elem):
     """

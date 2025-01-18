@@ -1,43 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
+    <ID-Game>1</ID-Game>
+    <Users-who-have-been-bank>3</Users-who-have-been-bank>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
+    <ID-Game>2</ID-Game>
+    <Users-who-have-been-bank>2</Users-who-have-been-bank>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
+    <ID-Game>3</ID-Game>
+    <Users-who-have-been-bank>3</Users-who-have-been-bank>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
+    <ID-Game>4</ID-Game>
+    <Users-who-have-been-bank>2</Users-who-have-been-bank>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
-  </Fila>
-  <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <Users-who-have-been-bank>PlaceHolder</Users-who-have-been-bank>
+    <ID-Game>5</ID-Game>
+    <Users-who-have-been-bank>1</Users-who-have-been-bank>
   </Fila>
 </Resultados>

@@ -1,83 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resultados>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>1</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Rounds>5</Rounds>
+    <Average-Bet>4.600</Average-Bet>
+    <Won-Rounds>0</Won-Rounds>
+    <Percentatge-Won>0.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>1</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Rounds>5</Rounds>
+    <Average-Bet>3.500</Average-Bet>
+    <Won-Rounds>0</Won-Rounds>
+    <Percentatge-Won>0.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>1</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds>5</Rounds>
+    <Average-Bet>5.000</Average-Bet>
+    <Won-Rounds>2</Won-Rounds>
+    <Percentatge-Won>40.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>1</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Rounds>5</Rounds>
+    <Average-Bet>9.500</Average-Bet>
+    <Won-Rounds>3</Won-Rounds>
+    <Percentatge-Won>60.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>2</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Rounds>6</Rounds>
+    <Average-Bet>6.333</Average-Bet>
+    <Won-Rounds>3</Won-Rounds>
+    <Percentatge-Won>50.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>2</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Rounds>6</Rounds>
+    <Average-Bet>4.000</Average-Bet>
+    <Won-Rounds>0</Won-Rounds>
+    <Percentatge-Won>0.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>2</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds>6</Rounds>
+    <Average-Bet>7.667</Average-Bet>
+    <Won-Rounds>3</Won-Rounds>
+    <Percentatge-Won>50.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>3</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Rounds>8</Rounds>
+    <Average-Bet>4.714</Average-Bet>
+    <Won-Rounds>2</Won-Rounds>
+    <Percentatge-Won>25.000</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>3</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Rounds>8</Rounds>
+    <Average-Bet>6.500</Average-Bet>
+    <Won-Rounds>3</Won-Rounds>
+    <Percentatge-Won>37.500</Percentatge-Won>
   </Fila>
   <Fila>
-    <ID-Game>PlaceHolder</ID-Game>
-    <ID-Player>PlaceHolder</ID-Player>
-    <Rounds>PlaceHolder</Rounds>
-    <Average-Bet>PlaceHolder</Average-Bet>
-    <Won-Rounds>PlaceHolder</Won-Rounds>
-    <Percentatge-Won>PlaceHolder</Percentatge-Won>
+    <ID-Game>3</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Rounds>8</Rounds>
+    <Average-Bet>5.200</Average-Bet>
+    <Won-Rounds>3</Won-Rounds>
+    <Percentatge-Won>37.500</Percentatge-Won>
+  </Fila>
+  <Fila>
+    <ID-Game>4</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Rounds>7</Rounds>
+    <Average-Bet>4.286</Average-Bet>
+    <Won-Rounds>1</Won-Rounds>
+    <Percentatge-Won>14.286</Percentatge-Won>
+  </Fila>
+  <Fila>
+    <ID-Game>4</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds>7</Rounds>
+    <Average-Bet>7.250</Average-Bet>
+    <Won-Rounds>3</Won-Rounds>
+    <Percentatge-Won>42.857</Percentatge-Won>
+  </Fila>
+  <Fila>
+    <ID-Game>4</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Rounds>7</Rounds>
+    <Average-Bet>4.667</Average-Bet>
+    <Won-Rounds>3</Won-Rounds>
+    <Percentatge-Won>42.857</Percentatge-Won>
+  </Fila>
+  <Fila>
+    <ID-Game>5</ID-Game>
+    <ID-Player>22226666B</ID-Player>
+    <Rounds>3</Rounds>
+    <Average-Bet>3.000</Average-Bet>
+    <Won-Rounds>1</Won-Rounds>
+    <Percentatge-Won>33.333</Percentatge-Won>
+  </Fila>
+  <Fila>
+    <ID-Game>5</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Rounds>3</Rounds>
+    <Average-Bet>None</Average-Bet>
+    <Won-Rounds>1</Won-Rounds>
+    <Percentatge-Won>33.333</Percentatge-Won>
+  </Fila>
+  <Fila>
+    <ID-Game>5</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Rounds>3</Rounds>
+    <Average-Bet>3.667</Average-Bet>
+    <Won-Rounds>1</Won-Rounds>
+    <Percentatge-Won>33.333</Percentatge-Won>
   </Fila>
 </Resultados>

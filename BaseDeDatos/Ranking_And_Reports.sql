@@ -19,56 +19,48 @@ CREATE OR REPLACE VIEW v_report_most_common_initial_card AS
 			pg.player_id,
 			c.suit,
 			pg.initial_card_id,
-			count(*) AS initial_card_count,
+			count(*) AS times_repeated,
 			(SELECT count(*) 
 			 FROM player_game 
 			 WHERE player_id = pg.player_id) AS games_played
-		FROM player_game pg
-		JOIN card c ON pg.initial_card_id = c.id
+		FROM player_game pg 
+		    JOIN card c ON pg.initial_card_id = c.id
 		GROUP BY pg.player_id, pg.initial_card_id, c.suit
 	)
 	SELECT 
 		cc1.player_id,
-		GROUP_CONCAT(DISTINCT cc1.suit ORDER BY cc1.initial_card_id) AS suits,
-		GROUP_CONCAT(cc1.initial_card_id ORDER BY cc1.initial_card_id) AS most_common_initial_card_ids,
-		cc1.initial_card_count,
+		cc1.suit,
+		cc1.initial_card_id AS most_common_initial_card_id,
+		cc1.times_repeated,
 		cc1.games_played
 	FROM CardCounts cc1
 	WHERE cc1.games_played >= 3
-	GROUP BY cc1.player_id, cc1.initial_card_count, cc1.games_played
-    HAVING cc1.initial_card_count = (
-		SELECT max(cc2.initial_card_count)
+	GROUP BY cc1.player_id, cc1.initial_card_id, cc1.suit
+    HAVING cc1.times_repeated = (
+		SELECT max(cc2.times_repeated)
 		FROM CardCounts cc2
 		WHERE cc2.player_id = cc1.player_id
 	);
 
 # 2
 CREATE OR REPLACE VIEW v_report_highest_bet AS
-	SELECT 
-		pgr.game_id,
-		GROUP_CONCAT(DISTINCT pgr.player_id ORDER BY pgr.player_id) AS player_ids,
-		pgr.bet_amount AS highest_bet_amount
+	SELECT DISTINCT pgr.game_id, pgr.player_id, pgr.bet_amount AS highest_bet
 	FROM player_game_round pgr
-	GROUP BY pgr.game_id, pgr.bet_amount
-	HAVING pgr.bet_amount = (
-			SELECT max(pgr2.bet_amount)
-			FROM player_game_round pgr2
-			WHERE pgr2.game_id = pgr.game_id
-			);
+    WHERE bet_amount = (
+		SELECT max(pgr2.bet_amount)
+        FROM player_game_round pgr2
+        WHERE pgr.game_id = pgr2.game_id
+        );
 
 # 3
 CREATE OR REPLACE VIEW v_report_lowest_bet AS
-	SELECT 
-		pgr.game_id,
-		GROUP_CONCAT(DISTINCT pgr.player_id ORDER BY pgr.player_id) AS player_ids,
-		pgr.bet_amount AS lowest_bet_amount
+	SELECT DISTINCT pgr.game_id, pgr.player_id, pgr.bet_amount AS lowest_bet
 	FROM player_game_round pgr
-	GROUP BY pgr.game_id, pgr.bet_amount
-	HAVING pgr.bet_amount = (
-			SELECT min(pgr2.bet_amount)
-			FROM player_game_round pgr2
-			WHERE pgr2.game_id = pgr.game_id
-			);
+    WHERE bet_amount = (
+		SELECT min(pgr2.bet_amount)
+        FROM player_game_round pgr2
+        WHERE pgr.game_id = pgr2.game_id
+        );
 
 # 4
 CREATE OR REPLACE VIEW v_report_round_win_percentage AS 
