@@ -8,7 +8,7 @@ import texts
 import printing as p
 import titles
 
-NIF_LENGHT = 9
+NIF_LENGTH = 9
 NIF_NUMBERS_END_POSITION = 7
 NIF_LETTER_POSITION = 8
 
