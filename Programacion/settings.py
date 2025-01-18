@@ -69,30 +69,30 @@ def setup_players(players):
         p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
         pl.show_players_no_input(players)
         p.print_line(
-            "Option (id to add to game), -id to remove player, sh to show actual players in game, -1 to go back",
+            "Option (id to add to game), -id to remove player, sh to show current players in game, -1 to go back",
             padding=TOTAL_WIDTH, fill_char=" ")
-        eleccion = str(input())
-        if eleccion == "-1":
+        option = input()
+        if option == "-1":
             break
 
-        if len(eleccion) == 9:  # La longitud de un DNI
-            players_dic = pl.player_list_to_dic(players)
-            if eleccion in players_dic.keys():
-                game.selectedPlayers[eleccion] = players_dic[eleccion]
-                p.print_line(game.selectedPlayers[eleccion]["name"] + " has been added to the game",
+        if len(option) == 9:  # La longitud de un DNI
+            players_dic = pl.player_list_to_dict(players)
+            if option in players_dic.keys():
+                game.selectedPlayers[option] = players_dic[option]
+                p.print_line(game.selectedPlayers[option]["name"] + " has been added to the game",
                              padding=TOTAL_WIDTH, fill_char=" ")
                 input()
             else:
-                p.print_line(eleccion + " isn't a valid player", padding=TOTAL_WIDTH, fill_char=" ")
+                p.print_line(option + " isn't a valid player", padding=TOTAL_WIDTH, fill_char=" ")
                 input()
 
-        if len(eleccion) == 10:  # La longitud de un DNI con un menos delante
-            if eleccion[1:] in game.selectedPlayers.keys():
-                p.print_line(eleccion[1:] + " has been deleted from the game", padding=TOTAL_WIDTH, fill_char=" ")
-                del game.selectedPlayers[eleccion[1:]]
+        if len(option) == 10:  # La longitud de un DNI con un menos delante
+            if option[1:] in game.selectedPlayers.keys():
+                p.print_line(option[1:] + " has been deleted from the game", padding=TOTAL_WIDTH, fill_char=" ")
+                del game.selectedPlayers[option[1:]]
                 input()
             else:
-                p.print_line(eleccion[1:] + " isn't currently playing", padding=TOTAL_WIDTH, fill_char=" ")
+                p.print_line(option[1:] + " isn't currently playing", padding=TOTAL_WIDTH, fill_char=" ")
                 input()
 
 def set_deck():
@@ -102,26 +102,26 @@ def set_deck():
         p.print_title(titles.TITLES["decks"], padding=TOTAL_WIDTH)
         # imprimir el menu ya hecho en modulo menu.py
         decks_submenu(padding=LEFT_SPACE_OPTIONS)
-        eleccion = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
+        option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
 
-        if eleccion < MIN_OPTION or eleccion > MAX_OPTION_1:
+        if option < MIN_OPTION or option > MAX_OPTION_1:
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
             continue
 
-        if eleccion == MAX_OPTION_1:
+        if option == MAX_OPTION_1:
             exit_decksubmenu = True
 
-        if eleccion == 1:
+        if option == 1:
             game.activeDeck = mazos.esp48
             input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP48")
 
-        if eleccion == 2:
+        if option == 2:
             game.activeDeck = mazos.esp40
             input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP40")
 
-        if eleccion == 3:
+        if option == 3:
             game.activeDeck = mazos.poker
             input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: Poker")
 

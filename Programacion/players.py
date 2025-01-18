@@ -7,6 +7,7 @@ from sizes import *
 import texts
 import printing as p
 import titles
+from db_access_config import execute_query_in_db
 
 NIF_LENGTH = 9
 NIF_NUMBERS_END_POSITION = 7
@@ -14,13 +15,13 @@ NIF_LETTER_POSITION = 8
 
 MAX_POINTS = 7.5
 
-PROFILES = {
+RISK_PROFILES = {
     1: "Cautious",
     2: "Moderated",
     3: "Bold"
 }
 
-RISKS = {
+RISK_QUANTITIES = {
     "Cautious": 30,
     "Moderated": 40,
     "Bold": 50
@@ -44,9 +45,9 @@ def players_option(players):
             if option == MAX_OPTION_1:
                 exit_submenu = True
             elif option == 1:
-                players = create_human_player(players)
+                players = create_new_player(players, True)
             elif option == 2:
-                players = create_bot_player(players)
+                players = create_new_player(players, False)
             elif option == 3:
                 show_players(players)
         except ValueError:
@@ -56,73 +57,50 @@ def players_option(players):
 
     return players
 
-def get_players_from_bbdd(**kwargs):
+def get_players_from_db(**kwargs):
     """
     Recogemos los jugadores de la base de datos con los parámetros indicados
     :param kwargs: Lista de argumentos clave-valor para filtrar la búsqueda de jugadores
     :return: (list) -> Lista de diccionarios con los jugadores recogidos de la base de datos
     """
+    query = "SELECT * FROM player;"
+    player_list_tuple = execute_query_in_db(query)
 
-def get_players():
-    # TEMPORAL
-    players = [
-        {
-        "id": "11115555A",
-        "data":
-            {
-               "name": "Mario",
-                "human": True,
-                "bank": False,
-                "type": "Moderated"
-            }
-        },
-        {
-        "id": "22226666B",
-        "data":
-            {
-                "name": "Ruben",
-                "human": True,
-                "bank": False,
-                "type": "Cautious"
-            }
-        },
-        {
-        "id": "33337777C",
-        "data":
-            {
-                "name": "BotLine",
-                "human": False,
-                "bank": False,
-                "type": "Bold"
-            }
-        },
-        {
-        "id": "44448888D",
-        "data":
-            {
-                "name": "TopLane",
-                "human": False,
-                "bank": False,
-                "type": "Moderated"
-            }
-        }
-    ]
-
+    # Convertimos la lista de tuplas en una lista de diccionarios
+    PLAYER_KEYS = ("id","name","human","type")
+    players = []
+    for player in player_list_tuple:
+        player_dict = dict(zip(PLAYER_KEYS,player))
+        player_dict["type"] = RISK_PROFILES[player_dict["type"]]
+        players.append(player_dict)
+    
     return players
 
-def create_human_player(players):
+def create_new_player(players, human):
     """
-    Generamos un nuevo jugador humano
+    Generamos un nuevo jugador
     :param players: (list) -> Lista con los jugadores actuales
+    :param human: (bool) -> Si el jugador nuevo es humano o un bot
     :return: (list) -> Lista con los jugadores
     """
 
+    if human:
+        NEW_PLAYER_TITLE = titles.TITLES["new_human_player"]
+        DEMAND_NAME_TEXT = texts.TEXTS["demand_human_name"]
+        NIF_TEXT = texts.TEXTS["demand_nif"]
+        DEMAND_PROFILE_TEXT = texts.TEXTS["demand_human_profile"]
+    else:
+        NEW_PLAYER_TITLE = titles.TITLES["new_bot_player"]
+        DEMAND_NAME_TEXT = texts.TEXTS["demand_bot_name"]
+        NIF_TEXT = texts.TEXTS["bot_nif"]
+        DEMAND_PROFILE_TEXT = texts.TEXTS["demand_bot_profile"]
+    
     utils.clear_screen()
-    p.print_title(titles.TITLES["new_human_player"], padding=TOTAL_WIDTH)
+    p.print_title(NEW_PLAYER_TITLE, padding=TOTAL_WIDTH)
 
     # Pedimos el nombre del jugador, deberá tener un largo de 1 a 32 carácteres (limitados en base de datos)
     while True:
-        name_input = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"])
+        name_input = input("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_NAME_TEXT).capitalize()
         if len(name_input) > 0 and len(name_input) <= 32 and name_input.isalpha():
             break
 
@@ -131,51 +109,65 @@ def create_human_player(players):
         p.print_line(texts.TEXTS["error_demand_name"], padding=TOTAL_WIDTH, fill_char='!')
         input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
         utils.clear_screen()
-        p.print_title(titles.TITLES["new_human_player"], padding=TOTAL_WIDTH)
+        p.print_title(NEW_PLAYER_TITLE, padding=TOTAL_WIDTH)
+    
+    if human:
+        while True:
+            # Recogemos el input del NIF (sólo verificamos que tenga 8 números y 1 letra, no si es 100% válido)
+            nif_input = input("".ljust(LEFT_SPACE_OPTIONS) + NIF_TEXT).upper()
+            if len(nif_input) == 9:
+                nif_numbers = nif_input[:NIF_NUMBERS_END_POSITION]
+                nif_letter = nif_input[NIF_LETTER_POSITION]
+                if nif_numbers.isdigit() and nif_letter.isalpha():
+                    index = -1
+                    for i in range(len(players)):
+                        if players[i]["id"] == nif_input:
+                            index = i
+                            break
 
-    while True:
-        # Recogemos el input del NIF (sólo verificamos que tenga 8 números y 1 letra, no si es 100% válido)
-        nif_input = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"])
-        if len(nif_input) == 9:
-            nif_numbers = nif_input[:NIF_NUMBERS_END_POSITION]
-            nif_letter = nif_input[NIF_LETTER_POSITION]
-            if nif_numbers.isdigit() and nif_letter.isalpha():
-                index = -1
-                for i in range(len(players)):
-                    if players[i]["id"] == nif_input:
-                        index = i
-                        break
+                if index == -1:
+                    break
+                else:
+                    print()
+                    p.print_line(texts.TEXTS["error_duplicated_nif"], padding=TOTAL_WIDTH, fill_char='!')
+                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
 
-            if index == -1:
-                break
+            # En caso que no nos introduzca un NIF válido, deberemos:
+            #   1. Mostrar mensaje de error
+            #   2. Limpiar pantalla
+            #   3. Imprimir el título
+            #   4. Imprimir el mensaje de entrada del nombre
             else:
                 print()
-                p.print_line(texts.TEXTS["error_duplicated_nif"], padding=TOTAL_WIDTH, fill_char='!')
+                p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='!')
                 input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.clear_screen()
+            p.print_title(NEW_PLAYER_TITLE, padding=TOTAL_WIDTH)
+            p.print_line("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_NAME_TEXT + name_input)
+    else:
+        # Generamos aleatoriamente un NIF para el bot
+        while True:
+            nif_input = (''.join(["{}".format(random.randint(0, 9)) for num in range(0, NIF_NUMBERS_END_POSITION + 1)]) +
+                        random.choice(string.ascii_uppercase))
+            index = -1
+            for i in range(len(players)):
+                if players[i]["id"] == nif_input:
+                    index = i
+                    break
 
-        # En caso que no nos introduzca un NIF válido, deberemos:
-        #   1. Mostrar mensaje de error
-        #   2. Limpiar pantalla
-        #   3. Imprimir el título
-        #   4. Imprimir el mensaje de entrada del nombre
-        else:
-            print()
-            p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='!')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-        utils.clear_screen()
-        p.print_title(titles.TITLES["new_human_player"], padding=TOTAL_WIDTH)
-        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
+            if index == -1:
+                p.print_line("".ljust(LEFT_SPACE_OPTIONS) + NIF_TEXT + nif_input)
+                break
 
-    # Pedimos al jugador el tipo de jugadas que realizará, en caso que esté controlado por la IA
-    profile_input = ""
+    # Pedimos el perfil de riesgo del jugador, incluso si es humano, en caso que esté controlado por la IA
     while True:
         print()
-        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"])
+        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_PROFILE_TEXT)
         profile_menu(LEFT_SPACE_OPTIONS)
         try:
-            option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
-            if option >= 1 and option <= 3:
-                profile_input = PROFILES[option]
+            profile_option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
+            if profile_option >= 1 and profile_option <= 3:
+                profile_input = RISK_PROFILES[profile_option]
                 break
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
@@ -191,9 +183,9 @@ def create_human_player(players):
         #   3. Imprimir el mensaje de entrada del nombre
         #   4. Imprimir el mensaje de entrada del NIF
         utils.clear_screen()
-        p.print_title(titles.TITLES["new_human_player"], padding=TOTAL_WIDTH)
-        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
-        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
+        p.print_title(NEW_PLAYER_TITLE, padding=TOTAL_WIDTH)
+        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_NAME_TEXT + name_input)
+        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + NIF_TEXT + nif_input)
 
     # A continuación, deberemos limpiar la pantalla y volver a mostrar los resultados:
     #   1. Limpiar pantalla
@@ -203,123 +195,26 @@ def create_human_player(players):
     #   5. Imprimir el mensaje de entrada del Perfil
     #   6. Preguntamos si está correcto:
     #      Por defecto será Y, en caso de no tener una N
-    #      Se guardará el jugador en la BBDD (TO_DO)
+    #      Se guardará el jugador en la BBDD
     #      Se crea un diccionario del jugador, se añade a la lista
     #   Se devuelve la lista de jugadores
     utils.clear_screen()
-    p.print_title(titles.TITLES["new_human_player"], padding=TOTAL_WIDTH)
-    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
-    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
-    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"] + profile_input)
+    p.print_title(NEW_PLAYER_TITLE, padding=TOTAL_WIDTH)
+    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_NAME_TEXT + name_input)
+    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + NIF_TEXT + nif_input)
+    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_PROFILE_TEXT + profile_input)
 
     print()
     is_ok = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_confirmation"])
     if is_ok.lower() != "n":
-        # Debemos conectar con la BBDD para darlo de alta
+        query = f"INSERT INTO player VALUES ({nif_input}, {name_input}, {human}, {profile_option});"
+        execute_query_in_db(query)
+        
         player = {
             "id": nif_input,
-            "data":
-            {
-                "name": name_input,
-                "human": True,
-                "type": profile_input
-            }
-        }
-        players.append(player)
-    return players
-
-def create_bot_player(players):
-    """
-    Generamos un nuevo jugador bot
-    :param players: (list) -> Lista con los jugadores que tenemos almacenados
-    :return: (list) -> Lista con los nuevos jugadores
-    """
-    utils.clear_screen()
-    p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
-
-    # Pedimos el nombre del jugador, deberá tener un largo de 1 a 32 carácteres (limitados en base de datos)
-    while True:
-        name_input = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"])
-        if len(name_input) > 0 and len(name_input) <= 32 and name_input.isalpha():
-            break
-
-        # En caso que nos introduzca mal el nombre, volvemos a imprimir el título
-        print()
-        p.print_line(texts.TEXTS["error_demand_name"], padding=TOTAL_WIDTH, fill_char='!')
-        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-        utils.clear_screen()
-        p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
-
-    # Generamos aleatoriamente un NIF para el bot
-    while True:
-        nif_input = (''.join(["{}".format(random.randint(0, 9)) for num in range(0, NIF_NUMBERS_END_POSITION + 1)]) +
-                     random.choice(string.ascii_uppercase))
-        index = -1
-        for i in range(len(players)):
-            if players[i]["id"] == nif_input:
-                index = i
-                break
-
-        if index == -1:
-            p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
-            break
-
-    while True:
-        print()
-        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"])
-        profile_menu(LEFT_SPACE_OPTIONS)
-        try:
-            option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
-            if option >= 1 and option <= 3:
-                profile_input = PROFILES[option]
-                break
-            print()
-            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-        except ValueError:
-            print()
-            p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-
-        # En caso que se imprima el mensaje de error, deberemos:
-        #   1. Limipar pantalla
-        #   2. Imprimir el títutlo
-        #   3. Imprimir el mensaje de entrada del nombre
-        #   4. Imprimir el mensaje de entrada del NIF
-        utils.clear_screen()
-        p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
-        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
-        p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
-
-    # A continuación, deberemos limipiar la pantalla y volver a mostrar los resultados:
-    #   1. Limpiar pantalla
-    #   2. Imprimir el título
-    #   3. Imprimir el mensaje de entrada del nombre
-    #   4. Imprimir el mensaje de entrada del NIF
-    #   5. Imprimir el mensaje de entrada del Perfil
-    #   6. Preguntamos si está correcto:
-    #      Por defecto será Y, en caso de no tener una N
-    #      Se guardará el jugador en la BBDD (TO_DO)
-    #      Se crea un diccionario del jugador, se añade a la lista
-    #   Se devuelve la lista de jugadores
-    utils.clear_screen()
-    p.print_title(titles.TITLES["new_bot_player"], padding=TOTAL_WIDTH)
-    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_name"] + name_input)
-    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_nif"] + nif_input)
-    p.print_line("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_profile"] + profile_input)
-
-    print()
-    is_ok = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_confirmation"])
-    if is_ok.lower() != "n":
-        # Debemos conectar con la BBDD para darlo de alta
-        player = {
-            "id": nif_input,
-            "data":
-            {
-                "name": name_input,
-                "human": False,
-                "type": profile_input
-            }
+            "name": name_input,
+            "human": human,
+            "type": profile_input
         }
         players.append(player)
     return players
@@ -344,7 +239,7 @@ def show_players(players):
         p.print_line(''.ljust(TOTAL_WIDTH, '*'))
 
         # Separamos los tipos de jugadores y revisamos cuál es mayor
-        bot_players, human_players = separete_players(players)
+        bot_players, human_players = separate_players(players)
         most_players = 0
         if len(bot_players) >= len(human_players):
             most_players = len(bot_players)
@@ -356,16 +251,16 @@ def show_players(players):
             if index >= len(bot_players):
                 bot_line = "".ljust(HALF_WIDTH - 1)
             else:
-                bot_line = " " + bot_players[index]["id"].ljust(SP_COLUMN_ID - 1) + bot_players[index]["data"][
+                bot_line = " " + bot_players[index]["id"].ljust(SP_COLUMN_ID - 1) + bot_players[index][
                     "name"].ljust(
-                    SP_COLUMN_NAME) + bot_players[index]["data"]["type"].ljust(SP_COLUMN_TYPE)
+                    SP_COLUMN_NAME) + bot_players[index]["type"].ljust(SP_COLUMN_TYPE)
 
             if index >= len(human_players):
                 human_line = "".ljust(HALF_WIDTH - 1)
             else:
-                human_line = " " + human_players[index]["id"].ljust(SP_COLUMN_ID - 1) + human_players[index]["data"][
+                human_line = " " + human_players[index]["id"].ljust(SP_COLUMN_ID - 1) + human_players[index][
                     "name"].ljust(
-                    SP_COLUMN_NAME) + human_players[index]["data"]["type"].ljust(SP_COLUMN_TYPE)
+                    SP_COLUMN_NAME) + human_players[index]["type"].ljust(SP_COLUMN_TYPE)
 
             p.print_line(bot_line + '||' + human_line)
 
@@ -392,6 +287,9 @@ def show_players(players):
             else:
                 del players[index]
                 # Borramos de la BBDD
+                query = f"DELETE FROM player WHERE id = {id};"
+                execute_query_in_db(query)
+
                 print()
                 p.print_line(texts.TEXTS["player_deleted"], padding=TOTAL_WIDTH, fill_char='*')
                 input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
@@ -418,7 +316,7 @@ def show_players_no_input(players):
     p.print_line(''.ljust(TOTAL_WIDTH, '*'))
 
     # Separamos los tipos de jugadores y revisamos cuál es mayor
-    bot_players, human_players = separete_players(players)
+    bot_players, human_players = separate_players(players)
     most_players = 0
     if len(bot_players) >= len(human_players):
         most_players = len(bot_players)
@@ -430,33 +328,32 @@ def show_players_no_input(players):
         if index >= len(bot_players):
             bot_line = "".ljust(HALF_WIDTH - 1)
         else:
-            bot_line = " " + bot_players[index]["id"].ljust(SP_COLUMN_ID - 1) + bot_players[index]["data"][
+            bot_line = " " + bot_players[index]["id"].ljust(SP_COLUMN_ID - 1) + bot_players[index][
                 "name"].ljust(
-                SP_COLUMN_NAME) + bot_players[index]["data"]["type"].ljust(SP_COLUMN_TYPE)
+                SP_COLUMN_NAME) + bot_players[index]["type"].ljust(SP_COLUMN_TYPE)
 
         if index >= len(human_players):
             human_line = "".ljust(HALF_WIDTH - 1)
         else:
-            human_line = " " + human_players[index]["id"].ljust(SP_COLUMN_ID - 1) + human_players[index]["data"][
+            human_line = " " + human_players[index]["id"].ljust(SP_COLUMN_ID - 1) + human_players[index][
                 "name"].ljust(
-                SP_COLUMN_NAME) + human_players[index]["data"]["type"].ljust(SP_COLUMN_TYPE)
+                SP_COLUMN_NAME) + human_players[index]["type"].ljust(SP_COLUMN_TYPE)
 
         p.print_line(bot_line + '||' + human_line)
 
     # Cerramos la tabla
     p.print_line(''.ljust(TOTAL_WIDTH, '*'))
 
-
-def separete_players(players):
+def separate_players(players):
     """
-    Separamos los jugadores s<egún su tipo (Bot o Humanos) y los devolvemos en dos listas distintas
+    Separamos los jugadores según su tipo (Bot o Humanos) y los devolvemos en dos listas distintas
     :param players: (list) -> Lista con los diferentes jugadores que tenemos almacenados
-    :return: (tuple) -> Tupla con dos lista, una de jugadores bot y otra con jugadores humanos
+    :return: (tuple) -> Tupla con dos listas, una de jugadores bot y otra con jugadores humanos
     """
     bot_players = []
     human_players = []
     for player in players:
-        if player["data"]["human"]:
+        if player["human"]:
             human_players.append(player)
         else:
             bot_players.append(player)
@@ -506,7 +403,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
                 better_plays.append(index)
 
         if len(better_plays) != 0:
-            if risk <= RISKS[player["type"]]:
+            if risk <= RISK_QUANTITIES[player["type"]]:
                 can_demand = True
             else:
                 lost_points = 0
@@ -516,7 +413,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
                 if player["points"] - lost_points <= 0:
                     can_demand = True
 
-    elif risk <= RISKS[player["type"]]:
+    elif risk <= RISK_QUANTITIES[player["type"]]:
         can_demand = True
 
     return can_demand
@@ -541,13 +438,13 @@ def cpu_make_bet(player):
 
     return utils.generate_random_number(min_bet, max_bet)
 
-def player_list_to_dic(players):
-    player_dic = {}
+def player_list_to_dict(players):
+    player_dict = {}
     for player in players:
-        player_dic[player["id"]] = {}
-        player_dic[player["id"]]["name"] = player["data"]["name"]
-        player_dic[player["id"]]["human"] = player["data"]["human"]
-        player_dic[player["id"]]["bank"] = player["data"]["bank"]
-        player_dic[player["id"]]["type"] = player["data"]["type"]
+        player_dict[player["id"]] = {
+            "name": player["name"],
+            "human": player["human"],
+            "type": player["type"]
+        }
     
-    return player_dic
+    return player_dict

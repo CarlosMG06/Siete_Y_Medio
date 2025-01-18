@@ -18,6 +18,7 @@ def initializePlayers(players):
     initializedPlayers = players.copy()
 
     for player in initializedPlayers.keys():
+        initializedPlayers[player]["bank"] = False
         initializedPlayers[player]["initialCard"] = ""
         initializedPlayers[player]["bet"] = 0
         initializedPlayers[player]["points"] = 20

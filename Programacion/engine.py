@@ -17,7 +17,7 @@ MAX_PLAYERS = 6
 def start_engine():
     exit = False
 
-    players = pl.get_players()
+    players = pl.get_players_from_db()
     cards_to_use = ""
     max_rounds = 5
 
