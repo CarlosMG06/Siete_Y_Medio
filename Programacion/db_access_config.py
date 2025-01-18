@@ -38,7 +38,7 @@ def insert_dict_into_db_table(dict, table):
     key_list = list(dict.keys())
     value_list = list(dict.values())
     query = f"INSERT INTO {table} ({", ".join(key_list)}) VALUES ({", ".join(value_list)})"
-    execute_query_in_db(query, print=False)
+    execute_query_in_db(query)
 
 def delete_player_from_db(player_id):
     query = f"DELETE FROM "

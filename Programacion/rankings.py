@@ -5,19 +5,20 @@ import utils
 from sizes import *
 from menu import *
 from db_access_config import execute_query_in_db
+import math
 
 RANKING_LIMIT = 10
 RANKING_TO_ORDER_COLUMNS = {
     1: {
-        "column": "Earnings",
+        "column": "earnings",
         "title": "ranking_more_earnings"
     },
     2: {
-        "column": "Games Player",
+        "column": "games_played",
         "title": "ranking_more_games_played"
     },
     3: {
-        "column": "Earnings",
+        "column": "minutes_played",
         "title": "ranking_more_minutes_played"
     },
 }
@@ -35,7 +36,6 @@ RANKING_WIDTHS = [
     R_GAMES_PLAYED,
     R_MINUTES_PLAYED
 ]
-QUERY = "SELECT * FROM v_ranking;"
 
 def rankings_option():
     exit_submenu = False
@@ -68,10 +68,13 @@ def show_ranking(column_to_order):
     :return: None
     """
     page = 1
-    # Recoger el count de todos los elementos que puedan recogerse de la base de datos
-    total_pages = 10
     center_padding = (TOTAL_WIDTH - RANKING_WIDTH) // 2
     exit = False
+
+    # Pedimos los datos a la base de datos, ordenados según corresponde, y calculamos las páginas totales
+    query = f"SELECT * FROM v_ranking ORDER BY {RANKING_TO_ORDER_COLUMNS[column_to_order]["column"]} desc;"
+    data = execute_query_in_db(query)
+    total_pages = math.ceil(len(data)/RANKING_LIMIT)
 
     while not exit:
         # Limpiamos pantalla y mostramos título principal
@@ -88,17 +91,17 @@ def show_ranking(column_to_order):
                 line += title.rjust(RANKING_WIDTHS[index])
         p.print_line(line)
         p.print_line(''.ljust(center_padding) + ''.ljust(RANKING_WIDTH, '*'))
-        print()
 
-        # Pedimos los datos a la base de datos limitados por 15, gestionando en que página nos encontramos
-        data = execute_query_in_db(QUERY, center_padding)
-        print(data)
+        # Mostramos los datos limitados por 10, gestionando en que página nos encontramos
+        for row in data[RANKING_LIMIT*(page-1) : RANKING_LIMIT*page-1]:
+            line = ''.ljust(center_padding) + ''.ljust(R_PADDING)
+            for index, column in enumerate(row):
+                if index < 2:
+                    line += str(column).ljust(RANKING_WIDTHS[index])
+                else:
+                    line += str(column).rjust(RANKING_WIDTHS[index])
+            p.print_line(line)
         
-        line = ''.ljust(center_padding) + ''.ljust(R_PADDING)
-        for index, title in enumerate(RANKING_TITLES):
-            line += '+' + ''.rjust(RANKING_WIDTHS[index] - 1, '-')
-        p.print_line(line)
-
         # Gestionamos input del usuario para mostrar más resultados o salir al menú de reportes
         exit, page = handle_user_input(page, total_pages, center_padding)
 
@@ -111,12 +114,12 @@ def handle_user_input(page, total_pages, center_padding):
     columna izquierda del reporte
     :return: (tuple) -> Bool, si ha de salir o no, Int, número de página
     """
-    if page == 1:
-        text = texts.TEXTS["ranking_next_page"]
-    elif page == total_pages:
-        text = texts.TEXTS["ranking_back_page"]
-    else:
-        text = texts.TEXTS["ranking_next_page_back_page"]
+    text = ''
+    if page != total_pages:
+        text += texts.TEXTS["ranking_next_page"]
+    if page != 1:
+        text += texts.TEXTS["ranking_back_page"]
+    text += texts.TEXTS["ranking_exit"]
     option = input('\n' + ''.ljust(center_padding) + text).strip()
 
     if option == '+' and page != total_pages:

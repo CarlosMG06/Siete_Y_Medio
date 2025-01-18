@@ -4,6 +4,7 @@ CREATE OR REPLACE VIEW v_ranking AS
 	SELECT 
 		p.id AS player_id,
 		p.player_name,
+        sum(pg.ending_points - pg.starting_points) AS earnings,
 		count(DISTINCT pg.game_id) AS games_played,
 		sum(timestampdiff(MINUTE, cg.start_time, cg.end_time)) AS minutes_played
 	FROM player p

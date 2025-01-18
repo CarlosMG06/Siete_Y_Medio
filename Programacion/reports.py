@@ -30,7 +30,7 @@ reports = {
             RP_TIMES_REPEATED,
             RP_TOTAL_GAMES
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_most_common_initial_card;",
+        "query": "SELECT * FROM v_report_most_common_initial_card;",
         "file_name": "init_card_most_repeated_player.xml"
     },
 2: {
@@ -45,7 +45,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MAX_BET
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_highest_bet;",
+        "query": "SELECT * FROM v_report_highest_bet;",
         "file_name": "game_max_bet_player.xml"
     },
 3: {
@@ -60,7 +60,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MIN_BET
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_lowest_bet;",
+        "query": "SELECT * FROM v_report_lowest_bet;",
         "file_name": "game_min_bet_player.xml"
     },
 4: {
@@ -81,7 +81,7 @@ reports = {
             RP_WIN_ROUNDS,
             RP_PCE_WON
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_round_win_percentage;",
+        "query": "SELECT * FROM v_report_round_win_percentage;",
         "file_name": "pce_won_rounds_avg_bet.xml"
     },
 5: {
@@ -94,7 +94,7 @@ reports = {
             RP_ID_GAME,
             RP_WIN_ROUNDS
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_bot_wins;",
+        "query": "SELECT * FROM v_report_bot_wins;",
         "file_name": "won_game_bots.xml"
     },
 6.1: {
@@ -109,7 +109,7 @@ reports = {
             RP_ID_PLAYER,
             RP_WIN_ROUNDS
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_bank_wins_per_player;",
+        "query": "SELECT * FROM v_report_bank_wins_per_player;",
         "file_name": "bank_wins_distinguish_user.xml"
     },
 6.2: {
@@ -122,7 +122,7 @@ reports = {
                     RP_ID_GAME,
                     RP_WIN_ROUNDS
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_bank_wins;",
+        "query": "SELECT * FROM v_report_bank_wins;",
         "file_name": "bank_wins.xml"
     },
 7: {
@@ -135,7 +135,7 @@ reports = {
             RP_ID_GAME,
             RP_USER_BEEN_BANK
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_bank_players;",
+        "query": "SELECT * FROM v_report_bank_players;",
         "file_name": "banks_players.xml"
     },
 8: {
@@ -148,7 +148,7 @@ reports = {
             RP_ID_GAME,
             RP_AVG_BET
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_avg_bet;",
+        "query": "SELECT * FROM v_report_avg_bet;",
         "file_name": "game_avg_bet.xml"
     },
 9: {
@@ -161,7 +161,7 @@ reports = {
             RP_ID_GAME,
             RP_AVG_BET
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_avg_bet_1st_round;",
+        "query": "SELECT * FROM v_report_avg_bet_1st_round;",
         "file_name": "first_round_avg_bet.xml"
     },
 10: {
@@ -176,7 +176,7 @@ reports = {
             RP_ROUNDS,
             RP_AVG_BET
                 ],
-        "query": "SELECT * FROM seven_and_half.v_report_avg_bet_last_round;",
+        "query": "SELECT * FROM v_report_avg_bet_last_round;",
         "file_name": "last_round_avg_bet.xml"
     }
 }
