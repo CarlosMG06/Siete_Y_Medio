@@ -43,7 +43,7 @@ CREATE OR REPLACE VIEW v_report_most_common_initial_card AS
 	);
 
 # 2
-CREATE OR REPLACE VIEW v_report_highest_bet AS
+CREATE OR REPLACE VIEW v_report_highest_bet_per_player AS
 	SELECT DISTINCT pgr.game_id, pgr.player_id, pgr.bet_amount AS highest_bet
 	FROM player_game_round pgr
     WHERE bet_amount = (
@@ -53,7 +53,7 @@ CREATE OR REPLACE VIEW v_report_highest_bet AS
         );
 
 # 3
-CREATE OR REPLACE VIEW v_report_lowest_bet AS
+CREATE OR REPLACE VIEW v_report_lowest_bet_per_player AS
 	SELECT DISTINCT pgr.game_id, pgr.player_id, pgr.bet_amount AS lowest_bet
 	FROM player_game_round pgr
     WHERE bet_amount = (
@@ -93,7 +93,7 @@ CREATE OR REPLACE VIEW v_report_round_win_percentage AS
 CREATE OR REPLACE VIEW v_report_bot_wins AS
 	SELECT 
 		pg.game_id,
-		(pg.ending_points - pg.starting_points) AS points_gained_by_winning_bot
+		(pg.ending_points - pg.starting_points) AS points_earned_by_winning_bot
 	FROM player_game pg
 		JOIN player p ON pg.player_id = p.id
 	WHERE p.is_human = FALSE

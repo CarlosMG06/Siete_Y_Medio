@@ -44,7 +44,7 @@ TEXTS = {
     "report_initial_card": "Most Repeated Card",
     "report_times_repeated": "Times Repeated",
     "report_games_played": "Games Played",
-    "report_points_won": "Points Won",
+    "report_points_earned_bot": "Points Earned by Winning Bot",
     "report_user_been_bank": "Users who have been bank",
     "report_exit": "exit to go to Reports: ",
     "ranking_id_player": "Player ID",

@@ -65,7 +65,7 @@ VALUES  (1, 4, '2024-12-15 13:37:55', 5, '2024-12-15 13:44:35', 'ESP40'),
         (4, 3, '2024-12-29 17:34:09', 7, '2024-12-29 17:44:59', 'POK'),
         (5, 3, '2025-01-06 11:56:06', 3, '2025-01-06 12:01:16', 'ESP40');
 
-INSERT INTO player_game
+INSERT INTO player_game (game_id, player_id, initial_card_id, starting_points, ending_points)
 VALUES  (1, '11115555A', 'B10', 20, 3), (1, '22226666B', 'B03', 20, 5), (1, '33337777C', 'C03', 20, 35), (1, '44448888D', 'E09', 20, 37),
 		(2, '11115555A', 'O06', 20, 42), (2, '22226666B', 'B08', 20, 2), (2, '33337777C', 'C07', 20, 16),
         (3, '11115555A', 'O06', 20, 8), (3, '22226666B', 'C05', 20, 11), (3, '44448888D', 'E09', 20, 41),
@@ -80,7 +80,7 @@ Partida 4: 7 Rondas
 Partida 5: 3 Rondas
 */
 
-INSERT INTO player_game_round
+INSERT INTO player_game_round (game_id, round_number, player_id, is_bank, bet_amount, starting_points, cards_value, ending_points)
 VALUES  (1, 1, '11115555A', False, 3, 20, 5, 17),  (1, 1, '22226666B', True, NULL, 20, 5.5, 19), (1, 1, '33337777C', False, 8, 20, 4, 12),     (1, 1, '44448888D', False, 6, 20, 7.5, 32),
 		(1, 2, '11115555A', False, 7, 17, 8, 10),  (1, 2, '22226666B', False, 3, 19, 8.5, 16),   (1, 2, '33337777C', False, 5, 12, 5, 7),      (1, 2, '44448888D', True, NULL, 32, 6.5, 47),
         (1, 3, '11115555A', False, 3, 10, 7, 13),  (1, 3, '22226666B', False, 5, 16, 4.5, 11),   (1, 3, '33337777C', False, 3, 7, 4.5, 4),     (1, 3, '44448888D', True, NULL, 47, 6.5, 52),

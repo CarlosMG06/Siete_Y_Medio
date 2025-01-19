@@ -39,11 +39,12 @@ CREATE TABLE cardgame(
 );
 
 CREATE TABLE player_game(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+    # ↑ This surrogate key was created so that players can be deleted while maintaining accurate game data (ON DELETE SET NULL)
 	game_id INT UNSIGNED NOT NULL,
-    player_id VARCHAR(9) NOT NULL,
+    player_id VARCHAR(9),
 	FOREIGN KEY (game_id) REFERENCES cardgame(id),
-    FOREIGN KEY (player_id) REFERENCES player(id),
-    PRIMARY KEY (game_id, player_id),
+    FOREIGN KEY (player_id) REFERENCES player(id) ON DELETE SET NULL,
     initial_card_id VARCHAR(3) NOT NULL,
     FOREIGN KEY (initial_card_id) REFERENCES card(id),
     starting_points INT NOT NULL,
@@ -51,12 +52,13 @@ CREATE TABLE player_game(
 );
 
 CREATE TABLE player_game_round(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+    # ↑ This surrogate key was created so that players can be deleted while maintaining accurate game data (ON DELETE SET NULL)
 	game_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (game_id) REFERENCES cardgame(id),
     round_number INT NOT NULL,
-    player_id VARCHAR(9) NOT NULL,
-    FOREIGN KEY (player_id) REFERENCES player(id),
-	PRIMARY KEY (game_id, round_number, player_id),
+    player_id VARCHAR(9),
+    FOREIGN KEY (player_id) REFERENCES player(id) ON DELETE SET NULL,
     is_bank BOOL NOT NULL,
 	bet_amount INT UNSIGNED,
 	starting_points INT NOT NULL,

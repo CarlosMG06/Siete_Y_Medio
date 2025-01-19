@@ -46,7 +46,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MAX_BET
                 ],
-        "query": "SELECT * FROM v_report_highest_bet ORDER BY game_id, player_id;",
+        "query": "SELECT * FROM v_report_highest_bet_per_player ORDER BY game_id, player_id;",
         "file_name": "game_max_bet_player.xml"
     },
 3: {
@@ -61,7 +61,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MIN_BET
                 ],
-        "query": "SELECT * FROM v_report_lowest_bet ORDER BY game_id, player_id;",
+        "query": "SELECT * FROM v_report_lowest_bet_per_player ORDER BY game_id, player_id;",
         "file_name": "game_min_bet_player.xml"
     },
 4: {
@@ -89,14 +89,14 @@ reports = {
         "width": RP_5_WIDTH,
         "titles": [
             texts.TEXTS["report_id_game"],
-            texts.TEXTS["report_rounds_won"]
+            texts.TEXTS["report_points_earned_bot"]
                 ],
         "widths": [
             RP_ID_GAME,
-            RP_WIN_ROUNDS
+            RP_POINTS_EARNED_BOT
                 ],
         "query": "SELECT * FROM v_report_bot_wins;",
-        "file_name": "won_game_bots.xml"
+        "file_name": "bot_game_wins.xml"
     },
 6.1: {
         "width": RP_61_WIDTH,
@@ -110,7 +110,7 @@ reports = {
             RP_ID_PLAYER,
             RP_WIN_ROUNDS
                 ],
-        "query": "SELECT * FROM v_report_bank_wins_per_player;",
+        "query": "SELECT * FROM v_report_bank_wins_per_player ORDER BY game_id, player_id;",
         "file_name": "bank_wins_distinguish_user.xml"
     },
 6.2: {
@@ -137,7 +137,7 @@ reports = {
             RP_USER_BEEN_BANK
                 ],
         "query": "SELECT * FROM v_report_bank_players;",
-        "file_name": "banks_players.xml"
+        "file_name": "bank_players.xml"
     },
 8: {
         "width": RP_8_WIDTH,
