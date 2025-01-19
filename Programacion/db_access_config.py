@@ -19,7 +19,7 @@ db_config = {
     'database': 'seven_and_half'
 }
 
-def execute_query_in_db(query):
+def execute_query_in_db(query, one=False):
     # Conectarse a la BBDD
     with SSHTunnelForwarder(**ssh_config) as tunnel:
         connection = mysql.connector.connect(host="127.0.0.1", port=tunnel.local_bind_port, **db_config)
@@ -27,7 +27,7 @@ def execute_query_in_db(query):
 
     # Ejecutar la query
         cursor.execute(query)
-        results = cursor.fetchall()
+        results = cursor.fetchone() if one else cursor.fetchall()
     
     # Desconectarse de la BBDD
         cursor.close()

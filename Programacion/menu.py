@@ -1,6 +1,5 @@
 from printing import print_menu
 import game
-import mazos
 
 def start_menu(padding = 0):
     """
@@ -89,12 +88,8 @@ def profile_menu(padding = 0):
     print_menu(text, padding)
 
 def decks_submenu(padding = 0):
-    deckName = "None"
-    if game.activeDeck in mazos.mazos:
-        if game.activeDeck == mazos.mazos[0]: deckName = "ESP48"
-        if game.activeDeck == mazos.mazos[1]: deckName = "ESP40"
-        if game.activeDeck == mazos.mazos[2]: deckName = "Poker"
-    text = f"""Active deck: {deckName}
+    text = f"""Active deck: {game.activeDeckId}
+
 1) ESP48
 2) ESP40
 3) Poker

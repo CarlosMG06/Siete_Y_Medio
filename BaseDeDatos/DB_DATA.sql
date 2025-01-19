@@ -9,7 +9,7 @@ VALUES  ('11115555A', 'Mario', True, 2),
 INSERT INTO deck
 VALUES  ('ESP48', 'Baraja Española de 48 cartas'),
 		('ESP40', 'Baraja Española de 40 cartas'),
-        ('POK', 'Standard Poker Deck');
+        ('Poker', 'Standard Poker Deck');
 
 INSERT INTO card(id, suit)
 VALUES  ('O01', 'Oros'), ('O02', 'Oros'), ('O03', 'Oros'), ('O04', 'Oros'), ('O05', 'Oros'), ('O06', 'Oros'),
@@ -49,20 +49,20 @@ VALUES  ('O01', 'ESP48'), ('O02', 'ESP48'), ('O03', 'ESP48'), ('O04', 'ESP48'), 
         ('B01', 'ESP40'), ('B02', 'ESP40'), ('B03', 'ESP40'), ('B04', 'ESP40'), ('B05', 'ESP40'), ('B06', 'ESP40'),
         ('B07', 'ESP40'), ('B08', 'ESP40'), ('B09', 'ESP40'), ('B10', 'ESP40'),
         
-        ('D01', 'POK'), ('D02', 'POK'), ('D03', 'POK'), ('D04', 'POK'), ('D05', 'POK'), ('D06', 'POK'), ('D07', 'POK'), 
-        ('D08', 'POK'), ('D09', 'POK'), ('D10', 'POK'), ('D11', 'POK'), ('D12', 'POK'), ('D13', 'POK'), 
-        ('H01', 'POK'), ('H02', 'POK'), ('H03', 'POK'), ('H04', 'POK'), ('H05', 'POK'), ('H06', 'POK'), ('H07', 'POK'), 
-        ('H08', 'POK'), ('H09', 'POK'), ('H10', 'POK'), ('H11', 'POK'), ('H12', 'POK'), ('H13', 'POK'), 
-        ('S01', 'POK'), ('S02', 'POK'), ('S03', 'POK'), ('S04', 'POK'), ('S05', 'POK'), ('S06', 'POK'), ('S07', 'POK'), 
-        ('S08', 'POK'), ('S09', 'POK'), ('S10', 'POK'), ('S11', 'POK'), ('S12', 'POK'), ('S13', 'POK'), 
-        ('T01', 'POK'), ('T02', 'POK'), ('T03', 'POK'), ('T04', 'POK'), ('T05', 'POK'), ('T06', 'POK'), ('T07', 'POK'), 
-        ('T08', 'POK'), ('T09', 'POK'), ('T10', 'POK'), ('T11', 'POK'), ('T12', 'POK'), ('T13', 'POK');
+        ('D01', 'Poker'), ('D02', 'Poker'), ('D03', 'Poker'), ('D04', 'Poker'), ('D05', 'Poker'), ('D06', 'Poker'), ('D07', 'Poker'), 
+        ('D08', 'Poker'), ('D09', 'Poker'), ('D10', 'Poker'), ('D11', 'Poker'), ('D12', 'Poker'), ('D13', 'Poker'), 
+        ('H01', 'Poker'), ('H02', 'Poker'), ('H03', 'Poker'), ('H04', 'Poker'), ('H05', 'Poker'), ('H06', 'Poker'), ('H07', 'Poker'), 
+        ('H08', 'Poker'), ('H09', 'Poker'), ('H10', 'Poker'), ('H11', 'Poker'), ('H12', 'Poker'), ('H13', 'Poker'), 
+        ('S01', 'Poker'), ('S02', 'Poker'), ('S03', 'Poker'), ('S04', 'Poker'), ('S05', 'Poker'), ('S06', 'Poker'), ('S07', 'Poker'), 
+        ('S08', 'Poker'), ('S09', 'Poker'), ('S10', 'Poker'), ('S11', 'Poker'), ('S12', 'Poker'), ('S13', 'Poker'), 
+        ('T01', 'Poker'), ('T02', 'Poker'), ('T03', 'Poker'), ('T04', 'Poker'), ('T05', 'Poker'), ('T06', 'Poker'), ('T07', 'Poker'), 
+        ('T08', 'Poker'), ('T09', 'Poker'), ('T10', 'Poker'), ('T11', 'Poker'), ('T12', 'Poker'), ('T13', 'Poker');
 
 INSERT INTO cardgame
 VALUES  (1, 4, '2024-12-15 13:37:55', 5, '2024-12-15 13:44:35', 'ESP40'),
 		(2, 3, '2024-12-20 09:15:30', 6, '2024-12-20 09:25:00', 'ESP48'),
         (3, 3, '2024-12-27 16:52:23', 8, '2024-12-27 17:05:23', 'ESP48'),
-        (4, 3, '2024-12-29 17:34:09', 7, '2024-12-29 17:44:59', 'POK'),
+        (4, 3, '2024-12-29 17:34:09', 7, '2024-12-29 17:44:59', 'Poker'),
         (5, 3, '2025-01-06 11:56:06', 3, '2025-01-06 12:01:16', 'ESP40');
 
 INSERT INTO player_game (game_id, player_id, initial_card_id, starting_points, ending_points)

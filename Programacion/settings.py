@@ -6,6 +6,7 @@ import utils
 import game
 from sizes import *
 from menu import *
+from decks import decks
 
 LIMIT_MIN_ROUNDS = 1
 LIMIT_MAX_ROUNDS = 30
@@ -60,7 +61,7 @@ def setup_players(players):
             utils.clear_screen()
             p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
 
-            p.print_line_centered("Actual Players In Game", fill_char="*")
+            p.print_line_centered("Current Players In Game", fill_char="*")
             p.print_selected_players(game.selectedPlayers)
             input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
             break
@@ -112,18 +113,10 @@ def set_deck():
 
         if option == MAX_OPTION_1:
             exit_decksubmenu = True
-
-        if option == 1:
-            game.activeDeck = mazos.esp48
-            input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP48")
-
-        if option == 2:
-            game.activeDeck = mazos.esp40
-            input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: ESP40")
-
-        if option == 3:
-            game.activeDeck = mazos.poker
-            input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + "Active deck set to: Poker")
+        
+        game.activeDeckId = tuple(decks.keys())[option - 1]
+        game.activeDeck = decks[game.activeDeckId]
+        input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + f"Active deck set to: {game.activeDeckId}")
 
 def setup_max_rounds():
     """
