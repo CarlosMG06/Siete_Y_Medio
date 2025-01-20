@@ -4,7 +4,7 @@ import mysql.connector
 import datetime
 
 from dotenv import load_dotenv
-load_dotenv(dotenv_path="Programacion\db_access.env")
+load_dotenv(dotenv_path="Programacion/db_access.env")
 
 ssh_config = {
    'ssh_address_or_host': os.getenv("SSH_HOST"),
