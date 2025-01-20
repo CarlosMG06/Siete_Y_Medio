@@ -32,7 +32,7 @@ def settings_option(players):
             if option < MIN_OPTION or option > MAX_OPTION_1:
                 print()
                 p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
                 continue
 
             if option == MAX_OPTION_1:
@@ -48,53 +48,74 @@ def settings_option(players):
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
     return max_rounds
 
 def setup_players(players):
     exit_setPlayersSubmenu = False
+    showSelectedPlayers = True
     while not exit_setPlayersSubmenu:
 
-        exit_showSelectedPlayers = False
-        while not exit_showSelectedPlayers:
+        if showSelectedPlayers:
             utils.clear_screen()
             p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
 
             p.print_line_centered("Current Players In Game", fill_char="*")
             p.print_selected_players(game.selectedPlayers)
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
-            break
+            utils.press_to_continue()
+        else:
+            showSelectedPlayers = True
 
         utils.clear_screen()
         p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
         pl.show_players_no_input(players)
-        p.print_line(
-            "Option (id to add to game), -id to remove player, sh to show current players in game, -1 to go back",
-            padding=TOTAL_WIDTH, fill_char=" ")
+        p.print_line(texts.TEXTS["option_setup_players"], padding=TOTAL_WIDTH, fill_char=" ")
         option = input()
-        if option == "-1":
+        if option == "exit":
             break
 
-        if len(option) == 9:  # La longitud de un DNI
-            players_dic = pl.player_list_to_dict(players)
-            if option in players_dic.keys():
-                game.selectedPlayers[option] = players_dic[option]
-                p.print_line(game.selectedPlayers[option]["name"] + " has been added to the game",
-                             padding=TOTAL_WIDTH, fill_char=" ")
-                input()
+        elif len(option) == 9:  # La longitud de un DNI
+            id = option.upper()
+            player_dict = pl.player_list_to_dict(players)
+            if id in game.selectedPlayers.keys():
+                name = player_dict[id]["name"]
+                p.print_line(f" {name} is already playing ", padding=TOTAL_WIDTH, fill_char=":")
+                utils.press_to_continue()
+            elif id in player_dict.keys():
+                name = player_dict[id]["name"]
+                game.selectedPlayers[id] = player_dict[id]
+                p.print_line(f" {name} has been added to the game ", padding=TOTAL_WIDTH, fill_char="+")
+                utils.press_to_continue()       
             else:
-                p.print_line(option + " isn't a valid player", padding=TOTAL_WIDTH, fill_char=" ")
-                input()
+                showSelectedPlayers = False
+                p.print_line(f" {id} isn't a valid player ", padding=TOTAL_WIDTH, fill_char="=")
+                utils.press_to_continue()
 
-        if len(option) == 10:  # La longitud de un DNI con un menos delante
-            if option[1:] in game.selectedPlayers.keys():
-                p.print_line(option[1:] + " has been deleted from the game", padding=TOTAL_WIDTH, fill_char=" ")
-                del game.selectedPlayers[option[1:]]
-                input()
+        elif len(option) == 10 and option[0] == "-":  # La longitud de un DNI con un menos delante
+            id = option[1:].upper()
+            player_dict = pl.player_list_to_dict(players)
+            if id in game.selectedPlayers.keys():
+                name = player_dict[id]["name"]
+                p.print_line(f" {name} has been deleted from the game ", padding=TOTAL_WIDTH, fill_char="-")
+                del game.selectedPlayers[id]
+                utils.press_to_continue()
+            elif id in player_dict.keys():
+                name = player_dict[id]["name"]
+                p.print_line(f" {name} isn't currently playing ", padding=TOTAL_WIDTH, fill_char=":")
+                utils.press_to_continue()
             else:
-                p.print_line(option[1:] + " isn't currently playing", padding=TOTAL_WIDTH, fill_char=" ")
-                input()
+                showSelectedPlayers = False
+                p.print_line(f" {id} isn't a valid player ", padding=TOTAL_WIDTH, fill_char="=")
+                utils.press_to_continue()
+        
+        elif option.lower() != "sh":
+            showSelectedPlayers = False
+            print()
+            p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
+            utils.press_to_continue()
+            continue
+
 
 def set_deck():
     exit_decksubmenu = False
@@ -108,15 +129,18 @@ def set_deck():
         if option < MIN_OPTION or option > MAX_OPTION_1:
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
             continue
 
+        if 1 <= option <= 3:
+            game.activeDeckId = tuple(decks.keys())[option - 1]
+            game.activeDeck = decks[game.activeDeckId]
+            print()
+            p.print_line(f" Active deck set to: {game.activeDeckId} ", padding=TOTAL_WIDTH, fill_char='·')
+            input("\n" + texts.TEXTS['continue'].center(TOTAL_WIDTH))
+        
         if option == MAX_OPTION_1:
             exit_decksubmenu = True
-        
-        game.activeDeckId = tuple(decks.keys())[option - 1]
-        game.activeDeck = decks[game.activeDeckId]
-        input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + f"Active deck set to: {game.activeDeckId}")
 
 def setup_max_rounds():
     """
@@ -140,16 +164,16 @@ def setup_max_rounds():
             if new_max_rounds < LIMIT_MIN_ROUNDS or new_max_rounds > LIMIT_MAX_ROUNDS:
                 print()
                 p.print_line(texts.TEXTS["error_max_rounds"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
             else:
                 print()
                 p.print_line(texts.TEXTS["setup_max_rounds"] + str(new_max_rounds) + " ", padding=TOTAL_WIDTH, fill_char='*')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
                 exit = True
 
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
     return new_max_rounds

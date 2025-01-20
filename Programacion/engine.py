@@ -18,7 +18,6 @@ def start_engine():
     exit = False
 
     players = pl.get_players_from_db()
-    cards_to_use = ""
     max_rounds = 5
 
     while not exit:
@@ -38,7 +37,7 @@ def start_engine():
             if option < MIN_OPTION or option > MAX_OPTION_2:
                 print()
                 p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
                 continue
 
             if option == MIN_OPTION:
@@ -54,11 +53,11 @@ def start_engine():
                 if len(game.selectedPlayers) < MIN_PLAYERS or len(game.selectedPlayers) > MAX_PLAYERS:
                     print()
                     p.print_line(texts.TEXTS["error_init_play_players"], padding=TOTAL_WIDTH, fill_char='=')
-                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                    utils.press_to_continue()
                 elif game.activeDeck == None:
                     print()
                     p.print_line(texts.TEXTS["error_init_play_deck"], padding=TOTAL_WIDTH, fill_char='=')
-                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                    utils.press_to_continue()
                 else:
                     game.game_main(maxRounds=max_rounds, padding=TOTAL_WIDTH)
             elif option == 4:
@@ -73,4 +72,4 @@ def start_engine():
             print()
             print("aaaaa") #Cuando termina la ronda me manda aquí por algún motivo
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()

@@ -97,7 +97,7 @@ def print_players(players, padding):
     betTxt = "Bet".ljust(padding // len(list(players)) - offset)
     pointsTxt = "Points".ljust(padding // len(list(players)) - offset)
     cardsTxt = "Cards".ljust(padding // len(list(players)) - offset)
-    roundPointsTxt = "Roundpoints".ljust(padding // len(list(players)) - offset)
+    cardsValueTxt = "CardsValue".ljust(padding // len(list(players)) - offset)
     
     for player in list(players):
         nameTxt += players[player]["name"].ljust(padding // len(list(players)) - offset)
@@ -116,7 +116,7 @@ def print_players(players, padding):
                 cardsTxt += indCardsTxt.ljust(padding // len(list(players)) - offset)
         if indCardsTxt == "":
             cardsTxt += "".ljust(padding // len(list(players)) - offset)
-        roundPointsTxt += str(players[player]["roundPoints"]).ljust(padding // len(list(players)) - offset)
+        cardsValueTxt += str(players[player]["cardsValue"]).ljust(padding // len(list(players)) - offset)
 
     print(nameTxt)
     print(humanTxt)
@@ -126,7 +126,7 @@ def print_players(players, padding):
     print(betTxt)
     print(pointsTxt)
     print(cardsTxt)
-    print(roundPointsTxt)
+    print(cardsValueTxt)
 
 def print_selected_players(players):
     for player in players.keys():
@@ -189,7 +189,7 @@ def show_player_stats(player, playersInSession):
         txtCards += card
         if playersInSession[player]["cards"].index(card) != len(playersInSession[player]["cards"]) - 1:
             txtCards += ";"
-    txtRoundPoints = " ".ljust(50) + f"Round Points".ljust(20) + str(playersInSession[player]["roundPoints"])
+    txtcardsValue = " ".ljust(50) + f"Round Points".ljust(20) + str(playersInSession[player]["cardsValue"])
 
     print(txtName)
     print(txtType)
@@ -200,7 +200,7 @@ def show_player_stats(player, playersInSession):
     print(txtBet)
     print(txtPoints)
     print(txtCards)
-    print(txtRoundPoints)
+    print(txtcardsValue)
 
 
 

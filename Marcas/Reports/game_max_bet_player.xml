@@ -25,4 +25,9 @@
     <ID-Player>44448888D</ID-Player>
     <Max-Bet>5</Max-Bet>
   </Fila>
+  <Fila>
+    <ID-Game>6</ID-Game>
+    <ID-Player>41831270S</ID-Player>
+    <Max-Bet>15</Max-Bet>
+  </Fila>
 </Resultados>

@@ -7,7 +7,7 @@ from sizes import *
 import texts
 import printing as p
 import titles
-from db_access_config import execute_query_in_db
+from db_access_config import execute_transaction_in_db, insert_query
 
 NIF_LENGTH = 9
 NIF_NUMBERS_END_POSITION = 7
@@ -39,7 +39,7 @@ def players_option(players):
             if option < MIN_OPTION or option > MAX_OPTION_1:
                 print()
                 p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
                 continue
 
             if option == MAX_OPTION_1:
@@ -53,7 +53,7 @@ def players_option(players):
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
     return players
 
@@ -64,7 +64,7 @@ def get_players_from_db(**kwargs):
     :return: (list) -> Lista de diccionarios con los jugadores recogidos de la base de datos
     """
     query = "SELECT * FROM player;"
-    player_list_tuple = execute_query_in_db(query)
+    player_list_tuple = execute_transaction_in_db(query)
 
     # Convertimos la lista de tuplas en una lista de diccionarios
     PLAYER_KEYS = ("id","name","human","type")
@@ -100,14 +100,14 @@ def create_new_player(players, human):
 
     # Pedimos el nombre del jugador, deberá tener un largo de 1 a 32 carácteres (limitados en base de datos)
     while True:
-        name_input = input("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_NAME_TEXT).capitalize()
+        name_input = input("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_NAME_TEXT)
         if len(name_input) > 0 and len(name_input) <= 32 and name_input.isalpha():
             break
 
         # En caso que nos introduzca mal el nombre, volvemos a imprimir el título
         print()
         p.print_line(texts.TEXTS["error_demand_name"], padding=TOTAL_WIDTH, fill_char='!')
-        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+        utils.press_to_continue()
         utils.clear_screen()
         p.print_title(NEW_PLAYER_TITLE, padding=TOTAL_WIDTH)
     
@@ -130,7 +130,7 @@ def create_new_player(players, human):
                 else:
                     print()
                     p.print_line(texts.TEXTS["error_duplicated_nif"], padding=TOTAL_WIDTH, fill_char='!')
-                    input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                    utils.press_to_continue()
 
             # En caso que no nos introduzca un NIF válido, deberemos:
             #   1. Mostrar mensaje de error
@@ -140,7 +140,7 @@ def create_new_player(players, human):
             else:
                 print()
                 p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='!')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
             utils.clear_screen()
             p.print_title(NEW_PLAYER_TITLE, padding=TOTAL_WIDTH)
             p.print_line("".ljust(LEFT_SPACE_OPTIONS) + DEMAND_NAME_TEXT + name_input)
@@ -171,11 +171,11 @@ def create_new_player(players, human):
                 break
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
         # En caso que se imprima el mensaje de error, deberemos:
         #   1. Limpiar pantalla
@@ -207,8 +207,14 @@ def create_new_player(players, human):
     print()
     is_ok = input("".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["demand_confirmation"])
     if is_ok.lower() != "n":
-        query = f"INSERT INTO player VALUES ({nif_input}, {name_input}, {human}, {profile_option});"
-        execute_query_in_db(query)
+        db_player = {
+            "id": nif_input,
+            "player_name": name_input,
+            "is_human": human,
+            "risk_type": profile_option
+        }
+        query = insert_query(db_player, "player")
+        execute_transaction_in_db(query, DML=True)
         
         player = {
             "id": nif_input,
@@ -269,11 +275,11 @@ def show_players(players):
 
         # Generamos input para que el usuario pueda eliminar un jugador o salir
         option = input("\n" + "".ljust(LEFT_SPACE_OPTIONS_REPORTS) + texts.TEXTS["option_delete_player"])
-        if option == "-1":
+        if option == "exit":
             return
 
-        if len(option) == 12 and option[:3].lower() == "-id":
-            id = option[3:]
+        if len(option) == 10 and option[0] == "-":
+            id = option[1:].upper()
             index = -1
             for i in range(len(players)):
                 if players[i]["id"] == id:
@@ -283,20 +289,20 @@ def show_players(players):
             if index == -1:
                 print()
                 p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
             else:
                 del players[index]
                 # Borramos de la BBDD
-                query = f"DELETE FROM player WHERE id = {id};"
-                execute_query_in_db(query)
+                query = f"DELETE FROM player WHERE id = '{id}';"
+                execute_transaction_in_db(query, DML=True)
 
                 print()
                 p.print_line(texts.TEXTS["player_deleted"], padding=TOTAL_WIDTH, fill_char='*')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
         else:
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
 def show_players_no_input(players):
     """
@@ -376,11 +382,10 @@ def cpu_demand_card(player, deck, players_results, players_bets):
 
     # Iteramos por los valores de todas las cartas que tenemos en el mazo
     for card in deck.values():
-        # REVISAR CON EL DICCIONARIO DE ÁLVARO PARA COGER LOS PUNTOS ACTUALES DEL JUGADOR
         # Sumamos los puntos actuales con los de la carta que estamos revisando:
         #   SI nos da 7,5 o menos, añadiremos 1 al valor sum_valid
         # Aumentamos en 1 el valor de las cartas que estamos contando
-        if player["roundPoints"] + card["realValue"] <= MAX_POINTS:
+        if player["cardsValue"] + card["realValue"] <= MAX_POINTS:
             sum_valid += 1
         total_cards += 1
 
@@ -388,7 +393,6 @@ def cpu_demand_card(player, deck, players_results, players_bets):
     # (cartas_que_no_nos_pasarnos / total_de_cartas_en_el_mazo) * 100 para sacar porcentaje
     risk = 100 - ((sum_valid / total_cards) * 100)
 
-    # REVISAR CON EL DICCIONARIO DE ÁLVARO PARA COGER EL TIPO DE JUGADOR QUE ES Y SI ES BANCA
     # Consultamos los riesgos según el tipo de jugador:
     #   1. El riesgo calculado es menor al riesgo de jugador, devolvemos True para coger carta
     #   2. Si es banca y algún jugador tiene más puntos que nosotros:
@@ -399,7 +403,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
     if player["bank"]:
         better_plays = []
         for index, result in enumerate(players_results):
-            if player["roundPoints"] < result and result <= MAX_POINTS:
+            if player["cardsValue"] < result and result <= MAX_POINTS:
                 better_plays.append(index)
 
         if len(better_plays) != 0:

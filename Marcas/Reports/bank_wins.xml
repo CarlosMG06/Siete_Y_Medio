@@ -20,4 +20,8 @@
     <ID-Game>5</ID-Game>
     <Rounds-Won>1</Rounds-Won>
   </Fila>
+  <Fila>
+    <ID-Game>6</ID-Game>
+    <Rounds-Won>3</Rounds-Won>
+  </Fila>
 </Resultados>

@@ -6,7 +6,7 @@ import titles
 import utils
 from sizes import *
 from menu import *
-from db_access_config import execute_query_in_db
+from db_access_config import execute_transaction_in_db
 
 RANKING_LIMIT = 10
 RANKING_TO_ORDER_COLUMNS = {
@@ -43,14 +43,14 @@ def rankings_option():
 
     while not exit_submenu:
         utils.clear_screen()
-        p.print_title(titles.TITLES["reports"], padding=TOTAL_WIDTH)
+        p.print_title(titles.TITLES["rankings"], padding=TOTAL_WIDTH)
         ranking_submenu(padding=LEFT_SPACE_OPTIONS)
         try:
             option = int(input("\n" + "".ljust(LEFT_SPACE_OPTIONS) + texts.TEXTS["option"] + ": "))
             if option < MIN_OPTION or option > MAX_OPTION_1:
                 print()
                 p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
                 continue
 
             if option == MAX_OPTION_1:
@@ -60,7 +60,7 @@ def rankings_option():
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
 def show_ranking(column_to_order):
     """
@@ -74,7 +74,7 @@ def show_ranking(column_to_order):
 
     # Pedimos los datos a la base de datos, ordenados según corresponde, y calculamos las páginas totales
     query = f"SELECT * FROM v_ranking ORDER BY {RANKING_TO_ORDER_COLUMNS[column_to_order]["column"]} desc;"
-    data = execute_query_in_db(query)
+    data = execute_transaction_in_db(query)
     total_pages = math.ceil(len(data)/RANKING_LIMIT)
 
     while not exit:
@@ -132,5 +132,5 @@ def handle_user_input(page, total_pages, center_padding):
     else:
         print()
         p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+        utils.press_to_continue()
     return False, page

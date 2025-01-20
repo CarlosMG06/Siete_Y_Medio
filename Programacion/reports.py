@@ -9,7 +9,7 @@ import titles
 import utils
 from sizes import *
 from menu import *
-from db_access_config import execute_query_in_db
+from db_access_config import execute_transaction_in_db
 
 SAVE_REPORT_PATH = os.path.dirname(os.path.abspath(__file__)).replace("Programacion", "Marcas/Reports")
 
@@ -31,7 +31,7 @@ reports = {
             RP_TIMES_REPEATED,
             RP_TOTAL_GAMES
                 ],
-        "query": "SELECT * FROM v_report_most_common_initial_card ORDER BY player_id;",
+        "query": "SELECT * FROM v_report_most_common_initial_card ORDER BY player_id, initial_card_id;",
         "file_name": "init_card_most_repeated_player.xml"
     },
 2: {
@@ -197,7 +197,7 @@ def reports_option():
             if option < MIN_OPTION or option > MAX_OPTION_3:
                 print()
                 p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
                 continue
 
             if option == MAX_OPTION_3:
@@ -209,7 +209,7 @@ def reports_option():
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
 def show_report(option):
     """
@@ -230,7 +230,7 @@ def show_report(option):
     exit = False
 
     # Pedimos los datos correspondientes a la base de datos y calculamos las páginas totales
-    data = execute_query_in_db(rp_query)
+    data = execute_transaction_in_db(rp_query)
     total_pages = math.ceil(len(data)/REPORT_LIMIT)
     
     # Exportamos los resultados a XML
@@ -294,7 +294,7 @@ def handle_user_input(page, total_pages, center_padding):
     else:
         print()
         p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-        input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+        utils.press_to_continue()
     return False, page
 
 def select_option_6():
@@ -310,7 +310,7 @@ def select_option_6():
             if option < MIN_OPTION or option > MAX_OPTION_4:
                 print()
                 p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
-                input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+                utils.press_to_continue()
                 continue
 
             if option == MAX_OPTION_4:
@@ -322,7 +322,7 @@ def select_option_6():
         except ValueError:
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
-            input("\n" + texts.TEXTS["continue"].center(TOTAL_WIDTH))
+            utils.press_to_continue()
 
 def export_to_xml(results_dict, file_name):
     """

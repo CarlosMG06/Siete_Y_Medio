@@ -5,127 +5,151 @@
     <ID-Player>11115555A</ID-Player>
     <Rounds>5</Rounds>
     <Average-Bet>4.600</Average-Bet>
-    <Won-Rounds>0</Won-Rounds>
-    <Percentatge-Won>0.000</Percentatge-Won>
+    <Rounds-Won>0</Rounds-Won>
+    <Win-Percentage>0.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>1</ID-Game>
     <ID-Player>22226666B</ID-Player>
     <Rounds>5</Rounds>
-    <Average-Bet>3.500</Average-Bet>
-    <Won-Rounds>0</Won-Rounds>
-    <Percentatge-Won>0.000</Percentatge-Won>
+    <Average-Bet>2.800</Average-Bet>
+    <Rounds-Won>0</Rounds-Won>
+    <Win-Percentage>0.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>1</ID-Game>
     <ID-Player>33337777C</ID-Player>
     <Rounds>5</Rounds>
-    <Average-Bet>5.000</Average-Bet>
-    <Won-Rounds>2</Won-Rounds>
-    <Percentatge-Won>40.000</Percentatge-Won>
+    <Average-Bet>4.000</Average-Bet>
+    <Rounds-Won>2</Rounds-Won>
+    <Win-Percentage>40.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>1</ID-Game>
     <ID-Player>44448888D</ID-Player>
     <Rounds>5</Rounds>
-    <Average-Bet>9.500</Average-Bet>
-    <Won-Rounds>3</Won-Rounds>
-    <Percentatge-Won>60.000</Percentatge-Won>
+    <Average-Bet>3.800</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>60.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>2</ID-Game>
     <ID-Player>11115555A</ID-Player>
     <Rounds>6</Rounds>
-    <Average-Bet>6.333</Average-Bet>
-    <Won-Rounds>3</Won-Rounds>
-    <Percentatge-Won>50.000</Percentatge-Won>
+    <Average-Bet>3.167</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>50.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>2</ID-Game>
     <ID-Player>22226666B</ID-Player>
     <Rounds>6</Rounds>
     <Average-Bet>4.000</Average-Bet>
-    <Won-Rounds>0</Won-Rounds>
-    <Percentatge-Won>0.000</Percentatge-Won>
+    <Rounds-Won>0</Rounds-Won>
+    <Win-Percentage>0.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>2</ID-Game>
     <ID-Player>33337777C</ID-Player>
     <Rounds>6</Rounds>
-    <Average-Bet>7.667</Average-Bet>
-    <Won-Rounds>3</Won-Rounds>
-    <Percentatge-Won>50.000</Percentatge-Won>
+    <Average-Bet>3.833</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>50.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
     <ID-Player>11115555A</ID-Player>
     <Rounds>8</Rounds>
-    <Average-Bet>4.714</Average-Bet>
-    <Won-Rounds>2</Won-Rounds>
-    <Percentatge-Won>25.000</Percentatge-Won>
+    <Average-Bet>4.125</Average-Bet>
+    <Rounds-Won>2</Rounds-Won>
+    <Win-Percentage>25.000</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
     <ID-Player>22226666B</ID-Player>
     <Rounds>8</Rounds>
-    <Average-Bet>6.500</Average-Bet>
-    <Won-Rounds>3</Won-Rounds>
-    <Percentatge-Won>37.500</Percentatge-Won>
+    <Average-Bet>3.250</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>37.500</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
     <ID-Player>44448888D</ID-Player>
     <Rounds>8</Rounds>
-    <Average-Bet>5.200</Average-Bet>
-    <Won-Rounds>3</Won-Rounds>
-    <Percentatge-Won>37.500</Percentatge-Won>
+    <Average-Bet>3.250</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>37.500</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
     <ID-Player>11115555A</ID-Player>
     <Rounds>7</Rounds>
     <Average-Bet>4.286</Average-Bet>
-    <Won-Rounds>1</Won-Rounds>
-    <Percentatge-Won>14.286</Percentatge-Won>
+    <Rounds-Won>1</Rounds-Won>
+    <Win-Percentage>14.286</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
     <ID-Player>33337777C</ID-Player>
     <Rounds>7</Rounds>
-    <Average-Bet>7.250</Average-Bet>
-    <Won-Rounds>3</Won-Rounds>
-    <Percentatge-Won>42.857</Percentatge-Won>
+    <Average-Bet>4.143</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>42.857</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
     <ID-Player>44448888D</ID-Player>
     <Rounds>7</Rounds>
-    <Average-Bet>4.667</Average-Bet>
-    <Won-Rounds>3</Won-Rounds>
-    <Percentatge-Won>42.857</Percentatge-Won>
+    <Average-Bet>2.000</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>42.857</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>5</ID-Game>
     <ID-Player>22226666B</ID-Player>
     <Rounds>3</Rounds>
     <Average-Bet>3.000</Average-Bet>
-    <Won-Rounds>1</Won-Rounds>
-    <Percentatge-Won>33.333</Percentatge-Won>
+    <Rounds-Won>1</Rounds-Won>
+    <Win-Percentage>33.333</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>5</ID-Game>
     <ID-Player>33337777C</ID-Player>
     <Rounds>3</Rounds>
-    <Average-Bet>None</Average-Bet>
-    <Won-Rounds>1</Won-Rounds>
-    <Percentatge-Won>33.333</Percentatge-Won>
+    <Average-Bet>0.000</Average-Bet>
+    <Rounds-Won>1</Rounds-Won>
+    <Win-Percentage>33.333</Win-Percentage>
   </Fila>
   <Fila>
     <ID-Game>5</ID-Game>
     <ID-Player>44448888D</ID-Player>
     <Rounds>3</Rounds>
     <Average-Bet>3.667</Average-Bet>
-    <Won-Rounds>1</Won-Rounds>
-    <Percentatge-Won>33.333</Percentatge-Won>
+    <Rounds-Won>1</Rounds-Won>
+    <Win-Percentage>33.333</Win-Percentage>
+  </Fila>
+  <Fila>
+    <ID-Game>6</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Rounds>5</Rounds>
+    <Average-Bet>10.000</Average-Bet>
+    <Rounds-Won>2</Rounds-Won>
+    <Win-Percentage>40.000</Win-Percentage>
+  </Fila>
+  <Fila>
+    <ID-Game>6</ID-Game>
+    <ID-Player>41831270S</ID-Player>
+    <Rounds>5</Rounds>
+    <Average-Bet>7.800</Average-Bet>
+    <Rounds-Won>0</Rounds-Won>
+    <Win-Percentage>0.000</Win-Percentage>
+  </Fila>
+  <Fila>
+    <ID-Game>6</ID-Game>
+    <ID-Player>86026754S</ID-Player>
+    <Rounds>5</Rounds>
+    <Average-Bet>0.000</Average-Bet>
+    <Rounds-Won>3</Rounds-Won>
+    <Win-Percentage>60.000</Win-Percentage>
   </Fila>
 </Resultados>

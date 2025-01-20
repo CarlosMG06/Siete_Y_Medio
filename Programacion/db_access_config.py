@@ -1,7 +1,7 @@
 import os
 from sshtunnel import SSHTunnelForwarder
 import mysql.connector
-import printing as p
+import datetime
 
 from dotenv import load_dotenv
 load_dotenv(dotenv_path="Programacion\db_access.env")
@@ -19,26 +19,56 @@ db_config = {
     'database': 'seven_and_half'
 }
 
-def execute_query_in_db(query, one=False):
+def execute_transaction_in_db(transaction, one=False, DML=False):
+    """
+    Ejecutamos una transacción en la base de datos, haciendo commit solo al acabar con éxito
+    :param transaction: (str, list[str]) -> una query o lista de queries
+    :param one: (bool = False) -> si la transacción devuelve un solo dato, p.ej. "SELECT now();"
+    :param DML: (bool = False) -> si la transacción modifica tablas en vez de seleccionar datos  
+    :return: None | list[tuple] | list[list[tuple]] | Any
+    """    
     # Conectarse a la BBDD
     with SSHTunnelForwarder(**ssh_config) as tunnel:
         connection = mysql.connector.connect(host="127.0.0.1", port=tunnel.local_bind_port, **db_config)
         cursor = connection.cursor()
 
-    # Ejecutar la query
-        cursor.execute(query)
-        results = cursor.fetchone() if one else cursor.fetchall()
-    
-    # Desconectarse de la BBDD
-        cursor.close()
-        connection.close()
-        return results
+        try:
+            # Ejecutar las queries de la transacción
+            if type(transaction) == str: 
+                cursor.execute(transaction)
+                results = cursor.fetchone()[0] if one else cursor.fetchall()
+            else:
+                results = []
+                for query in transaction:
+                    cursor.execute(query)
+                    results.append(cursor.fetchall())
 
-def insert_dict_into_db_table(dict, table):
-    key_list = list(dict.keys())
-    value_list = list(dict.values())
-    query = f"INSERT INTO {table} ({", ".join(key_list)}) VALUES ({", ".join(value_list)})"
-    execute_query_in_db(query)
+            # Confirmar modificaciones de tabla
+            if DML: connection.commit()
+        except Exception as e:
+            # Revertir cambios en caso de error
+            connection.rollback()
+            print(f"There was an error with the following transaction: {transaction}\n")
+            raise e
+        finally:
+            # Desconectarse de la BBDD
+            cursor.close()
+            connection.close()
+            if not DML: return results
 
-def delete_player_from_db(player_id):
-    query = f"DELETE FROM "
+def insert_query(data, table):
+    """
+    Devuelve la INSERT INTO query correspondiente
+    :param data: (dict, list[dict]) -> una fila o lista de filas de datos
+    :param table: (str) -> tabla en la que se deben insertar los datos 
+    :return: str
+    """    
+    if type(data) == dict:
+        query = f"""INSERT INTO {table} ({', '.join(data.keys())}) 
+        VALUES ({', '.join(f"'{v}'" if type(v) in (str, datetime.datetime) else str(v) for v in data.values())});"""
+    else:
+        query = f"INSERT INTO {table} ({', '.join(data[0].keys())}) VALUES "
+        for i, row in enumerate(data):
+            data[i] = f"({', '.join(f"'{v}'" if type(v) in (str, datetime.datetime) else str(v) for v in row.values())})"
+        query += f"{', '.join(data)};"
+    return query

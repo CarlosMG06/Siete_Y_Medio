@@ -10,7 +10,7 @@ def start_menu(padding = 0):
     text = """1) Add/Remove/Show Players                                                            
 2) Settings                                                                           
 3) Play Game                                                                          
-4) Ranking                                                                            
+4) Rankings                                                                            
 5) Reports                                                                            
 6) Exit  
     """
@@ -62,12 +62,15 @@ def reports_submenu(padding = 0):
     :return: None
     """
     text = """1) Initial card more repeated by each user, only users who have played a minimum of 3 games.
+   If multiple cards tie for the most repeated, all tied cards are displayed.
 2) Player who makes the highest bet per game.
+   All players tied for the highest are displayed.
 3) Player who makes the lowest bet per game.
+   All players tied for the lowest are displayed.
 4) Percentage of rounds won per player in each game (%), as well as their average bet for the game.
 5) List of games won by Bots.
 6) Rounds won by the bank in each game.
-7) Number of users have been the bank in each game.
+7) Number of users that have been the bank in each game.
 8) Average bet per game.
 9) Average bet of the first round of each game.
 10) Average bet of the last round of each game.

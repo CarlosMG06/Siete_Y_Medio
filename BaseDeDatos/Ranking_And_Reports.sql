@@ -30,7 +30,7 @@ CREATE OR REPLACE VIEW v_report_most_common_initial_card AS
 	SELECT 
 		cc1.player_id,
 		cc1.suit,
-		cc1.initial_card_id AS most_common_initial_card_id,
+		cc1.initial_card_id,
 		cc1.times_repeated,
 		cc1.games_played
 	FROM CardCounts cc1
@@ -59,7 +59,8 @@ CREATE OR REPLACE VIEW v_report_lowest_bet_per_player AS
     WHERE bet_amount = (
 		SELECT min(pgr2.bet_amount)
         FROM player_game_round pgr2
-        WHERE pgr.game_id = pgr2.game_id
+        WHERE pgr.game_id = pgr2.game_id 
+          AND pgr2.bet_amount != 0 # Ignore the bank and players that are out of the game
         );
 
 # 4
@@ -145,18 +146,26 @@ CREATE OR REPLACE VIEW v_report_bank_players AS
 
 # 8
 CREATE OR REPLACE VIEW v_report_avg_bet AS
-	SELECT game_id, round(avg(bet_amount), 3) AS avg_bet
-    FROM player_game_round
+	WITH AvgBetPerRound AS (
+		SELECT game_id, round_number, avg(bet_amount) AS avg_bet_per_round
+		FROM player_game_round
+		WHERE bet_amount != 0 # Ignore the bank and players that are out of the game
+		GROUP BY game_id, round_number
+	)
+    SELECT game_id, round(avg(avg_bet_per_round),3) AS avg_bet
+    FROM AvgBetPerRound
     GROUP BY game_id;
 # 9
 CREATE OR REPLACE VIEW v_report_avg_bet_1st_round AS
 	SELECT game_id, round(avg(bet_amount), 2) AS avg_bet_1st_round
     FROM player_game_round
     WHERE round_number = 1
+	  AND bet_amount != 0 # Ignore the bank and players that are out of the game
     GROUP BY game_id;
 # 10
 CREATE OR REPLACE VIEW v_report_avg_bet_last_round AS
 	SELECT pgr.game_id, round(avg(pgr.bet_amount), 2) AS avg_bet_last_round
     FROM cardgame g JOIN player_game_round pgr ON g.id = pgr.game_id
     WHERE pgr.round_number = g.rounds
+      AND bet_amount != 0 # Ignore the bank and players that are out of the game
     GROUP BY g.id;

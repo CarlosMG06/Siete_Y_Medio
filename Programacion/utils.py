@@ -1,6 +1,8 @@
 import os
 import random
 import math
+import texts
+import sizes
 
 def clear_screen():
     if os.name == 'nt':     # Windows
@@ -22,35 +24,8 @@ def shuffle_cards(deck):
 
     return newDeck
 
-def doPasada(lista):
-    resultado = []
-
-    if len(lista) == 1:
-        resultado = lista
-        return resultado
-    
-    if lista[0] > lista[1]:
-        aux = lista[0]
-        lista[0] = lista[1]
-        lista[1] = aux
-    
-    resultado.append(lista[0])
-    resultado += doPasada(lista[1:])
-
-    return resultado
-
-def doBurbuja(lista):
-    resultado = []
-
-    if len(lista) != 1:
-        lista = doPasada(lista)
-        resultado = doBurbuja(lista[:-1])
-        resultado.append(lista[-1])
-
-    else:
-        resultado = lista
-
-    return resultado
+def press_to_continue():
+    input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))
 
 def generate_random_number(start, end):
     if math.floor(start) == 0:

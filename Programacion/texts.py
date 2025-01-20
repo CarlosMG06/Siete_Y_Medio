@@ -1,6 +1,6 @@
 TEXTS = {
     "option": "Option",
-    "option_delete_player": "Option ( -id to remove player [-id11111111J], -1 to exit): ",
+    "option_delete_player": "-id to remove player, exit to return to Players: ",
     "value_error": " Value must be an Integer ",
     "invalid_option": " Invalid Option ",
     "continue": "Press Enter to Continue",
@@ -25,6 +25,7 @@ TEXTS = {
     "select_players_name": "Name",
     "select_players_type": "Type",
     "player_deleted": " Player deleted successfully! ",
+    "option_setup_players": "id to add to game, -id to remove player, sh to show current players in game, exit to return to Settings: ",
     "demand_max_rounds": "Enter new Max Rounds: ",
     "error_max_rounds": " Max Rounds Has To Be Between 1 and 30 ",
     "setup_max_rounds": " Established maximum of rounds to ",
