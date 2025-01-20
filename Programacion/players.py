@@ -291,14 +291,16 @@ def show_players(players):
                 p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='=')
                 utils.press_to_continue()
             else:
-                del players[index]
-                # Borramos de la BBDD
-                query = f"DELETE FROM player WHERE id = '{id}';"
-                execute_transaction_in_db(query, DML=True)
+                sure = input("Deleting a player will also delete all data from all games in which that player participated. Are you sure? (Yes/no)")
+                if sure.lower == "yes":
+                    del players[index]
+                    # Borramos de la BBDD
+                    query = f"DELETE FROM player WHERE id = '{id}';"
+                    execute_transaction_in_db(query, DML=True)
 
-                print()
-                p.print_line(texts.TEXTS["player_deleted"], padding=TOTAL_WIDTH, fill_char='*')
-                utils.press_to_continue()
+                    print()
+                    p.print_line(texts.TEXTS["player_deleted"], padding=TOTAL_WIDTH, fill_char='*')
+                    utils.press_to_continue()
         else:
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
