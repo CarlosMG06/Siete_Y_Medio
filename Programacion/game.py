@@ -679,8 +679,9 @@ def rounds_logic(playersInSession, maxRounds, orden, start_time):
             break
     
     #A partir de aquí es cuando termina la partida
+    end_time = execute_transaction_in_db("SELECT now();", one=True)
 
-    insert_game_into_db(game_id, playersInSession, start_time, total_rounds, pgr_list)
+    insert_game_into_db(game_id, playersInSession, start_time, total_rounds, end_time, pgr_list)
 
     winner = check_game_winner(orden=orden)
 
@@ -691,13 +692,13 @@ def rounds_logic(playersInSession, maxRounds, orden, start_time):
 
     input("\n" + texts.TEXTS["continue"].center(sizes.TOTAL_WIDTH))
 
-def insert_game_into_db(game_id, players, start_time, total_rounds, pgr_list):    
+def insert_game_into_db(game_id, players, start_time, total_rounds, end_time, pgr_list):    
     # Tabla cardgame
     cardgame = {
         "players": len(players),
         "start_time": start_time,
         "rounds": total_rounds,
-        "end_time": execute_transaction_in_db("SELECT now();", one=True),
+        "end_time": end_time,
         "deck_id": activeDeckId
     }
     cg_query = insert_query(cardgame, "cardgame")
