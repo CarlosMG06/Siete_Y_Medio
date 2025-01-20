@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="base.css" rel="stylesheet">
+    <link href="tutorial.css" rel="stylesheet">
     <title>Nombre grupo: Siete y Medio - Tutorial</title>
 </head>
 <body>
@@ -27,50 +28,53 @@
         <section id="s-tutorial-plyer-priority">
             <h2>Reparto de prioridades</h2>
             <div class="tutorial-background">
+                <div>
                 <ul>
                     <li>
                         <figure>
                             <p class="player-names">Jordi</p>
-                            <p class="card-name-t1" style="visibility: hidden;"></p>
-                            <div class="card-placeholder"></div>
-                            <img class="card-t1" src="images/tutorial01_card01.avif" alt="12 de espadas" style="visibility: hidden;" />
+                            <p class="card-name-t1">12 de Espadas</p>
+                            <img class="card-placeholder" src="images/carta_reverso.avif" alt="Placeholder imágen">
+                            <img class="card-t1" src="images/carta_01_bastos.avif" alt="12 de espadas" />
                         </figure>
                     </li>
                     <li>
                         <figure>
                             <p class="player-names">Marina</p>
-                            <p class="card-name-t1" style="visibility: hidden;"></p>
-                            <div class="card-placeholder"></div>
-                            <img class="card-t1" src="images/tutorial01_card02.avif" alt="1 de Copas" style="visibility: hidden;" />
-                        </figure>
+                            <p class="card-name-t1">Placeholder</p>
+                            <img class="card-placeholder" src="images/carta_reverso.avif" alt="Placeholder imágen">
+                            <img class="card-t1" src="images/carta_01_bastos.avif" alt="12 de espadas"/>
                     </li>
                     <li>
                         <figure>
                             <p class="player-names">Aurora</p>
-                            <p class="card-name-t1" style="visibility: hidden;"></p>
-                            <div class="card-placeholder"></div>
-                            <img class="card-t1" src="images/tutorial01_card03.avif" alt="1 de Bastos" style="visibility: hidden;" />
+                            <p class="card-name-t1">Placeholder</p>
+                            <img class="card-placeholder" src="images/carta_reverso.avif" alt="Placeholder imágen">
+                            <img class="card-t1" src="images/carta_01_bastos.avif" alt="12 de espadas" />
                         </figure>
                     </li>
                     <li>
                         <figure>
                             <p class="player-names">Albert</p>
-                            <p class="card-name-t1" style="visibility: hidden;"></p>
-                            <div class="card-placeholder"></div>
-                            <img class="card-t1" src="images/tutorial01_card04.avif" alt="4 de Oros" style="visibility: hidden;" />
+                            <p class="card-name-t1">Placeholder</p>
+                            <img class="card-placeholder" src="images/carta_reverso.avif" alt="Placeholder imágen">
+                            <img class="card-t1" src="images/carta_01_bastos.avif" alt="12 de espadas" />
                         </figure>
                     </li>
                 </ul>
-                <div id="tutorial-players-order" style="visibility: hidden;">
                 </div>
+                <div id="tutorial-players-order"></div>
             </div>
-            <button id="tutorial1-btn" onclick="PriorityTutorial(); return false;">Mostrar tutorial</button>
-            <button onclick="ResetPriorityTutorial(); return false;">Resetear tutorial</button>
+            <div class="tutorial-buttons">
+                <button id="start-tutorial1-btn" class="start-tutorial" onclick="PriorityTutorial(); return false;">Mostrar tutorial</button>
+                <button id="reset-tutorial1-btn" class="reset-tutorial" onclick="ResetPriorityTutorial(); return false;">Resetear tutorial</button>
+            </div>
         </section>
         <section id="s-tutorial-play">
             <h2>Jugada</h2>
             <div class="tutorial-background">
                 <div id="play-scores">
+                    <div></div>
                     <ul>
                         <li>
                             <p>Puntos totales de la Banca: <span class="bank-scores">15</span></p>
@@ -88,13 +92,23 @@
                             <p>Puntos apostados: <span class="player-scores">0</span></p>
                         </li> 
                     </ul>
+                    <div></div>
                 </div>
-                <div id="middle-text">
-                    <form id="insert-bet" style="visibility: hidden;">
-                        <input type="number" value="5" placeholder="Introduce tu apuesta" id="input-bet" />
-                        <input type="submit" value="Apostar" id="btn-submit-bet"/>
+                <div class="middle-text">
+                    <div></div>
+                    <form id="insert-bet">
+                        <p>Introduce tu apuesta</p>
+                        <div>
+                            <input type="number" value="5" placeholder="Introduce tu apuesta" id="input-bet" />
+                            <input type="submit" value="Apostar" id="btn-submit-bet"/>
+                        </div>
                     </form>
-                    <form id="demand-card" style="visibility: hidden;">
+                    <div></div>
+                </div>
+                <div class="middle-text">
+                    <div></div>
+                    <div></div>
+                    <form id="demand-card">
                         <input type="submit" value="Pedir carta" id="btn-demand-card" />
                         <input type="submit" value="Retirarse" id="btn-stand" />
                     </form>
@@ -110,8 +124,10 @@
                     <p id="msg-text"></p>
                 </div>
             </div>
-            <button id="tutorial2-btn" onclick="PlayTutorialPart1(); return false;">Mostrar tutorial</button>
-            <button onclick="ResetPlayTutorial(); return false;">Resetear tutorial</button>
+            <div class="tutorial-buttons">
+                <button id="start-tutorial2-btn" class="start-tutorial" onclick="PlayTutorialPart1(); return false;">Mostrar tutorial</button>
+                <button id="reset-tutorial2-btn" class="reset-tutorial" onclick="ResetPlayTutorial(); return false;">Resetear tutorial</button>
+            </div>
         </section>
     </main>
     <footer>

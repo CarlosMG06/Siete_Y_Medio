@@ -1,0 +1,221 @@
+.tutorial-background {
+    background: url("images/background.avif");
+    display: flex;
+    flex-direction: column;
+}
+
+#s-tutorial-plyer-priority > div > div {
+    width: 90%;
+    margin-inline: auto;
+    justify-items: center;
+}
+
+#s-tutorial-plyer-priority > div > div > ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-inline: 32px;
+    margin-top: 16px;
+    justify-items: center;
+}
+
+#s-tutorial-plyer-priority > div > div > ul > li {
+    list-style: none;
+}
+
+#s-tutorial-plyer-priority > div > div > ul > li > figure {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-names {
+    color: #dedede;
+    font-size: 32px;
+    font-weight: 700;
+    margin-inline: auto;
+    word-spacing: 2px;
+}
+
+.card-name-t1 {
+    visibility: hidden;
+    color: #aeaeae;
+    font-weight: 600;
+    margin-inline: auto; 
+    height: 32px;
+}
+
+.card-placeholder {
+    height: 350px;
+}
+
+.card-t1 {
+    height: 0px;
+}
+
+#tutorial-players-order {
+    width: 60%;
+    height: 226px;
+    margin-block: 24px;
+    margin-inline: auto;
+    background: linear-gradient(to top, #fefefe, #cecece);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    color: #0e0e0e;
+}
+
+#tutorial-players-order > p {
+    margin-inline: auto;
+    font-size: 32px;
+}
+#tutorial-players-order > ol {
+    margin-inline: auto;
+    padding-left: 64px;
+}
+
+#tutorial-players-order > ol > li {
+    font-size: 32px;
+}
+
+#tutorial-players-order > ol > li:nth-child(1) {
+    color: #4dcc7c;
+}
+#tutorial-players-order > ol > li:nth-child(2) {
+    color: #4d66cc;
+}
+#tutorial-players-order > ol > li:nth-child(3) {
+    color: #c14dcc;
+}
+#tutorial-players-order > ol > li:nth-child(4) {
+    color: #cc4d4d;
+}
+
+.tutorial-buttons {
+    display: flex;
+    margin-inline: auto;
+    margin-top: 24px;
+    width: 40%;
+    justify-content: space-between;
+}
+
+.tutorial-buttons > button {
+    padding: 24px 12px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 2px solid rgb(46, 44, 44);
+}
+
+.tutorial-buttons > button:hover {
+    scale: 1.1;
+}
+
+.start-tutorial {
+    background-color: #4dcc55;
+}
+
+.start-tutorial:hover {
+    background-color: #19de20;
+}
+
+.reset-tutorial {
+    background-color: #cc4d4d;
+}
+
+.reset-tutorial:hover {
+    background-color: #de1919;
+}
+
+#s-tutorial-play {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+#play-scores {
+    display: grid;
+    grid-template-columns: 55% 1fr 5%;
+    margin-top: 24px;
+}
+
+#play-scores > ul {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 6px;
+    background: linear-gradient(to bottom, #fefefe, #aeaeae);
+    border-radius: 8px;
+    border: 1px solid rgb(46, 44, 44);
+}
+
+#play-scores > ul > li {
+    list-style: none;
+    color: #aeaeae;
+    padding-left: 32px;
+}
+
+#play-scores > ul > li > p {
+    font-size: 32px;
+}
+
+#play-scores > ul > li:nth-child(1), #play-scores > ul > li:nth-child(2) {
+    color: #d49a72
+}
+
+#play-scores > ul > li:nth-child(3), #play-scores > ul > li:nth-child(4), #play-scores > ul > li:nth-child(5) {
+    color: rgb(51, 25, 222)
+}
+
+.middle-text {
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    margin-top: 24px;
+    justify-items: center;
+}
+
+#insert-bet {
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+}
+
+#insert-bet > p {
+    font-size: 32px;
+    color: #cecece;
+    margin-inline: auto;
+}
+
+#insert-bet > div {
+    margin-inline: auto;
+    display: flex;
+}
+
+#demand-card {
+    display: flex;
+    margin-top: 32px;
+}
+
+input {
+    padding: 12px 6px;
+    border-radius: 8px;
+    margin-right: 12px;
+    font-size: 24px;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type=number] { 
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+#btn-submit-bet {
+    padding: 24px 12px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 2px solid rgb(46, 44, 44);
+    background-color: #4dcc55;
+}
+
+#btn-submit-bet:hover {
+    scale: 1.1;
+    background-color: #19de20;
+}
