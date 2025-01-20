@@ -18,6 +18,7 @@
 #s-tutorial-plyer-priority > div > div > ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
     margin-inline: 32px;
     margin-top: 16px;
     justify-items: center;
@@ -58,7 +59,7 @@
 
 #tutorial-players-order {
     width: 60%;
-    height: 226px;
+    height: 250px;
     margin-block: 24px;
     margin-inline: auto;
     background: linear-gradient(to top, #fefefe, #cecece);
