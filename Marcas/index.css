@@ -1,0 +1,38 @@
+h2 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-inline: auto;
+    margin-bottom: 12px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to top, #aeaeae, #dedede);
+    padding: 24px 12px;
+    border: 1px solid rgb(46, 44, 44);
+    border-radius: 8px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#s-gameplay, #s-rule-point-distribution {
+    margin-top: 24px;
+}
+
+p {
+    font-size: 24px;
+    margin-bottom: 12px;
+    text-wrap: pretty;
+}
+
+section > ol > li, section > ul > li {
+    margin-left: 16px;
+}
+
+section > ol > li > ol > li, section > ol > li > ul > li, section > ul > li > ul > li {
+    margin-left: 28px;
+}
+
+section > ul > li > ul > li > ul > li {
+    margin-left: 40px;
+}
