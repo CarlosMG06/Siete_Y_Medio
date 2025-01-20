@@ -6,6 +6,7 @@
 
 #tutorial2 {
     height: 550px;
+    overflow: hidden;
 }
 
 #s-tutorial-plyer-priority > div > div {

@@ -13,6 +13,7 @@ body {
     background: linear-gradient(to bottom, #535553, #d6dcd7);
     display: flex;
     flex-direction: column;
+    background-attachment:fixed;
 }
 
 header {
