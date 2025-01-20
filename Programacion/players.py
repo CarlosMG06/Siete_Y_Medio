@@ -291,16 +291,25 @@ def show_players(players):
                 p.print_line(texts.TEXTS["error_demand_nif"], padding=TOTAL_WIDTH, fill_char='=')
                 utils.press_to_continue()
             else:
-                sure = input("Deleting a player will also delete all data from all games in which that player participated. Are you sure? (Yes/no)")
-                if sure.lower == "yes":
-                    del players[index]
-                    # Borramos de la BBDD
-                    query = f"DELETE FROM player WHERE id = '{id}';"
-                    execute_transaction_in_db(query, DML=True)
-
+                query = f"SELECT count(DISTINCT game_id) FROM player_game WHERE player_id = '{id}'"
+                games_with_player = execute_transaction_in_db(query, one=True)
+                if games_with_player > 0:
                     print()
-                    p.print_line(texts.TEXTS["player_deleted"], padding=TOTAL_WIDTH, fill_char='*')
-                    utils.press_to_continue()
+                    p.print_line(texts.TEXTS["warning_delete_player"].replace("#", str(games_with_player)), padding=TOTAL_WIDTH, fill_char='!')
+                    sure = input("\n" + "".ljust(LEFT_SPACE_OPTIONS_REPORTS) + "Type 'CONFIRM' to confirm the deletion: ")
+                    if sure != "CONFIRM":
+                        print()
+                        p.print_line(texts.TEXTS["cancel_delete_player"], padding=TOTAL_WIDTH, fill_char='·')
+                        utils.press_to_continue()
+                        continue
+                del players[index]
+                # Borramos de la BBDD
+                query = f"DELETE FROM player WHERE id = '{id}';"
+                execute_transaction_in_db(query, DML=True)
+
+                print()
+                p.print_line(texts.TEXTS["player_deleted"], padding=TOTAL_WIDTH, fill_char='*')
+                utils.press_to_continue()
         else:
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')

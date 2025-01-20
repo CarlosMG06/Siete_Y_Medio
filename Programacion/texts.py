@@ -1,6 +1,8 @@
 TEXTS = {
     "option": "Option",
     "option_delete_player": "-id to remove player, exit to return to Players: ",
+    "warning_delete_player": " ALL DATA FROM ALL # GAMES IN WHICH THIS PLAYER PLAYED WILL BE DELETED ",
+    "cancel_delete_player": " Player deletion has been canceled ",
     "value_error": " Value must be an Integer ",
     "invalid_option": " Invalid Option ",
     "continue": "Press Enter to Continue",

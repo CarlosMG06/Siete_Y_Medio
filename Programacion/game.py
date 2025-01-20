@@ -260,7 +260,10 @@ def check_losers_winners(orden):
         return losers
     
     for player in orden[:-1]: #Comprobar contra quién gana y quién pierde
-        if playersInSession[player]["cardsValue"] <= playersInSession[orden[-1]]["cardsValue"] and playersInSession[player]["cardsValue"] < 7.5: #Si tiene menos puntos o los mismos que la banca
+        if (playersInSession[player]["cardsValue"] <= playersInSession[orden[-1]]["cardsValue"]
+            and playersInSession[player]["cardsValue"] <= 7.5
+            and playersInSession[orden[-1]]["cardsValue"] <= 7.5):
+            # Si tiene menos o los mismos puntos que la banca y ambos no se han pasado de 7.5
             losers.append(player)
 
         elif playersInSession[player]["cardsValue"] > 7.5: #Si se pasa de 7.5 puntos
