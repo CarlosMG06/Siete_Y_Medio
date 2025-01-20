@@ -87,6 +87,7 @@ main {
     max-width: 1452px;
     margin-inline: auto;
     padding: 12px;
+    text-wrap: pretty;
 }
 
 h2 {
@@ -94,6 +95,7 @@ h2 {
     font-weight: 800;
     margin-inline: auto;
     margin-bottom: 12px;
+    text-wrap: pretty;
 }
 
 h3 {
@@ -101,6 +103,7 @@ h3 {
     font-weight: 700;
     margin-inline: auto;
     margin-block: 12px;
+    text-wrap: pretty;
 }
 
 section {
@@ -140,4 +143,5 @@ footer {
 
 footer > p {
     margin-inline: auto;
+    text-wrap: pretty;
 }
