@@ -429,9 +429,7 @@ const PlayTutorialPart4 = async () => {
     HideCardTutorial2()
 
     msgText.innerHTML = "Juga la banca"
-    msgDiv.style.visibility = "visible"
-    await Delay(1500)
-    msgDiv.style.visibility = "hidden"
+    msgDiv.style.visibility = "visible"    
 
     points = 0
     cardsCopy = [...cardDeck]
@@ -439,7 +437,7 @@ const PlayTutorialPart4 = async () => {
         await Delay(1500)
         cardImg.style.visibility = "hidden"
         cardName.style.visibility = "hidden"
-        await Delay(1000)
+        msgDiv.style.visibility = "hidden"
         cardToGet = GetRandomNumber(0, cardsCopy.length - 1)
         ShowCardTutorial2(cardToGet, cardsCopy, bankScores)
         cardsCopy.splice(cardToGet, 1)
@@ -463,7 +461,7 @@ const PlayTutorialPart4 = async () => {
     }
     else if (parseFloat(bankScores[1].innerHTML) === 7.5 || (parseFloat(bankScores[1].innerHTML) < 7.5 && parseFloat(bankScores[1].innerHTML) > parseFloat(playerScores[1].innerHTML))) {
         msgText.innerHTML = "¡Gana la banca!"
-        playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) - parseInt(playerScores[1].innerHTML)
+        playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) - parseInt(playerScores[2].innerHTML)
         bankScores[0].innerHTML = parseInt(bankScores[0].innerHTML) + parseInt(playerScores[2].innerHTML)
     }
     playerScores[2].innerHTML = 0

@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6145c98c-fa7c-48e1-9ca0-6677827a6169" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Marcas/tutorial.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Marcas/tutorial.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Marcas/tutorial.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Marcas/tutorial.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6145c98c-fa7c-48e1-9ca0-6677827a6169" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,18 +31,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.engine.executor": "Run",
-    "Python.main.executor": "Debug",
-    "Python.printing.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Alejandro",
-    "last_opened_file_path": "/home/super/Documents/GitHub/Siete_Y_Medio/Programacion",
-    "settings.editor.selected.configurable": "preferences.editor"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.engine.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.printing.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Alejandro&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/super/Documents/GitHub/Siete_Y_Medio/Programacion&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

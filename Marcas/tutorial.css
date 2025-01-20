@@ -4,6 +4,10 @@
     flex-direction: column;
 }
 
+#tutorial2 {
+    height: 550px;
+}
+
 #s-tutorial-plyer-priority > div > div {
     width: 90%;
     margin-inline: auto;
@@ -35,7 +39,7 @@
     word-spacing: 2px;
 }
 
-.card-name-t1 {
+.card-name-t1, #card-name-t2 {
     visibility: hidden;
     color: #aeaeae;
     font-weight: 600;
@@ -174,6 +178,9 @@
     display: flex;
     flex-direction: column;
     visibility: hidden;
+    position: relative;
+    top: -256px;
+    left: -256px;
 }
 
 #insert-bet > p {
@@ -190,6 +197,48 @@
 #demand-card {
     display: flex;
     margin-top: 32px;
+    visibility: hidden;
+    position: relative;
+    top: -150px;
+    left: -580px;
+}
+
+#card-position {
+    display: flex;
+    visibility: hidden;
+}
+
+#card-position > figure {
+    margin-inline: auto;
+    position: relative;
+    top: -540px;
+    left: -320px;
+    display: flex;
+    flex-direction: column;
+}
+
+#card-position > figure > p {
+    height: 30px;
+    visibility: hidden;
+    margin-inline: auto;
+}
+#card-position > figure > img {
+    height: 350px;
+    visibility: hidden;
+    margin-inline: auto;
+}
+
+#msg-div {
+    display: flex;
+    visibility: hidden;
+}
+
+#msg-div > p {
+    position: relative;
+    top: -500px;
+    margin-inline: auto;
+    font-size: 32px;
+    color: #cecece;
 }
 
 input {
@@ -218,4 +267,30 @@ input[type=number] {
 #btn-submit-bet:hover {
     scale: 1.1;
     background-color: #19de20;
+}
+
+#btn-demand-card {
+    padding: 24px 12px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 2px solid rgb(46, 44, 44);
+    background-color: #4d5acc;
+}
+
+#btn-demand-card:hover {
+    scale: 1.1;
+    background-color: #1920de;
+}
+
+#btn-stand {
+    padding: 24px 12px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 2px solid rgb(46, 44, 44);
+    background-color: #cc4d4d;
+}
+
+#btn-stand:hover {
+    scale: 1.1;
+    background-color: #de1919;
 }
