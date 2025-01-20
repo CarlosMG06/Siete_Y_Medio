@@ -26,12 +26,65 @@
     <main>
         <section id="s-bank-logic">
             <h2>Lógica de juego de la banca</h2>
+            <p>La lógica de la banca se trata en las funciones creadas para el funcionamiento del juego, una gran cantidad de funciones tienen un comportamiento específico
+                en caso de que el jugador argumento con el que se las llama sea banca.
+                Un ejemplo de esto es la funcion cpu_demand_card() en el módulo players.
+                Esta función devuelve True o False dependiendo del riesgo de pasarse al ordenar una carta, y en caso de que sea banca también tiene en cuenta los jugadores
+                que tienen más puntos que ella en ese momento.
+                <br>
+                <br>
+                Cuando es el turno del jugador banca, hay diferencias claras en caso de que sea humana o bot.
+                
+            </p>
+            <ul>
+                <li><h3>Banca humana</h3>
+                <p>En caso de que la banca sea un jugador humano, puede hacer las mismas acciones que un jugador no banca. Es decir, ver estados, pedir cartas y plantarse.
+
+                </p></li>
+
+                <li><h3>Banca bot</h3>
+                <p>En caso de que la banca sea un jugador bot, demanda cartas mientras la función anteriormente dicha (cpu_demand_card()) devuelva True</p></li>
+            </ul>
+
+            <h3>Otras funciones que tienen en cuenta la banca incluyen:</h3>
+            <ul>
+                <li><b>check_bank_status():</b> Esta función se encarga de comprobar al final de cada ronda si por cualquier motivo la banca debe pasar a otro jugador,
+                motivos como banca eliminada o un jugador ha sacado 7.5 y la banca no.</li>
+
+                <li><b>distribute_points():</b> Esta función junto con ayuda de otras funciones auxiliares se encarga de repartir puntos a los ganadores y quitarselos
+                a los perdedores, teniendo en cuenta las multiples situaciones en las que la banca puede ganar y perder contra múltiples personas en la misma ronda,
+                por ello siempre que hay varios perdedores que no son la banca lo primero que se hace es otorgar los puntos a la banca para que siempre tenga el
+                máximo número de puntos para repartir al resto de jugadores contra los que ha perdido</li>
+
+                <li><b>check_losers_winners():</b> Función auxiliar de distribute_points, se encarga de detectar a los ganadores y perdedores de cada ronda, en caso
+                de que la banca haya sacado 7.5 se añade como perdedores a todos los jugadores menos la banca.</li>
+            </ul>
+
         </section>
         <section id="s-bot-logic">
             <h2>Lógica de juego de un bot</h2>
+            <p>La lógica de los bots se trata comprobando si el jugador es humano o no y actuando en consecuencia.</p>
+
+            <p>Por ejemplo en la lógica al principio de las rondas se itera sobre todos los jugadores para que hagan sus apuestas, en caso de que sean humanos se hace
+                de forma manual, y en caso de que sean bots se hace de forma automática con la función cpu_make_bet(), la cual teniendo en cuenta el "tipo" de jugador 
+                (Cautious, Moderated, Bold) genera un número aleatorio como apuesta de acuerdo a su comportamiento según los puntos disponibles del jugador.
+            </p>
+
+            <p>Después a la hora de pedir cartas, se comprueba el que pueda pedir cartas con la función mencionada anteriormente (cpu_demand_card()), y mientras
+                sea True sigue pidiendo.
+            </p>
         </section>
         <section id="s-player-priority-logic">
             <h2>Establecimiento de la prioridad inicial de los jugadores</h2>
+            <p>La asignación de prioridades iniciales se realiza usando la función assign_priority(), la cual funciona de la siguiente manera: </p>
+            <ol>
+                <li>Primero se le reparte una carta a cada jugador y se asigna dicha carta a la entrada "initialCard" en el diccionario de cada jugador</li>
+                <li>Después se crea un diccionario con cada jugador como clave y el valor y prioridad de la carta como entradas</li>
+                <li>Acto seguido, con ayuda de una función auxiliar sort_priorities() se devuelve una lista con los jugadores ordenados según prioridad de menor a mayor,
+                    siendo la banca el último de estos
+                </li>
+                <li>Por último se asigna al último jugador de la lista como banca</li>
+            </ol>
         </section>
         <section id="s-data-bbdd">
             <h2>Inserción en BBDD de los datos del juego</h2>

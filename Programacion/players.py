@@ -65,7 +65,6 @@ def get_players_from_db(**kwargs):
     """
     query = "SELECT * FROM player;"
     player_list_tuple = execute_transaction_in_db(query)
-
     # Convertimos la lista de tuplas en una lista de diccionarios
     PLAYER_KEYS = ("id","name","human","type")
     players = []
