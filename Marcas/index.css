@@ -2,14 +2,30 @@
     margin-top: 24px;
 }
 
+#s-intro {
+    background: linear-gradient(to top, #d5ede53a, #e2d5893a);
+}
+
+#s-gameplay {
+    background: linear-gradient(to top, #7b8a853a, #89e2c43a);
+}
+
+#s-rule-point-distribution {
+    background: linear-gradient(to top, #7b8a853a, #e289953a);
+}
+
+li {
+    font-size: 20px;
+}
+
 section > ol > li, section > ul > li {
-    margin-left: 16px;
+    margin-left: 24px;
 }
 
 section > ol > li > ol > li, section > ol > li > ul > li, section > ul > li > ul > li {
-    margin-left: 28px;
+    margin-left: 32px;
 }
 
 section > ul > li > ul > li > ul > li {
-    margin-left: 40px;
+    margin-left: 44px;
 }

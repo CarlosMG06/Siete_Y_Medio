@@ -1,8 +1,9 @@
 // Tutorial 1
 const cards = document.querySelectorAll(".card-t1")
 const cardTitles = document.querySelectorAll(".card-name-t1")
+const cardPlaceholders = document.querySelectorAll(".card-placeholder")
 const order = document.querySelector("#tutorial-players-order")
-const startTutorial1Btn = document.querySelector("#tutorial1-btn")
+const startTutorial1Btn = document.querySelector("#start-tutorial1-btn")
 
 // Tutorial 2
 const cardImg = document.querySelector("#card-t2")
@@ -17,7 +18,7 @@ const setBetBtn = document.querySelector("#btn-submit-bet")
 const demandCardBtn = document.querySelector("#btn-demand-card")
 const standBtn = document.querySelector("#btn-stand")
 const betInput = document.querySelector("#input-bet")
-const startTutorial2Btn = document.querySelector("#tutorial2-btn")
+const startTutorial2Btn = document.querySelector("#start-tutorial2-btn")
 const cardDeck = [
     {
         "id": "01O",
@@ -349,7 +350,10 @@ const PriorityTutorial = async () => {
     cardsCopy = [...cardDeck]
     for (let index = 0; index < playersPriorities.length; index++) {
         cardToGet = GetRandomNumber(0, cardsCopy.length - 1)
+        cardPlaceholders[index].style.visibility = "hidden"
+        cardPlaceholders[index].style.height = "0px"
         ShowCardTutorial1(index, cardToGet, cardsCopy)
+        cards[index].style.height = "350px"
         playersPriorities[index]["cardId"] = cardsCopy[cardToGet]["id"]
         cardsCopy.splice(cardToGet, 1)
         await Delay(1500)
@@ -378,6 +382,9 @@ const ResetPriorityTutorial = () => {
         cards[index].style.visibility = "hidden"
         cardTitles[index].innerHTML = ""
         cardTitles[index].style.visibility = "hidden"
+        cards[index].style.height = "0px"
+        cardPlaceholders[index].style.visibility = "visible"
+        cardPlaceholders[index].style.height = "350px"
     }
 
     startTutorial1Btn.disabled = false
@@ -422,9 +429,7 @@ const PlayTutorialPart4 = async () => {
     HideCardTutorial2()
 
     msgText.innerHTML = "Juga la banca"
-    msgDiv.style.visibility = "visible"
-    await Delay(1500)
-    msgDiv.style.visibility = "hidden"
+    msgDiv.style.visibility = "visible"    
 
     points = 0
     cardsCopy = [...cardDeck]
@@ -432,7 +437,7 @@ const PlayTutorialPart4 = async () => {
         await Delay(1500)
         cardImg.style.visibility = "hidden"
         cardName.style.visibility = "hidden"
-        await Delay(1000)
+        msgDiv.style.visibility = "hidden"
         cardToGet = GetRandomNumber(0, cardsCopy.length - 1)
         ShowCardTutorial2(cardToGet, cardsCopy, bankScores)
         cardsCopy.splice(cardToGet, 1)
@@ -456,7 +461,7 @@ const PlayTutorialPart4 = async () => {
     }
     else if (parseFloat(bankScores[1].innerHTML) === 7.5 || (parseFloat(bankScores[1].innerHTML) < 7.5 && parseFloat(bankScores[1].innerHTML) > parseFloat(playerScores[1].innerHTML))) {
         msgText.innerHTML = "¡Gana la banca!"
-        playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) - parseInt(playerScores[1].innerHTML)
+        playerScores[0].innerHTML = parseInt(playerScores[0].innerHTML) - parseInt(playerScores[2].innerHTML)
         bankScores[0].innerHTML = parseInt(bankScores[0].innerHTML) + parseInt(playerScores[2].innerHTML)
     }
     playerScores[2].innerHTML = 0
@@ -506,7 +511,7 @@ const OrderPlayers = (playerList) => {
                 break
             }
 
-            if (number === orderFull["number"]) {
+            if (number === orderFull[subIndex]["number"]) {
                 let priorityNew = cardPriority[palo]
                 let priorityCurrent = cardPriority[orderFull[subIndex]["palo"]]
                 position = priorityNew < priorityCurrent ? subIndex : subIndex + 1
