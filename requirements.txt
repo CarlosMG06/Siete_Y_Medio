@@ -1,0 +1,3 @@
+paramiko
+sshtunnel
+mysql-connector-python
