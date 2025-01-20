@@ -48,16 +48,16 @@
 
             <h3>Otras funciones que tienen en cuenta la banca incluyen:</h3>
             <ul>
-                <li><b>check_bank_status():</b> Esta función se encarga de comprobar al final de cada ronda si por cualquier motivo la banca debe pasar a otro jugador,
-                motivos como banca eliminada o un jugador ha sacado 7.5 y la banca no.</li>
+                <li><p><b>check_bank_status():</b> Esta función se encarga de comprobar al final de cada ronda si por cualquier motivo la banca debe pasar a otro jugador,
+                motivos como banca eliminada o un jugador ha sacado 7.5 y la banca no.</p></li>
 
-                <li><b>distribute_points():</b> Esta función junto con ayuda de otras funciones auxiliares se encarga de repartir puntos a los ganadores y quitarselos
+                <li><p><b>distribute_points():</b> Esta función junto con ayuda de otras funciones auxiliares se encarga de repartir puntos a los ganadores y quitarselos
                 a los perdedores, teniendo en cuenta las multiples situaciones en las que la banca puede ganar y perder contra múltiples personas en la misma ronda,
                 por ello siempre que hay varios perdedores que no son la banca lo primero que se hace es otorgar los puntos a la banca para que siempre tenga el
-                máximo número de puntos para repartir al resto de jugadores contra los que ha perdido</li>
+                máximo número de puntos para repartir al resto de jugadores contra los que ha perdido</p></li>
 
-                <li><b>check_losers_winners():</b> Función auxiliar de distribute_points, se encarga de detectar a los ganadores y perdedores de cada ronda, en caso
-                de que la banca haya sacado 7.5 se añade como perdedores a todos los jugadores menos la banca.</li>
+                <li><p><b>check_losers_winners():</b> Función auxiliar de distribute_points, se encarga de detectar a los ganadores y perdedores de cada ronda, en caso
+                de que la banca haya sacado 7.5 se añade como perdedores a todos los jugadores menos la banca.</p></li>
             </ul>
 
         </section>
@@ -78,12 +78,12 @@
             <h2>Establecimiento de la prioridad inicial de los jugadores</h2>
             <p>La asignación de prioridades iniciales se realiza usando la función assign_priority(), la cual funciona de la siguiente manera: </p>
             <ol>
-                <li>Primero se le reparte una carta a cada jugador y se asigna dicha carta a la entrada "initialCard" en el diccionario de cada jugador</li>
-                <li>Después se crea un diccionario con cada jugador como clave y el valor y prioridad de la carta como entradas</li>
-                <li>Acto seguido, con ayuda de una función auxiliar sort_priorities() se devuelve una lista con los jugadores ordenados según prioridad de menor a mayor,
-                    siendo la banca el último de estos
+                <li><p>Primero se le reparte una carta a cada jugador y se asigna dicha carta a la entrada "initialCard" en el diccionario de cada jugador</p></li>
+                <li><p>Después se crea un diccionario con cada jugador como clave y el valor y prioridad de la carta como entradas</p></li>
+                <li><p>Acto seguido, con ayuda de una función auxiliar sort_priorities() se devuelve una lista con los jugadores ordenados según prioridad de menor a mayor,
+                    siendo la banca el último de estos</p>
                 </li>
-                <li>Por último se asigna al último jugador de la lista como banca</li>
+                <li><p>Por último se asigna al último jugador de la lista como banca</p></li>
             </ol>
         </section>
         <section id="s-data-bbdd">
