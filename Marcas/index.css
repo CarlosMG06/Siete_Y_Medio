@@ -1,0 +1,15 @@
+#s-gameplay, #s-rule-point-distribution {
+    margin-top: 24px;
+}
+
+section > ol > li, section > ul > li {
+    margin-left: 16px;
+}
+
+section > ol > li > ol > li, section > ol > li > ul > li, section > ul > li > ul > li {
+    margin-left: 28px;
+}
+
+section > ul > li > ul > li > ul > li {
+    margin-left: 40px;
+}
