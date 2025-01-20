@@ -82,6 +82,7 @@ header > nav > ul > li > a:hover {
 main {
     width: 85%;
     min-width: 650px;
+    max-width: 1452px;
     margin-inline: auto;
     padding: 12px;
 }
