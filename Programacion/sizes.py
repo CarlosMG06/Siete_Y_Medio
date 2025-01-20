@@ -16,7 +16,7 @@ SP_COLUMN_ID = 13
 SP_COLUMN_NAME = 35
 SP_COLUMN_TYPE = 15
 
-# Márgenes para los reportes
+# Márgenes para los rankings
 R_PADDING = 3
 
 R_PLAYER_ID = 12
