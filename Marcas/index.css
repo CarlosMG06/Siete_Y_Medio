@@ -2,6 +2,18 @@
     margin-top: 24px;
 }
 
+#s-intro {
+    background: linear-gradient(to top, #d5ede53a, #e2d5893a);
+}
+
+#s-gameplay {
+    background: linear-gradient(to top, #7b8a853a, #89e2c43a);
+}
+
+#s-rule-point-distribution {
+    background: linear-gradient(to top, #7b8a853a, #e289953a);
+}
+
 section > ol > li, section > ul > li {
     margin-left: 16px;
 }
