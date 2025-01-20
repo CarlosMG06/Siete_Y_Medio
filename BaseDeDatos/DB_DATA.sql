@@ -73,11 +73,11 @@ VALUES  (1, '11115555A', 'B10', 20, 3), (1, '22226666B', 'B03', 20, 5), (1, '333
         (5, '22226666B', 'B08', 20, 17), (5, '33337777C', 'C10', 20, 28), (5, '44448888D', 'C01', 20, 15);
 
 /*
-Partida 1: 5 Rondas
-Partida 2: 6 Rondas
-Partida 3: 8 Rondas
-Partida 4: 7 Rondas
-Partida 5: 3 Rondas
+Game 1: 5 Rounds
+Game 2: 6 Rounds
+Game 3: 8 Rounds
+Game 4: 7 Rounds
+Game 5: 3 Rounds
 */
 
 INSERT INTO player_game_round (game_id, round_number, player_id, is_bank, bet_amount, starting_points, cards_value, ending_points)
