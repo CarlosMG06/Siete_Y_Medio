@@ -584,7 +584,6 @@ def rounds_logic(playersInSession, orden, start_time):
                                 lenCards = len(playersInSession[player]["cards"])
 
                                 if lenCards == 1:
-                                    #playersInSession[player]["bet"] = p.cpu_make_bet(player=playersInSession[player])
                                     order_card_human_automatic(player)
                                     utils.clear_screen()
                                     printing.print_round_screen(round_number, playersInSession[player]["name"], showMenu=False)
