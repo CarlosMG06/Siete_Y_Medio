@@ -1,4 +1,4 @@
-# Test gamedata that was used during production to check the correct functionality of the rankings and reports
+# Test gamedata that was used during development to check the correct functionality of the rankings and reports
 
 USE seven_and_half;
 

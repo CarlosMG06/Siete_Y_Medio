@@ -293,8 +293,10 @@ def show_players(players):
                 query = f"SELECT count(DISTINCT game_id) FROM player_game WHERE player_id = '{id}'"
                 games_with_player = execute_transaction_in_db(query, one=True)
                 if games_with_player > 0:
+
                     print()
-                    p.print_line(texts.TEXTS["warning_delete_player"].replace("#", str(games_with_player)), padding=TOTAL_WIDTH, fill_char='!')
+                    p.print_line(texts.TEXTS["warning_delete_player"].replace("ALL # GAMES", "THE GAME") if games_with_player == 1 else
+                        texts.TEXTS["warning_delete_player"].replace("#", str(games_with_player)), padding=TOTAL_WIDTH, fill_char='!')
                     sure = input("\n" + "".ljust(LEFT_SPACE_OPTIONS_REPORTS) + "Type 'CONFIRM' to confirm the deletion: ")
                     if sure != "CONFIRM":
                         print()
