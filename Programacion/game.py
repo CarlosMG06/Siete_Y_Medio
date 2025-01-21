@@ -621,13 +621,8 @@ def rounds_logic(playersInSession, maxRounds, orden, start_time):
                 
             else: #Si el jugador es un bot se hará de esta forma
                 if playersInSession[player]["points"] > 0:
-                    if p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
-
-                        while p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
-                            deal_card(player)
-
-                    else: #Si no puede demandar una carta, la apuesta será de uno
-                        playersInSession[player]["bet"] = 1
+                    while p.cpu_demand_card(playersInSession[player], activeDeck, resultadosRonda, apuestasJugadores):
+                        deal_card(player)
 
         #Se muestra como queda la ronda después de cada turno (sin distribuir puntos todavía)
         utils.clear_screen()

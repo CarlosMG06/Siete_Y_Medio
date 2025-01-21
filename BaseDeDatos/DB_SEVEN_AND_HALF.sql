@@ -18,7 +18,7 @@ CREATE TABLE card(
 	id VARCHAR(3) PRIMARY KEY,
 	suit VARCHAR(10) NOT NULL,
     real_value INT UNSIGNED AS(CAST(SUBSTR(id, 2, 2) AS DECIMAL)),
-    value_in_game DECIMAL(10,2) AS(IF(real_value>7, 0.5, real_value)) STORED
+    value_in_game DECIMAL(10,1) AS(IF(real_value>7, 0.5, real_value)) STORED
 );
 
 CREATE TABLE deck_card(
@@ -41,7 +41,7 @@ CREATE TABLE cardgame(
 CREATE TABLE player_game(
 	game_id INT UNSIGNED NOT NULL,
     player_id VARCHAR(9),
-	FOREIGN KEY (game_id) REFERENCES cardgame(id),
+	FOREIGN KEY (game_id) REFERENCES cardgame(id) ON DELETE CASCADE,
     FOREIGN KEY (player_id) REFERENCES player(id) ON DELETE CASCADE,
     PRIMARY KEY (game_id, player_id),
     initial_card_id VARCHAR(3) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE player_game(
 
 CREATE TABLE player_game_round(
 	game_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (game_id) REFERENCES cardgame(id),
+    FOREIGN KEY (game_id) REFERENCES cardgame(id) ON DELETE CASCADE,
     round_number INT NOT NULL,
     player_id VARCHAR(9),
     FOREIGN KEY (player_id) REFERENCES player(id) ON DELETE CASCADE,
@@ -60,7 +60,7 @@ CREATE TABLE player_game_round(
     is_bank BOOL NOT NULL,
 	bet_amount INT UNSIGNED,
 	starting_points INT NOT NULL,
-    cards_value INT UNSIGNED NOT NULL,
+    cards_value DECIMAL(10,1) UNSIGNED NOT NULL,
     ending_points INT NOT NULL
 );
 
