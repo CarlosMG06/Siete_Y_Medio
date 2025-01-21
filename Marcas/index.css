@@ -3,15 +3,15 @@
 }
 
 #s-intro {
-    background: linear-gradient(to top, #d5ede53a, #e2d5893a);
+    background: linear-gradient(to top, #aeaeae, #e1dacc);
 }
 
 #s-gameplay {
-    background: linear-gradient(to top, #7b8a853a, #89e2c43a);
+    background: linear-gradient(to top, #aeaeae, #e1ccde);
 }
 
 #s-rule-point-distribution {
-    background: linear-gradient(to top, #7b8a853a, #e289953a);
+    background: linear-gradient(to top, #aeaeae, #ccd9e1);
 }
 
 li {
