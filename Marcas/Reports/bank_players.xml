@@ -2,7 +2,7 @@
 <Resultados>
   <Fila>
     <ID-Game>1</ID-Game>
-    <Users-who-have-been-bank>3</Users-who-have-been-bank>
+    <Users-who-have-been-bank>2</Users-who-have-been-bank>
   </Fila>
   <Fila>
     <ID-Game>2</ID-Game>
@@ -10,18 +10,34 @@
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
-    <Users-who-have-been-bank>3</Users-who-have-been-bank>
+    <Users-who-have-been-bank>1</Users-who-have-been-bank>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
-    <Users-who-have-been-bank>2</Users-who-have-been-bank>
+    <Users-who-have-been-bank>1</Users-who-have-been-bank>
   </Fila>
   <Fila>
     <ID-Game>5</ID-Game>
-    <Users-who-have-been-bank>1</Users-who-have-been-bank>
+    <Users-who-have-been-bank>3</Users-who-have-been-bank>
   </Fila>
   <Fila>
     <ID-Game>6</ID-Game>
     <Users-who-have-been-bank>1</Users-who-have-been-bank>
+  </Fila>
+  <Fila>
+    <ID-Game>7</ID-Game>
+    <Users-who-have-been-bank>3</Users-who-have-been-bank>
+  </Fila>
+  <Fila>
+    <ID-Game>8</ID-Game>
+    <Users-who-have-been-bank>2</Users-who-have-been-bank>
+  </Fila>
+  <Fila>
+    <ID-Game>9</ID-Game>
+    <Users-who-have-been-bank>3</Users-who-have-been-bank>
+  </Fila>
+  <Fila>
+    <ID-Game>10</ID-Game>
+    <Users-who-have-been-bank>2</Users-who-have-been-bank>
   </Fila>
 </Resultados>

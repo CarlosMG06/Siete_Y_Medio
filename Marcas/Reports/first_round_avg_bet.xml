@@ -2,26 +2,42 @@
 <Resultados>
   <Fila>
     <ID-Game>1</ID-Game>
-    <Average-Bet-Of-First-Round>5.67</Average-Bet-Of-First-Round>
+    <Average-Bet-Of-First-Round>8.00</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
     <ID-Game>2</ID-Game>
-    <Average-Bet-Of-First-Round>6.50</Average-Bet-Of-First-Round>
+    <Average-Bet-Of-First-Round>15.00</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
-    <Average-Bet-Of-First-Round>5.50</Average-Bet-Of-First-Round>
+    <Average-Bet-Of-First-Round>6.00</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
-    <Average-Bet-Of-First-Round>5.00</Average-Bet-Of-First-Round>
+    <Average-Bet-Of-First-Round>9.00</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
     <ID-Game>5</ID-Game>
-    <Average-Bet-Of-First-Round>4.00</Average-Bet-Of-First-Round>
+    <Average-Bet-Of-First-Round>4.67</Average-Bet-Of-First-Round>
   </Fila>
   <Fila>
     <ID-Game>6</ID-Game>
-    <Average-Bet-Of-First-Round>12.50</Average-Bet-Of-First-Round>
+    <Average-Bet-Of-First-Round>10.00</Average-Bet-Of-First-Round>
+  </Fila>
+  <Fila>
+    <ID-Game>7</ID-Game>
+    <Average-Bet-Of-First-Round>4.50</Average-Bet-Of-First-Round>
+  </Fila>
+  <Fila>
+    <ID-Game>8</ID-Game>
+    <Average-Bet-Of-First-Round>9.80</Average-Bet-Of-First-Round>
+  </Fila>
+  <Fila>
+    <ID-Game>9</ID-Game>
+    <Average-Bet-Of-First-Round>9.75</Average-Bet-Of-First-Round>
+  </Fila>
+  <Fila>
+    <ID-Game>10</ID-Game>
+    <Average-Bet-Of-First-Round>9.00</Average-Bet-Of-First-Round>
   </Fila>
 </Resultados>

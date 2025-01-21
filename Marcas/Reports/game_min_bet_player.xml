@@ -2,41 +2,101 @@
 <Resultados>
   <Fila>
     <ID-Game>1</ID-Game>
-    <ID-Player>22226666B</ID-Player>
-    <Min-Bet>2</Min-Bet>
+    <ID-Player>09634229M</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>1</ID-Game>
+    <ID-Player>14427668Q</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>1</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Min-Bet>1</Min-Bet>
   </Fila>
   <Fila>
     <ID-Game>2</ID-Game>
-    <ID-Player>22226666B</ID-Player>
-    <Min-Bet>2</Min-Bet>
+    <ID-Player>33337777C</ID-Player>
+    <Min-Bet>5</Min-Bet>
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
-    <ID-Player>11115555A</ID-Player>
-    <Min-Bet>3</Min-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>3</ID-Game>
-    <ID-Player>22226666B</ID-Player>
-    <Min-Bet>3</Min-Bet>
-  </Fila>
-  <Fila>
-    <ID-Game>3</ID-Game>
-    <ID-Player>44448888D</ID-Player>
+    <ID-Player>54447114Q</ID-Player>
     <Min-Bet>3</Min-Bet>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
     <ID-Player>11115555A</ID-Player>
-    <Min-Bet>3</Min-Bet>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>4</ID-Game>
+    <ID-Player>41831270S</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>4</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>4</ID-Game>
+    <ID-Player>54447114Q</ID-Player>
+    <Min-Bet>1</Min-Bet>
   </Fila>
   <Fila>
     <ID-Game>5</ID-Game>
     <ID-Player>22226666B</ID-Player>
-    <Min-Bet>2</Min-Bet>
+    <Min-Bet>3</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>5</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Min-Bet>3</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>5</ID-Game>
+    <ID-Player>90101235J</ID-Player>
+    <Min-Bet>3</Min-Bet>
   </Fila>
   <Fila>
     <ID-Game>6</ID-Game>
+    <ID-Player>06471826E</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>6</ID-Game>
+    <ID-Player>33337777C</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>6</ID-Game>
+    <ID-Player>53581599M</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>7</ID-Game>
+    <ID-Player>44448888D</ID-Player>
+    <Min-Bet>2</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>8</ID-Game>
+    <ID-Player>14427668Q</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>8</ID-Game>
+    <ID-Player>41831270S</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>9</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Min-Bet>1</Min-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>10</ID-Game>
     <ID-Player>41831270S</ID-Player>
     <Min-Bet>1</Min-Bet>
   </Fila>

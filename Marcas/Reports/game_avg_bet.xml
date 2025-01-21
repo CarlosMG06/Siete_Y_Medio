@@ -2,26 +2,42 @@
 <Resultados>
   <Fila>
     <ID-Game>1</ID-Game>
-    <Average-Bet>5.067</Average-Bet>
+    <Average-Bet>5.643</Average-Bet>
   </Fila>
   <Fila>
     <ID-Game>2</ID-Game>
-    <Average-Bet>5.500</Average-Bet>
+    <Average-Bet>9.667</Average-Bet>
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
-    <Average-Bet>5.313</Average-Bet>
+    <Average-Bet>4.875</Average-Bet>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
-    <Average-Bet>5.214</Average-Bet>
+    <Average-Bet>4.378</Average-Bet>
   </Fila>
   <Fila>
     <ID-Game>5</ID-Game>
-    <Average-Bet>3.333</Average-Bet>
+    <Average-Bet>5.167</Average-Bet>
   </Fila>
   <Fila>
     <ID-Game>6</ID-Game>
-    <Average-Bet>8.900</Average-Bet>
+    <Average-Bet>4.833</Average-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>7</ID-Game>
+    <Average-Bet>9.000</Average-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>8</ID-Game>
+    <Average-Bet>7.389</Average-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>9</ID-Game>
+    <Average-Bet>7.802</Average-Bet>
+  </Fila>
+  <Fila>
+    <ID-Game>10</ID-Game>
+    <Average-Bet>5.222</Average-Bet>
   </Fila>
 </Resultados>

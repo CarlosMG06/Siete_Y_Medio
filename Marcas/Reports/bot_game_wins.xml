@@ -2,22 +2,34 @@
 <Resultados>
   <Fila>
     <ID-Game>1</ID-Game>
-    <Points-Earned-by-Winning-Bot>17</Points-Earned-by-Winning-Bot>
+    <Points-Earned-by-Winning-Bot>51</Points-Earned-by-Winning-Bot>
+  </Fila>
+  <Fila>
+    <ID-Game>2</ID-Game>
+    <Points-Earned-by-Winning-Bot>14</Points-Earned-by-Winning-Bot>
   </Fila>
   <Fila>
     <ID-Game>3</ID-Game>
-    <Points-Earned-by-Winning-Bot>21</Points-Earned-by-Winning-Bot>
+    <Points-Earned-by-Winning-Bot>2</Points-Earned-by-Winning-Bot>
   </Fila>
   <Fila>
     <ID-Game>4</ID-Game>
-    <Points-Earned-by-Winning-Bot>20</Points-Earned-by-Winning-Bot>
-  </Fila>
-  <Fila>
-    <ID-Game>5</ID-Game>
-    <Points-Earned-by-Winning-Bot>8</Points-Earned-by-Winning-Bot>
+    <Points-Earned-by-Winning-Bot>65</Points-Earned-by-Winning-Bot>
   </Fila>
   <Fila>
     <ID-Game>6</ID-Game>
-    <Points-Earned-by-Winning-Bot>29</Points-Earned-by-Winning-Bot>
+    <Points-Earned-by-Winning-Bot>65</Points-Earned-by-Winning-Bot>
+  </Fila>
+  <Fila>
+    <ID-Game>8</ID-Game>
+    <Points-Earned-by-Winning-Bot>90</Points-Earned-by-Winning-Bot>
+  </Fila>
+  <Fila>
+    <ID-Game>9</ID-Game>
+    <Points-Earned-by-Winning-Bot>13</Points-Earned-by-Winning-Bot>
+  </Fila>
+  <Fila>
+    <ID-Game>10</ID-Game>
+    <Points-Earned-by-Winning-Bot>2</Points-Earned-by-Winning-Bot>
   </Fila>
 </Resultados>
