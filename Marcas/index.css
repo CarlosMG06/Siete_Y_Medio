@@ -15,6 +15,10 @@
 }
 
 li {
+    font-size: 22px;
+}
+
+li > a {
     font-size: 20px;
 }
 
@@ -24,6 +28,43 @@ section > ol > li, section > ul > li {
 
 section > ol > li > ol > li, section > ol > li > ul > li, section > ul > li > ul > li {
     margin-left: 32px;
+}
+
+.vertical-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    margin-left: -24px;
+    margin-bottom: 24px;
+}
+
+.vertical-list > li {
+    margin-inline: auto;
+    view-timeline: --reveal;
+    animation-name: show;
+    animation-fill-mode: both;
+    animation-timeline: --reveal;
+    animation-range: entry 25% cover 50%;
+}
+
+.vertical-list > li > figure {
+    display: flex;
+    flex-direction: column;
+}
+
+.vertical-list > li > figure > p {
+    margin-inline: auto;
+}
+
+.vertical-list > li > figure > img { 
+    height: 180px;
+    margin-inline: auto;
+    border-radius: 4px;
+    transition: scale 0.5s ease-in-out;
+}
+
+.vertical-list > li > figure > img:hover {
+    scale: 1.1;
 }
 
 section > ul > li > ul > li > ul > li {
@@ -45,5 +86,25 @@ section > ul > li > ul > li > ul > li {
     
     section > ul > li > ul > li > ul > li {
         margin-left: 32px;
+    }
+
+    .vertical-list {
+        display: flex;
+        flex-direction: column;
+        margin-inline: auto;
+        margin-top: 16px;
+    }
+
+    .vertical-list > li {
+        margin-bottom: 24px;
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0; scale: 0%;
+    }
+    to {
+        opacity: 1; scale: 100%;
     }
 }
