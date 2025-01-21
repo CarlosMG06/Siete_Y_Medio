@@ -88,35 +88,52 @@ def print_players(players, padding):
         offset = 8
     else:
         offset = 2
-
-    nameTxt = "Name".ljust(padding // len(list(players)) - offset)
-    humanTxt = "Human".ljust(padding // len(list(players)) - offset)
-    priorityTxt = "Priority".ljust(padding // len(list(players)) - offset)
-    typeTxt = "Type".ljust(padding // len(list(players)) - offset)
-    bankTxt = "Bank".ljust(padding // len(list(players)) - offset)
-    betTxt = "Bet".ljust(padding // len(list(players)) - offset)
-    pointsTxt = "Points".ljust(padding // len(list(players)) - offset)
-    cardsTxt = "Cards".ljust(padding // len(list(players)) - offset)
-    cardsValueTxt = "CardsValue".ljust(padding // len(list(players)) - offset)
     
+    padding_per_player = padding // len(list(players)) - offset
+
+    nameTxt = "Name".ljust(padding_per_player)
+    humanTxt = "Human".ljust(padding_per_player)
+    priorityTxt = "Priority".ljust(padding_per_player)
+    typeTxt = "Type".ljust(padding_per_player)
+    bankTxt = "Bank".ljust(padding_per_player)
+    betTxt = "Bet".ljust(padding_per_player)
+    pointsTxt = "Points".ljust(padding_per_player)
+    cardsTxt = "Cards".ljust(padding_per_player)
+    cardsValueTxt = "CardsValue".ljust(padding_per_player)
+    
+    # Buscamos los jugadores que tienen más cartas de lo que cabe en una línea
+    players_with_many_cards = []
     for player in list(players):
-        nameTxt += players[player]["name"].ljust(padding // len(list(players)) - offset)
-        humanTxt += str(players[player]["human"]).ljust(padding // len(list(players)) - offset)
-        priorityTxt += str(players[player]["priority"]).ljust(padding // len(list(players)) - offset)
-        typeTxt += str(players[player]["type"]).ljust(padding // len(list(players)) - offset)
-        bankTxt += str(players[player]["bank"]).ljust(padding // len(list(players)) - offset)
-        betTxt += str(players[player]["bet"]).ljust(padding // len(list(players)) - offset)
-        pointsTxt += str(players[player]["points"]).ljust(padding // len(list(players)) - offset)
-        indCardsTxt = ""
-        for card in players[player]["cards"]:
-            indCardsTxt += card
-            if players[player]["cards"].index(card) != len(players[player]["cards"]) - 1:
-                indCardsTxt += ";"
-            else:
-                cardsTxt += indCardsTxt.ljust(padding // len(list(players)) - offset)
-        if indCardsTxt == "":
-            cardsTxt += "".ljust(padding // len(list(players)) - offset)
-        cardsValueTxt += str(players[player]["cardsValue"]).ljust(padding // len(list(players)) - offset)
+        if len(players[player]["cards"]) * 4 >= padding_per_player:
+            players_with_many_cards.append(player)
+    
+    # Segunda línea de cartas
+    extraCardsTxt = "".ljust(padding_per_player)
+
+    for i, player in enumerate(list(players)):
+        nameTxt += players[player]["name"].ljust(padding_per_player)
+        humanTxt += str(players[player]["human"]).ljust(padding_per_player)
+        priorityTxt += str(players[player]["priority"]).ljust(padding_per_player)
+        typeTxt += str(players[player]["type"]).ljust(padding_per_player)
+        bankTxt += str(players[player]["bank"]).ljust(padding_per_player)
+        betTxt += str(players[player]["bet"]).ljust(padding_per_player)
+        pointsTxt += str(players[player]["points"]).ljust(padding_per_player)
+
+        if player in players_with_many_cards:
+            # Dividir las cartas en dos líneas
+            max_cards_per_line = padding_per_player // 4
+            first_line = ";".join(players[player]["cards"][:max_cards_per_line])
+            remaining_cards = ";".join(players[player]["cards"][max_cards_per_line:])
+
+            cardsTxt += first_line.ljust(padding_per_player)
+            extraCardsTxt += remaining_cards.ljust(padding_per_player)
+        else:
+            # Las cartas caben en una sola línea
+            all_cards = ";".join(players[player]["cards"])
+            cardsTxt += all_cards.ljust(padding_per_player)
+            extraCardsTxt += "".ljust(padding_per_player)
+
+        cardsValueTxt += str(players[player]["cardsValue"]).ljust(padding_per_player)
 
     print(nameTxt)
     print(humanTxt)
@@ -126,6 +143,8 @@ def print_players(players, padding):
     print(betTxt)
     print(pointsTxt)
     print(cardsTxt)
+    if extraCardsTxt.strip() != "":  # Imprimir la segunda línea solo si hay cartas extra
+        print(extraCardsTxt)
     print(cardsValueTxt)
 
 def print_selected_players(players):
