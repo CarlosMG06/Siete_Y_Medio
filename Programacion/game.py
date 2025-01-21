@@ -11,7 +11,8 @@ from db_access_config import execute_transaction_in_db, insert_query
 selectedPlayers = {}
 playedCards = [] #Lista con las cartas jugadas hasta el momento para que no se repitan
 activeDeck = None #Cambia dinámicamente durante la ejecución del juego
-activeDeckId = None # ↑
+activeDeckId = None 
+maxRounds = 5
 playersInSession = {} #Donde se guardan los jugadores y los valores dinámicos que ocurren durante la partida
 
 def initializePlayers(players):
@@ -330,7 +331,7 @@ def distribute_points(orden):
                 if player in losers and playersInSession[player]["points"] > 0: #Este perdedor no es la banca
                     playersInSession[orden[-1]]["points"] += playersInSession[player]["bet"]
                     playersInSession[player]["points"] -= playersInSession[player]["bet"]
-                    printing.print_line_centered(f"{playersInSession[player]['name']} pays {playersInSession[player]['bet']} to the bank")
+                    printing.print_line_centered(f"{playersInSession[player]['name']} pays {playersInSession[player]['bet']} to the bank", fill_char=" ")
                 
             #Aquí es donde se reparten los puntos a los ganadores, aunque la banca en este punto aunque haya ganado contra 1 ya tiene los puntos gracias al bucle anterior
             for player in orden[::-1][1:]: #Se invierte el orden de "orden" y se skipea a la banca
@@ -484,7 +485,7 @@ def check_game_winner(orden): #Esta función se usa cuando una partida termina p
 
 
 
-def rounds_logic(playersInSession, maxRounds, orden, start_time):
+def rounds_logic(playersInSession, orden, start_time):
     global playedCards
 
     query = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'cardgame';"
@@ -717,12 +718,12 @@ def insert_game_into_db(game_id, players, start_time, total_rounds, end_time, pg
     # Insertar en las tres tablas en una sola transacción
     execute_transaction_in_db([cg_query, pg_query, pgr_query], DML=True)
 
-def game_logic(playersInSession, maxRounds, start_time):
+def game_logic(playersInSession, start_time):
     orden = assign_priority(playersInSession)
-    rounds_logic(playersInSession, maxRounds, orden, start_time)
+    rounds_logic(playersInSession, orden, start_time)
 
-def game_main(padding, maxRounds):
+def game_main(padding):
     start_time = execute_transaction_in_db("SELECT now();", one=True)
     start_game(padding)
-    game_logic(playersInSession, maxRounds, start_time)
+    game_logic(playersInSession, start_time)
 

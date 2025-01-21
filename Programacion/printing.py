@@ -87,7 +87,7 @@ def print_players(players, padding):
     if len(list(players)) <= 2:
         offset = 8
     else:
-        offset = 2
+        offset = 0
     
     padding_per_player = padding // (len(list(players))+1) - offset
 

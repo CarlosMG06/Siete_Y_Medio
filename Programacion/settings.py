@@ -80,15 +80,18 @@ def setup_players(players):
             player_dict = pl.player_list_to_dict(players)
             if id in game.selectedPlayers.keys():
                 name = player_dict[id]["name"]
+                print()
                 p.print_line(f" {name} is already playing ", padding=TOTAL_WIDTH, fill_char=":")
                 utils.press_to_continue()
             elif id in player_dict.keys():
                 name = player_dict[id]["name"]
                 game.selectedPlayers[id] = player_dict[id]
+                print()
                 p.print_line(f" {name} has been added to the game ", padding=TOTAL_WIDTH, fill_char="+")
                 utils.press_to_continue()       
             else:
                 showSelectedPlayers = False
+                print()
                 p.print_line(f" {id} isn't a valid player ", padding=TOTAL_WIDTH, fill_char="=")
                 utils.press_to_continue()
 
@@ -97,15 +100,18 @@ def setup_players(players):
             player_dict = pl.player_list_to_dict(players)
             if id in game.selectedPlayers.keys():
                 name = player_dict[id]["name"]
+                print()
                 p.print_line(f" {name} has been deleted from the game ", padding=TOTAL_WIDTH, fill_char="-")
                 del game.selectedPlayers[id]
                 utils.press_to_continue()
             elif id in player_dict.keys():
                 name = player_dict[id]["name"]
+                print()
                 p.print_line(f" {name} isn't currently playing ", padding=TOTAL_WIDTH, fill_char=":")
                 utils.press_to_continue()
             else:
                 showSelectedPlayers = False
+                print()
                 p.print_line(f" {id} isn't a valid player ", padding=TOTAL_WIDTH, fill_char="=")
                 utils.press_to_continue()
         
@@ -166,6 +172,7 @@ def setup_max_rounds():
                 p.print_line(texts.TEXTS["error_max_rounds"], padding=TOTAL_WIDTH, fill_char='=')
                 utils.press_to_continue()
             else:
+                game.maxRounds = new_max_rounds
                 print()
                 p.print_line(texts.TEXTS["setup_max_rounds"] + str(new_max_rounds) + " ", padding=TOTAL_WIDTH, fill_char='*')
                 utils.press_to_continue()

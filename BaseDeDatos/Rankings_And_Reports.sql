@@ -6,7 +6,7 @@ CREATE OR REPLACE VIEW v_ranking AS
 		p.player_name,
         sum(pg.ending_points - pg.starting_points) AS earnings,
 		count(DISTINCT pg.game_id) AS games_played,
-		sum(timestampdiff(MINUTE, cg.start_time, cg.end_time)) AS minutes_played
+		round(sum(timestampdiff(SECOND, cg.start_time, cg.end_time)/60), 2) AS minutes_played
 	FROM player p
 		JOIN player_game pg ON p.id = pg.player_id
 		JOIN cardgame cg ON pg.game_id = cg.id
@@ -43,7 +43,7 @@ CREATE OR REPLACE VIEW v_report_most_common_initial_card AS
 	);
 
 # 2
-CREATE OR REPLACE VIEW v_report_highest_bet_per_player AS
+CREATE OR REPLACE VIEW v_report_highest_bet_player AS
 	SELECT DISTINCT pgr.game_id, pgr.player_id, pgr.bet_amount AS highest_bet
 	FROM player_game_round pgr
     WHERE bet_amount = (
@@ -53,7 +53,7 @@ CREATE OR REPLACE VIEW v_report_highest_bet_per_player AS
         );
 
 # 3
-CREATE OR REPLACE VIEW v_report_lowest_bet_per_player AS
+CREATE OR REPLACE VIEW v_report_lowest_bet_player AS
 	SELECT DISTINCT pgr.game_id, pgr.player_id, pgr.bet_amount AS lowest_bet
 	FROM player_game_round pgr
     WHERE bet_amount = (

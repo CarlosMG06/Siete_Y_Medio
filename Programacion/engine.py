@@ -16,9 +16,7 @@ MAX_PLAYERS = 6
 
 def start_engine():
     exit = False
-
     players = pl.get_players_from_db()
-    max_rounds = 5
 
     while not exit:
         # Limpiamos la pantalla e imprimimos el título principal
@@ -59,7 +57,7 @@ def start_engine():
                     p.print_line(texts.TEXTS["error_init_play_deck"], padding=TOTAL_WIDTH, fill_char='=')
                     utils.press_to_continue()
                 else:
-                    game.game_main(maxRounds=max_rounds, padding=TOTAL_WIDTH)
+                    game.game_main(padding=TOTAL_WIDTH)
             elif option == 4:
                 rankings.rankings_option()
             elif option == 5:

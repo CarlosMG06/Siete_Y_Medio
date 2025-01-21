@@ -46,7 +46,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MAX_BET
                 ],
-        "query": "SELECT * FROM v_report_highest_bet_per_player ORDER BY game_id, player_id;",
+        "query": "SELECT * FROM v_report_highest_bet_player ORDER BY game_id, player_id;",
         "file_name": "game_max_bet_player.xml"
     },
 3: {
@@ -61,7 +61,7 @@ reports = {
             RP_ID_PLAYER,
             RP_MIN_BET
                 ],
-        "query": "SELECT * FROM v_report_lowest_bet_per_player ORDER BY game_id, player_id;",
+        "query": "SELECT * FROM v_report_lowest_bet_player ORDER BY game_id, player_id;",
         "file_name": "game_min_bet_player.xml"
     },
 4: {
