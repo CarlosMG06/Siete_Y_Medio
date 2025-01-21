@@ -4,7 +4,7 @@ import mysql.connector
 import datetime
 
 from dotenv import load_dotenv
-load_dotenv(dotenv_path="Programacion/db_access.env")
+load_dotenv(dotenv_path="db_access.env")
 
 ssh_config = {
    'ssh_address_or_host': os.getenv("SSH_HOST"),
@@ -69,6 +69,6 @@ def insert_query(data, table):
     else:
         query = f"INSERT INTO {table} ({', '.join(data[0].keys())}) VALUES "
         for i, row in enumerate(data):
-            data[i] = f"""({', '.join(f"'{v}'" if type(v) in (str, datetime.datetime) else str(v) for v in row.values())})"""
+            data[i] = f"({', '.join(f"'{v}'" if type(v) in (str, datetime.datetime) else str(v) for v in row.values())})"
         query += f"{', '.join(data)};"
     return query
