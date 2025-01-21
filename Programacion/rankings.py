@@ -73,7 +73,7 @@ def show_ranking(column_to_order):
     exit = False
 
     # Pedimos los datos a la base de datos, ordenados según corresponde, y calculamos las páginas totales
-    query = f"SELECT * FROM v_ranking ORDER BY {RANKING_TO_ORDER_COLUMNS[column_to_order]["column"]} desc;"
+    query = f"SELECT * FROM v_ranking ORDER BY {RANKING_TO_ORDER_COLUMNS[column_to_order]['column']} desc;"
     data = execute_transaction_in_db(query)
     total_pages = math.ceil(len(data)/RANKING_LIMIT)
 
