@@ -100,4 +100,9 @@
     <ID-Player>41831270S</ID-Player>
     <Min-Bet>1</Min-Bet>
   </Fila>
+  <Fila>
+    <ID-Game>11</ID-Game>
+    <ID-Player>75045268B</ID-Player>
+    <Min-Bet>9</Min-Bet>
+  </Fila>
 </Resultados>

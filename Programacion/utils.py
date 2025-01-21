@@ -12,17 +12,17 @@ def clear_screen():
 
 
 def shuffle_cards(deck):
-    newDeck = {}
+    new_deck = {}
     keys = list(deck)
 
     for item in keys:
-        eleccion = keys[random.randint(0, len(keys) - 1)]
-        while eleccion in newDeck:
-            eleccion = keys[random.randint(0, len(keys) - 1)]
+        option = keys[random.randint(0, len(keys) - 1)]
+        while option in new_deck:
+            option = keys[random.randint(0, len(keys) - 1)]
         
-        newDeck[eleccion] = deck[eleccion]
+        new_deck[option] = deck[option]
 
-    return newDeck
+    return new_deck
 
 def press_to_continue():
     input("\n" + texts.TEXTS['continue'].center(sizes.TOTAL_WIDTH))

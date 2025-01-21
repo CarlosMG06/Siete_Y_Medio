@@ -32,4 +32,8 @@
     <ID-Game>10</ID-Game>
     <Points-Earned-by-Winning-Bot>2</Points-Earned-by-Winning-Bot>
   </Fila>
+  <Fila>
+    <ID-Game>11</ID-Game>
+    <Points-Earned-by-Winning-Bot>60</Points-Earned-by-Winning-Bot>
+  </Fila>
 </Resultados>

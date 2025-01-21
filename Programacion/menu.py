@@ -91,7 +91,7 @@ def profile_menu(padding = 0):
     print_menu(text, padding)
 
 def decks_submenu(padding = 0):
-    text = f"""Active deck: {game.activeDeckId}
+    text = f"""Active deck: {game.active_deck_id}
 
 1) ESP48
 2) ESP40

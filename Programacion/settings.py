@@ -17,7 +17,6 @@ def settings_option(players):
     :return: (int) -> Número de rondas
     """
     exit_submenu = False
-    max_rounds = 5
 
     while not exit_submenu:
         # Limpiamos la pantalla, mostramos el título e imprimimos el submenú correspondiente
@@ -42,7 +41,7 @@ def settings_option(players):
             elif option == 2:
                 set_deck()
             elif option == 3:
-                max_rounds = setup_max_rounds()
+                setup_max_rounds()
 
         # Controlamos si el jugador no nos introduce un número como opción, mostramos un mensaje de error y volvemos a comenzar
         except ValueError:
@@ -50,22 +49,20 @@ def settings_option(players):
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
             utils.press_to_continue()
 
-    return max_rounds
-
 def setup_players(players):
-    exit_setPlayersSubmenu = False
-    showSelectedPlayers = True
-    while not exit_setPlayersSubmenu:
+    exit_set_players_submenu = False
+    show_selected_players = True
+    while not exit_set_players_submenu:
 
-        if showSelectedPlayers:
+        if show_selected_players:
             utils.clear_screen()
             p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
 
             p.print_line_centered("Current Players In Game", fill_char="*")
-            p.print_selected_players(game.selectedPlayers)
+            p.print_selected_players(game.selected_players)
             utils.press_to_continue()
         else:
-            showSelectedPlayers = True
+            show_selected_players = True
 
         utils.clear_screen()
         p.print_title(titles.TITLES["set_game_players"], padding=TOTAL_WIDTH)
@@ -78,19 +75,19 @@ def setup_players(players):
         elif len(option) == 9:  # La longitud de un DNI
             id = option.upper()
             player_dict = pl.player_list_to_dict(players)
-            if id in game.selectedPlayers.keys():
+            if id in game.selected_players.keys():
                 name = player_dict[id]["name"]
                 print()
                 p.print_line(f" {name} is already playing ", padding=TOTAL_WIDTH, fill_char=":")
                 utils.press_to_continue()
             elif id in player_dict.keys():
                 name = player_dict[id]["name"]
-                game.selectedPlayers[id] = player_dict[id]
+                game.selected_players[id] = player_dict[id]
                 print()
                 p.print_line(f" {name} has been added to the game ", padding=TOTAL_WIDTH, fill_char="+")
                 utils.press_to_continue()       
             else:
-                showSelectedPlayers = False
+                show_selected_players = False
                 print()
                 p.print_line(f" {id} isn't a valid player ", padding=TOTAL_WIDTH, fill_char="=")
                 utils.press_to_continue()
@@ -98,11 +95,11 @@ def setup_players(players):
         elif len(option) == 10 and option[0] == "-":  # La longitud de un DNI con un menos delante
             id = option[1:].upper()
             player_dict = pl.player_list_to_dict(players)
-            if id in game.selectedPlayers.keys():
+            if id in game.selected_players.keys():
                 name = player_dict[id]["name"]
                 print()
                 p.print_line(f" {name} has been deleted from the game ", padding=TOTAL_WIDTH, fill_char="-")
-                del game.selectedPlayers[id]
+                del game.selected_players[id]
                 utils.press_to_continue()
             elif id in player_dict.keys():
                 name = player_dict[id]["name"]
@@ -110,13 +107,13 @@ def setup_players(players):
                 p.print_line(f" {name} isn't currently playing ", padding=TOTAL_WIDTH, fill_char=":")
                 utils.press_to_continue()
             else:
-                showSelectedPlayers = False
+                show_selected_players = False
                 print()
                 p.print_line(f" {id} isn't a valid player ", padding=TOTAL_WIDTH, fill_char="=")
                 utils.press_to_continue()
         
         elif option.lower() != "sh":
-            showSelectedPlayers = False
+            show_selected_players = False
             print()
             p.print_line(texts.TEXTS["invalid_option"], padding=TOTAL_WIDTH, fill_char='=')
             utils.press_to_continue()
@@ -124,8 +121,8 @@ def setup_players(players):
 
 
 def set_deck():
-    exit_decksubmenu = False
-    while not exit_decksubmenu:
+    exit_deck_submenu = False
+    while not exit_deck_submenu:
         utils.clear_screen()
         p.print_title(titles.TITLES["decks"], padding=TOTAL_WIDTH)
         # imprimir el menu ya hecho en modulo menu.py
@@ -139,14 +136,14 @@ def set_deck():
             continue
 
         if 1 <= option <= 3:
-            game.activeDeckId = tuple(decks.keys())[option - 1]
-            game.activeDeck = decks[game.activeDeckId]
+            game.active_deck_id = tuple(decks.keys())[option - 1]
+            game.active_deck = decks[game.active_deck_id]
             print()
-            p.print_line(f" Active deck set to: {game.activeDeckId} ", padding=TOTAL_WIDTH, fill_char='·')
+            p.print_line(f" Active deck set to: {game.active_deck_id} ", padding=TOTAL_WIDTH, fill_char='·')
             input("\n" + texts.TEXTS['continue'].center(TOTAL_WIDTH))
         
         if option == MAX_OPTION_1:
-            exit_decksubmenu = True
+            exit_deck_submenu = True
 
 def setup_max_rounds():
     """
@@ -172,7 +169,7 @@ def setup_max_rounds():
                 p.print_line(texts.TEXTS["error_max_rounds"], padding=TOTAL_WIDTH, fill_char='=')
                 utils.press_to_continue()
             else:
-                game.maxRounds = new_max_rounds
+                game.max_rounds = new_max_rounds
                 print()
                 p.print_line(texts.TEXTS["setup_max_rounds"] + str(new_max_rounds) + " ", padding=TOTAL_WIDTH, fill_char='*')
                 utils.press_to_continue()
@@ -182,5 +179,3 @@ def setup_max_rounds():
             print()
             p.print_line(texts.TEXTS["value_error"], padding=TOTAL_WIDTH, fill_char='=')
             utils.press_to_continue()
-
-    return new_max_rounds

@@ -380,7 +380,7 @@ def separate_players(players):
 
 def cpu_demand_card(player, deck, players_results, players_bets):
     """
-    Revisamos si el jugador de la CPU puede (dependiendo de si es banca o su perfil) pedir carta para seguir jugando
+    Revisamos si el jugador bot puede (dependiendo de si es banca o su perfil) pedir carta para seguir jugando
     su turno
     :param player: (dict) -> Diccionario con todos los datos referentes al jugador
     :param deck: (dict) -> Diccionario con las diferentes cartas y sus valores
@@ -397,7 +397,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
         # Sumamos los puntos actuales con los de la carta que estamos revisando:
         #   SI nos da 7,5 o menos, añadiremos 1 al valor sum_valid
         # Aumentamos en 1 el valor de las cartas que estamos contando
-        if player["cardsValue"] + card["realValue"] <= MAX_POINTS:
+        if player["cards_value"] + card["real_value"] <= MAX_POINTS:
             sum_valid += 1
         total_cards += 1
 
@@ -415,7 +415,7 @@ def cpu_demand_card(player, deck, players_results, players_bets):
     if player["bank"]:
         better_plays = []
         for index, result in enumerate(players_results):
-            if player["cardsValue"] < result and result <= MAX_POINTS:
+            if player["cards_value"] < result and result <= MAX_POINTS:
                 better_plays.append(index)
 
         if len(better_plays) != 0:

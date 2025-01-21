@@ -25,7 +25,7 @@ def execute_transaction_in_db(transaction, one=False, DML=False):
     :param transaction: (str, list[str]) -> una query o lista de queries
     :param one: (bool = False) -> si la transacción devuelve un solo dato, p.ej. "SELECT now();"
     :param DML: (bool = False) -> si la transacción modifica tablas en vez de seleccionar datos  
-    :return: None | list[tuple] | list[list[tuple]] | Any
+    :return: RowItemType | Any | List[RowType | Dict[str, RowItemType]]
     """    
     # Conectarse a la BBDD
     with SSHTunnelForwarder(**ssh_config) as tunnel:

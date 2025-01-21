@@ -50,4 +50,9 @@
     <ID-Player>09634229M</ID-Player>
     <Max-Bet>13</Max-Bet>
   </Fila>
+  <Fila>
+    <ID-Game>11</ID-Game>
+    <ID-Player>11115555A</ID-Player>
+    <Max-Bet>41</Max-Bet>
+  </Fila>
 </Resultados>
