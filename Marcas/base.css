@@ -51,6 +51,13 @@ header {
     letter-spacing: 2px;
 }
 
+#logo {
+    animation-name: rotate;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
 header > nav > ul {
     display: flex;
     margin-inline: 48px;
@@ -155,7 +162,6 @@ footer > p {
     text-wrap: pretty;
 }
 
-
 @media screen and (max-width: 800px) {
     header {
         max-width: 600px;
@@ -231,5 +237,17 @@ footer > p {
 
     footer {
         width: 95%;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        rotate: -15deg;
+    }
+    50% {
+        rotate: 15deg;
+    }
+    100% {
+        rotate: -15deg;
     }
 }
