@@ -46,7 +46,7 @@ section > ul > li > div {
 } 
 
 #Alvaro{
-    transition: transform 0.8s, color 0.8s, font-weight 0.4s, margin 0.8s;
+    transition: transform 0.8s, color 0.8s, font-weight 0.4s;
     &:hover{
         transform: scale(1.15);
         color: #6622AA;
@@ -55,18 +55,20 @@ section > ul > li > div {
 }
 
 #Alejandro{
-    transition: transform 0.3s, color 0.8s;
+    transition: transform 0.3s, color 0.8s, font-weight 0.4s;
     &:hover{
-        transform: scale(1.5, 0.8);
-        color: #22AA66
+        transform: scale(1.4, 0.6);
+        color: #22AA66;
+        font-weight: bold;
     }
 }
 
 #Carlos{
-    transition: transform 2s, color 0.8s;
+    transition: transform 2s, color 0.8s, font-weight 0.4s;
     &:hover{
         transform: rotate(180deg);
         color: #AA6622;
+        font-weight: bold;
     }
 }
 
