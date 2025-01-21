@@ -51,10 +51,17 @@
 
 .card-placeholder {
     height: 350px;
+    border-radius: 4px;
 }
 
 .card-t1 {
     height: 0px;
+    border-radius: 4px;
+    transition: scale 0.5s ease-in-out;
+}
+
+.card-t1:hover {
+    scale: 1.05;
 }
 
 #tutorial-players-order {
@@ -217,6 +224,7 @@
     left: -320px;
     display: flex;
     flex-direction: column;
+    
 }
 
 #card-position > figure > p {
@@ -228,6 +236,12 @@
     height: 350px;
     visibility: hidden;
     margin-inline: auto;
+    border-radius: 4px;
+    transition: scale 0.5s ease-in-out;
+}
+
+#card-position > figure > img:hover {
+    scale: 1.05;
 }
 
 #msg-div {
