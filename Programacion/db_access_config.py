@@ -4,19 +4,19 @@ import mysql.connector
 import datetime
 
 from dotenv import load_dotenv
-load_dotenv(dotenv_path="Programacion/db_access.env")
+load_dotenv(dotenv_path="db_access.env")
 
 ssh_config = {
    'ssh_address_or_host': os.getenv("SSH_HOST"),
    'ssh_username': os.getenv("SSH_USERNAME"),
    'ssh_pkey': os.getenv("SSH_PRIVATE_KEY"),
-   'remote_bind_address': ("localhost", 3306)
+   'remote_bind_address': (os.getenv("SSH_HOST"), 3306)
 }
 
 db_config = {
     'user': os.getenv("DB_USER"),
-    'password': '',
-    'database': 'seven_and_half'
+    'password': os.getenv("DB_PASSWORD"),
+    'database': os.getenv("DB_NAME")
 }
 
 def execute_transaction_in_db(transaction, one=False, DML=False):
@@ -29,7 +29,7 @@ def execute_transaction_in_db(transaction, one=False, DML=False):
     """    
     # Conectarse a la BBDD
     with SSHTunnelForwarder(**ssh_config) as tunnel:
-        connection = mysql.connector.connect(host="127.0.0.1", port=tunnel.local_bind_port, **db_config)
+        connection = mysql.connector.connect(user=db_config["user"],passwd=db_config["password"],db=db_config["database"],host=ssh_config["ssh_address_or_host"],port=ssh_config["remote_bind_address"][1])
         cursor = connection.cursor()
 
         try:

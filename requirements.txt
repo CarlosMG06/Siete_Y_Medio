@@ -1,3 +1,4 @@
 paramiko
 sshtunnel
 mysql-connector-python
+python-dotenv
