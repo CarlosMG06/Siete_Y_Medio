@@ -29,16 +29,45 @@ section > ul > li,  section > ul > li > ul > li{
     flex-direction: column;
 }
 
-section > ul > li > figure {
+section > ul > li > div {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    & > figure {
+        display: flex;
+        flex-direction: column;
+        width: 256px;
+        & > img {
+            width: 256px;
+            border-radius: 50%;
+            border: 8px solid rgb(19, 18, 18);
+            margin-inline: auto
+        }
+    }
+} 
+
+#Alvaro{
+    transition: transform 0.8s, color 0.8s, font-weight 0.4s, margin 0.8s;
+    &:hover{
+        transform: scale(1.15);
+        color: #6622AA;
+        font-weight: bold;
+    }
 }
 
-section > ul > li > figure > img {
-    width: 256px;
-    border-radius: 50%;
-    border: 8px solid rgb(19, 18, 18);
-    margin-inline: auto
+#Alejandro{
+    transition: transform 0.3s, color 0.8s;
+    &:hover{
+        transform: scale(1.5, 0.8);
+        color: #22AA66
+    }
+}
+
+#Carlos{
+    transition: transform 2s, color 0.8s;
+    &:hover{
+        transform: rotate(180deg);
+        color: #AA6622;
+    }
 }
 
 figure > p {
