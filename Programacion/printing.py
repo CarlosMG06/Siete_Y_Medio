@@ -89,7 +89,7 @@ def print_players(players, padding):
     else:
         offset = 2
     
-    padding_per_player = padding // len(list(players)) - offset
+    padding_per_player = padding // (len(list(players))+1) - offset
 
     nameTxt = "Name".ljust(padding_per_player)
     humanTxt = "Human".ljust(padding_per_player)

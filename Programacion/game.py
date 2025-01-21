@@ -327,7 +327,7 @@ def distribute_points(orden):
         else: #Si el único perdedor no es la banca
             canBankPay = True
             for player in orden: #Aquí el único perdedor (que no es la banca) le paga a la banca
-                if playersInSession[player] in losers and playersInSession[player]["points"] > 0: #Este perdedor no es la banca
+                if player in losers and playersInSession[player]["points"] > 0: #Este perdedor no es la banca
                     playersInSession[orden[-1]]["points"] += playersInSession[player]["bet"]
                     playersInSession[player]["points"] -= playersInSession[player]["bet"]
                     printing.print_line_centered(f"{playersInSession[player]['name']} pays {playersInSession[player]['bet']} to the bank")
@@ -335,7 +335,7 @@ def distribute_points(orden):
             #Aquí es donde se reparten los puntos a los ganadores, aunque la banca en este punto aunque haya ganado contra 1 ya tiene los puntos gracias al bucle anterior
             for player in orden[::-1][1:]: #Se invierte el orden de "orden" y se skipea a la banca
                  #Aquí se tratan los ganadores (en el caso de que solo haya un perdedor)
-                if playersInSession[player] not in losers and playersInSession[player]["points"] > 0:
+                if player not in losers and playersInSession[player]["points"] > 0:
                     if playersInSession[player]["bank"] == False: #En caso de que no sea la banca, ya que no hace falta hacer nada con la banca si es ganadora en este momento
                         #La banca tiene que pagar a los ganadores
                         if canBankPay:
