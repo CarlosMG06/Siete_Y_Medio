@@ -1,0 +1,34 @@
+#s-documentation > ul {
+    margin-block: 24px;
+}
+
+#s-documentation > ul > li {
+    list-style: none;
+    margin-left: 48px;
+}
+
+#s-documentation > ul > li > p > a {
+    text-decoration: none;
+    color: #0f0f0f;
+    padding: 8px 4px;
+    border-radius: 4px;
+}
+
+#s-documentation > ul > li > p > a:hover {
+    background-color: rgb(76, 122, 195);
+    color: #fefefe;
+}
+
+@media screen and (max-width: 800px) {
+    #s-documentation > ul {
+        margin-block: 12px;
+    }
+    
+    #s-documentation > ul > li {
+        margin-left: 12px;
+    }
+    
+    #s-documentation > ul > li > p > a {
+        line-height: 2rem;
+    }
+}

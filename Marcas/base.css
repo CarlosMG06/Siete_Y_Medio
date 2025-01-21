@@ -80,6 +80,12 @@ header > nav > ul > li > a:hover {
     background-color: #56ea68;
 }
 
+.menu-icon {
+    font-size: 32px;
+    cursor: pointer;
+    display: none;
+}
+
 main {
     width: 85%;
     min-width: 650px;
@@ -103,6 +109,10 @@ h3 {
     margin-inline: auto;
     margin-block: 12px;
     text-wrap: pretty;
+}
+
+li {
+    font-size: 20px;
 }
 
 section {
@@ -165,12 +175,32 @@ footer > p {
         width: 64px;
     }
 
+    header > nav {
+        display: none;
+    }
+
     header > nav > ul {
         margin-inline: 0px;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    header > nav > ul > li {
+        margin-block: 12px;
     }
     
     header > nav > ul > li > a {
         font-size: 16px;
+        padding: 12px 6px;
+        background-color: #dedede;
+    }
+
+    .active > a {
+        background-color: #dedede;
+    }
+
+    .menu-icon {
+        display: block;
     }
 
     main {

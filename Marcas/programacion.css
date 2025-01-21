@@ -23,7 +23,7 @@ section {
     background: linear-gradient(to top, #aeaeae, #e1ccdb);
 }
 
-ul > li {
+main > ul > li {
     list-style: none;
     margin-top: 12px;
 }
