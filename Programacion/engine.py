@@ -48,11 +48,11 @@ def start_engine():
                 #   2. Revisamos que se haya seleccionado un mazo de cartas
                 #   3. Vamos al juego
                 #   En el caso que 1 y 2 falle, mostramos error correspondiente en el orden de 1 y 2, pero solo 1 error
-                if len(game.selectedPlayers) < MIN_PLAYERS or len(game.selectedPlayers) > MAX_PLAYERS:
+                if len(game.selected_players) < MIN_PLAYERS or len(game.selected_players) > MAX_PLAYERS:
                     print()
                     p.print_line(texts.TEXTS["error_init_play_players"], padding=TOTAL_WIDTH, fill_char='=')
                     utils.press_to_continue()
-                elif game.activeDeck == None:
+                elif game.active_deck == None:
                     print()
                     p.print_line(texts.TEXTS["error_init_play_deck"], padding=TOTAL_WIDTH, fill_char='=')
                     utils.press_to_continue()

@@ -34,13 +34,14 @@
             <p>
                 La lógica de la banca se trata en las funciones creadas para el funcionamiento del juego, una gran cantidad de funciones tienen un comportamiento específico
                 en caso de que el jugador argumento con el que se las llama sea banca.
-                Un ejemplo de esto es la funcion <strong>cpu_demand_card()</strong> en el módulo <em>players</em>.
+                Un ejemplo de esto es la función <strong>cpu_demand_card()</strong> en el módulo <em>players</em>.
                 Esta función devuelve <strong>True o False dependiendo del riesgo de pasarse al ordenar una carta</strong>, y en caso de que sea banca también tiene en cuenta los jugadores
                 que tienen más puntos que ella en ese momento.
                 <br>
                 <br>
                 Cuando es el turno del jugador banca, hay diferencias claras en caso de que sea humana o bot. 
             </p>
+            <div><img src="images/cpu_demand_card.png"></div>
             <ul>
                 <li>
                     <h3>Banca humana</h3>
@@ -68,6 +69,8 @@
                         máximo número de puntos para repartir al resto de jugadores contra los que ha perdido.
                     </p>
                 </li>
+                <div><img src="images/distribute_points.png"></div>
+                <br>
                 <li>
                     <p>
                         <b>check_losers_winners():</b> Función auxiliar de distribute_points, se encarga de detectar a los ganadores y perdedores de cada ronda, en caso
@@ -84,6 +87,8 @@
                 de forma manual, y en caso de que sean bots se hace de forma automática con la función <strong>cpu_make_bet()</strong>, la cual teniendo en cuenta el "<em>tipo</em>" de jugador 
                 (<em>Cautious</em>, <em>Moderated</em>, <em>Bold</em>) genera un número aleatorio como apuesta de acuerdo a su comportamiento según los puntos disponibles del jugador.
             </p>
+            <div><img src="images/cpu_make_bet.png"></div>
+            <br>
             <p>Después, a la hora de pedir cartas, se comprueba el que pueda pedir cartas con la función mencionada anteriormente (<strong>cpu_demand_card()</strong>), y mientras sea True sigue pidiendo.</p>
         </section>
         <section id="s-player-priority-logic">
@@ -109,13 +114,15 @@
                 <dt><p><em>sshtunnel</em></p></dt><dd><p>Se conecta a la máquina virtual de Azure mediante un túnel de ssh.</p></dd>
                 <dt><p><em>mysql-connector</em></p></dt><dd><p>Desde la máquina, se conecta al mysql.</p></dd>
             </dl>
+            <div><img src="images/execute_transaction_in_db.png"></div>
+            <br>
             <p>Esta función también se llama para las otras interacciones con la BBDD:</p>
             <ul>
                 <li class="dot-list"><p>añadir, mostrar y eliminar jugadores</p></li>
                 <li class="dot-list"><p>consultar el ranking y los informes</p></li>
             </ul>
             <p>
-                En el caso particular de inserir los datos del juego, 
+                En el caso particular de insertar los datos del juego, 
                 la función <strong>insert_game_into_db()</strong> del módulo game almacena diversos datos en tres tablas: 
                 <strong>cardgame</strong>, <strong>player_game</strong> y <strong>playergame_round</strong>.
                 A continuación, se detallan los pasos para obtener los datos que se deben guardar en cada tabla.
@@ -134,7 +141,7 @@
                     <ol>
                         <li><p>Al principio de la partida, se almacenan las cartas iniciales de los jugadores en una clave de sus diccionarios.</p></li>
                         <li><p>
-                            También al inicio, con la ayuda de la vista <strong>INFORMATION_SCHEMA TABLES</strong>,
+                            También al inicio, con la ayuda de la vista <strong>INFORMATION_SCHEMA.TABLES</strong>,
                             se determina de antemano cuál será la id autoincrementada de la partida.
                             Este dato también se usa en la tabla <strong>player_game_round</strong>.</p>
                         </li>
@@ -153,11 +160,12 @@
                     </ol>
                 </li>
             </ul>
+            <div><img src="images/insert_game_into_db.png"></div>
             <br>
             <p>Respecto a la función en sí, hace lo siguiente:</p>
             <ol>
                 <li>Toma como parámetros todos las variables necesarias.</li>
-                <li>Se organizan las variables de cardgame en un diccionario y las de <em>player_game</em> en una lista de diccionarios.</li>
+                <li>Se organizan las variables de <em>cardgame</em> en un diccionario y las de <em>player_game</em> en una lista de diccionarios.</li>
                 <li>Por último, se generan las tres sentencias <strong>INSERT INTO</strong> con la función auxiliar <strong>insert_query()</strong> y se ejecutan en conjunto como una transacción.</li>
             </ol>
         </section>

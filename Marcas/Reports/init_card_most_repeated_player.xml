@@ -33,28 +33,35 @@
     <Suit>Bastos</Suit>
     <Most-Repeated-Card>B01</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>4</Games-Played>
+    <Games-Played>5</Games-Played>
+  </Fila>
+  <Fila>
+    <ID-Player>11115555A</ID-Player>
+    <Suit>Bastos</Suit>
+    <Most-Repeated-Card>B03</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>5</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>11115555A</ID-Player>
     <Suit>Copas</Suit>
     <Most-Repeated-Card>C01</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>4</Games-Played>
+    <Games-Played>5</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>11115555A</ID-Player>
     <Suit>Espadas</Suit>
     <Most-Repeated-Card>E04</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>4</Games-Played>
+    <Games-Played>5</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>11115555A</ID-Player>
     <Suit>Hearts</Suit>
     <Most-Repeated-Card>H01</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>4</Games-Played>
+    <Games-Played>5</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>14427668Q</ID-Player>
@@ -82,21 +89,28 @@
     <Suit>Bastos</Suit>
     <Most-Repeated-Card>B11</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>3</Games-Played>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>22226666B</ID-Player>
     <Suit>Espadas</Suit>
     <Most-Repeated-Card>E05</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>3</Games-Played>
+    <Games-Played>4</Games-Played>
+  </Fila>
+  <Fila>
+    <ID-Player>22226666B</ID-Player>
+    <Suit>Oros</Suit>
+    <Most-Repeated-Card>O12</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>22226666B</ID-Player>
     <Suit>Clubs</Suit>
     <Most-Repeated-Card>T04</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>3</Games-Played>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>33337777C</ID-Player>
@@ -159,56 +173,70 @@
     <Suit>Bastos</Suit>
     <Most-Repeated-Card>B10</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>5</Games-Played>
+    <Games-Played>6</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>53581599M</ID-Player>
     <Suit>Diamonds</Suit>
     <Most-Repeated-Card>D03</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>5</Games-Played>
+    <Games-Played>6</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>53581599M</ID-Player>
     <Suit>Diamonds</Suit>
     <Most-Repeated-Card>D10</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>5</Games-Played>
+    <Games-Played>6</Games-Played>
+  </Fila>
+  <Fila>
+    <ID-Player>53581599M</ID-Player>
+    <Suit>Espadas</Suit>
+    <Most-Repeated-Card>E01</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>6</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>53581599M</ID-Player>
     <Suit>Espadas</Suit>
     <Most-Repeated-Card>E05</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>5</Games-Played>
+    <Games-Played>6</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>53581599M</ID-Player>
     <Suit>Espadas</Suit>
     <Most-Repeated-Card>E12</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>5</Games-Played>
+    <Games-Played>6</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>75045268B</ID-Player>
     <Suit>Diamonds</Suit>
     <Most-Repeated-Card>D10</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>3</Games-Played>
+    <Games-Played>4</Games-Played>
+  </Fila>
+  <Fila>
+    <ID-Player>75045268B</ID-Player>
+    <Suit>Espadas</Suit>
+    <Most-Repeated-Card>E08</Most-Repeated-Card>
+    <Times-Repeated>1</Times-Repeated>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>75045268B</ID-Player>
     <Suit>Oros</Suit>
     <Most-Repeated-Card>O02</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>3</Games-Played>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>75045268B</ID-Player>
     <Suit>Oros</Suit>
     <Most-Repeated-Card>O08</Most-Repeated-Card>
     <Times-Repeated>1</Times-Repeated>
-    <Games-Played>3</Games-Played>
+    <Games-Played>4</Games-Played>
   </Fila>
   <Fila>
     <ID-Player>90101235J</ID-Player>
