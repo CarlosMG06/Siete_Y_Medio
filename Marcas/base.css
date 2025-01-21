@@ -13,7 +13,6 @@ body {
     background: linear-gradient(to bottom, #535553, #d6dcd7);
     display: flex;
     flex-direction: column;
-    background-attachment:fixed;
 }
 
 header {
@@ -144,4 +143,63 @@ footer {
 footer > p {
     margin-inline: auto;
     text-wrap: pretty;
+}
+
+
+@media screen and (max-width: 800px) {
+    header {
+        max-width: 600px;
+        width: 95%;
+    }
+    
+    #title-div {
+        padding-inline: 4px;
+    }
+
+    #title-div > h1 {
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+
+    #title-div > figure >img {
+        width: 64px;
+    }
+
+    header > nav > ul {
+        margin-inline: 0px;
+    }
+    
+    header > nav > ul > li > a {
+        font-size: 16px;
+    }
+
+    main {
+        max-width: 700px;
+        min-width: 320px;
+        padding: 0px;
+    }
+    
+    h2 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-inline: auto;
+        margin-bottom: 12px;
+        text-wrap: pretty;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    p {
+        font-size: 18px;
+    }
+    
+    .small-font {
+        font-size: 14px;
+    }
+
+    footer {
+        width: 95%;
+    }
 }

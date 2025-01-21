@@ -49,3 +49,37 @@ figure > p {
 footer {
     align-self: flex-end;
 }
+
+@media screen and (max-width: 800px) {
+    h2 {
+        font-size: 22px;
+    }
+
+    section > ul {
+        display: flex;
+        flex-direction: column;
+        margin-inline: 16px;
+    }
+    
+    section > ul > li {
+        margin-inline: 4px;
+        margin-block: 16px;
+    }
+
+    section > ul > li:nth-child(1) {
+        margin-top: 0px;
+    }
+    
+    section > ul > li > ul {
+        margin-inline: 12px;
+    }
+
+    section > ul > li > ul {
+        margin-inline: 16px;
+    }
+
+    section > ul > li > figure > img {
+        width: 192px;
+        border: 4px solid rgb(19, 18, 18);
+    }
+}

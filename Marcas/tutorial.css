@@ -296,3 +296,108 @@ input[type=number] {
     scale: 1.1;
     background-color: #de1919;
 }
+
+@media screen and (max-width: 800px) {
+    #tutorial2 {
+        height: 750px;
+    }
+    
+    #s-tutorial-plyer-priority > div > div > ul {
+        display: flex;
+        flex-direction: column;
+        margin-inline: 16px;
+    }
+    
+    #tutorial-players-order {
+        height: 275px;
+    }
+    
+    #tutorial-players-order > p {
+        font-size: 20px;
+        margin-top: 16px;
+    }
+    
+    #tutorial-players-order > ol > li {
+        font-size: 20px;
+    }
+    
+    .tutorial-buttons {
+        width: 90%;
+    }
+    
+    .tutorial-buttons > button {
+        padding: 12px 6px;
+        font-size: 16px;
+        border: 1px solid rgb(46, 44, 44);
+    }
+    
+    #play-scores {
+        display: flex;
+    }
+    
+    #play-scores > ul {
+        padding: 8px 4px;
+        margin-inline: auto;
+    }
+    
+    #play-scores > ul > li {
+        padding-left: 6px;
+    }
+    
+    #play-scores > ul > li > p {
+        font-size: 20px;
+    }
+    
+    #insert-bet {
+        top: 24px;
+        left: 18px;
+        width: 200px;
+    }
+    
+    #insert-bet > p {
+        font-size: 18px;
+    }
+
+    input[type=number] {
+        width: 100px;
+    }
+    
+    #demand-card {
+        top: 270px;
+        left: -110px;
+    }
+    
+    #card-position > figure {
+        top: -180px;
+        left: 0px;
+    }
+    
+    #msg-div > p {
+        top: -100px;
+        font-size: 20px;
+    }
+    
+    input {
+        padding: 8px 4px;
+        margin-right: 4px;
+        font-size: 18px;
+    }
+
+    #btn-submit-bet {
+        padding: 8px 4px;
+        font-size: 16px;
+        border: 1px solid rgb(46, 44, 44);
+    }
+    
+    #btn-demand-card {
+        padding: 8px 4px;
+        font-size: 16px;
+        border: 1px solid rgb(46, 44, 44);
+    }
+    
+    #btn-stand {
+        padding: 8px 4px;
+        font-size: 16px;
+        border: 1px solid rgb(46, 44, 44);
+    }
+}

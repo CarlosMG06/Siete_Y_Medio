@@ -56,3 +56,21 @@ dt {
 dd {
     grid-column-start: 2;
 }
+
+@media screen and (max-width: 800px) {
+    section {
+        padding-inline: 16px;
+    }
+
+    ol > li {
+        font-size: 18px;
+    }
+
+    dl {
+        display: grid;
+        grid-template-columns: max-content auto;
+        gap: 0px 8px;
+        margin-left: 0px;
+        margin-bottom: 8px;
+    }
+}

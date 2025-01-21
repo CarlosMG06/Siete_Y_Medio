@@ -29,3 +29,21 @@ section > ol > li > ol > li, section > ol > li > ul > li, section > ul > li > ul
 section > ul > li > ul > li > ul > li {
     margin-left: 44px;
 }
+
+@media screen and (max-width: 800px) {
+    li {
+        font-size: 18px;
+    }
+    
+    section > ol > li, section > ul > li {
+        margin-left: 24px;
+    }
+    
+    section > ol > li > ol > li, section > ol > li > ul > li, section > ul > li > ul > li {
+        margin-left: 28px;
+    }
+    
+    section > ul > li > ul > li > ul > li {
+        margin-left: 32px;
+    }
+}
